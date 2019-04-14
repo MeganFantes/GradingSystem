@@ -10,20 +10,60 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+
 /**
  * @version 1.0 11/09/98
  */
-public class AssignmentsView extends JFrame {
+public class AssignmentsView { //extends JFrame {
+	static JFrame f;
+	static JLabel l;
+	private static JButton b;
+	private static JButton b1;
+	private static JButton b2;
+	private static JButton b3;
+	private static JButton a;
+	private static JButton a1;
+	private static JButton a2;
+	private static JButton a3;
+
+	JPanel p = new JPanel(new GridLayout(0,4));
+	JPanel p2 = new JPanel(new BorderLayout());
+//	JPanel p3 = new JPanel(new BorderLayout());
 
 	public AssignmentsView() {
-		super("JButtonTable Example");
-
+//		super("JButtonTable Example");
+		f = new JFrame("panel");
+		l = new JLabel("panel label");
+		b = new JButton("Back");
+		b1 = new JButton("Home");
+		b2 = new JButton("Calculate Final Grade");
+		b3 = new JButton("Add Column");
+//		a = new JButton("Student");
+//		a1 = new JButton("Homework");
+//		a2 = new JButton("Exam");
+//		a3 = new JButton("Project");
+		p.add(b);
+		p.add(b1);
+		p.add(b2);
+		p.add(b3);
+//		p3.add(a);
+//		p3.add(a1);
+//		p3.add(a2);
+//		p3.add(a3);
 		DefaultTableModel dm = new DefaultTableModel();
 		dm.setDataVector(new Object[][] {
-				{ "button 1", "foo", "a" },
-				{ "button 2", "bar", "b" },
-				{ "button 3", "test", "c"}
-		}, new Object[] { "Student", "Homework", "Exam", "Project", "Participation" });
+				{ "Ghadah", "foo", "a" },
+				{ "Megan", "bar", "b" },
+				{ "Yueh", "test", "c"},
+				{ "Yuansheng", "test", "d"}
+		}, new Object[] { "Student","Participation", "Homework", "Exam", "Project" });
+
+//		DefaultTableModel dm = new DefaultTableModel();
+//		dm.setDataVector(new Object[][] {
+//				{ "button 1", "foo", "a" },
+//				{ "button 2", "bar", "b" },
+//				{ "button 3", "test", "c"}
+//		}, new Object[] { "Student", "Homework", "Exam", "Project", "Participation" });
 
 		JTable table = new JTable(dm);
 
@@ -94,21 +134,38 @@ public class AssignmentsView extends JFrame {
 //		tc.setCellEditor(new ButtonEditor(new JCheckBox()));
 //		tc.setCellRenderer(new ButtonRenderer());
 //		tc.setHeaderRenderer(new ButtonRenderer());
+//		table.getColumn("Student").setCellRenderer(new ButtonRenderer());
+//		table.getColumn("Student").setCellEditor(new ButtonEditor(new JCheckBox()));
+//		table.getColumn("Exam").setCellRenderer(new ButtonRenderer());
+//		table.getColumn("Exam").setCellEditor(new ButtonEditor(new JCheckBox()));
+//		JScrollPane scroll = new JScrollPane(table);
+//		getContentPane().add(scroll);
+//		setSize(400, 100);
+//		setVisible(true);
+
 		table.getColumn("Student").setCellRenderer(new ButtonRenderer());
 		table.getColumn("Student").setCellEditor(new ButtonEditor(new JCheckBox()));
+		table.getColumn("Participation").setCellRenderer(new ButtonRenderer());
+		table.getColumn("Participation").setCellEditor(new ButtonEditor(new JCheckBox()));
+		table.getColumn("Homework").setCellRenderer(new ButtonRenderer());
+		table.getColumn("Homework").setCellEditor(new ButtonEditor(new JCheckBox()));
 		table.getColumn("Exam").setCellRenderer(new ButtonRenderer());
 		table.getColumn("Exam").setCellEditor(new ButtonEditor(new JCheckBox()));
+		table.getColumn("Project").setCellRenderer(new ButtonRenderer());
+		table.getColumn("Project").setCellEditor(new ButtonEditor(new JCheckBox()));
+		f.getContentPane().add(p,BorderLayout.NORTH);
+		//f.getContentPane().add(p3, BorderLayout.);
+		p2.add(table);
+		f.getContentPane().add(p2, BorderLayout.SOUTH);
 		JScrollPane scroll = new JScrollPane(table);
-		getContentPane().add(scroll);
-		setSize(400, 100);
-		setVisible(true);
+		f.getContentPane().add(scroll);
+		f.setSize(400, 100);
+		f.setVisible(true);
 	}
 
 	public static void main(String[] args) {
-
-
 		AssignmentsView frame = new AssignmentsView();
-		frame.addWindowListener(new WindowAdapter() {
+		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
