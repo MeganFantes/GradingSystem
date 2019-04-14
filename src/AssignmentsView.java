@@ -12,9 +12,9 @@ import javax.swing.table.TableColumn;
 /**
  * @version 1.0 11/09/98
  */
-public class JButtonTableExample extends JFrame {
+public class AssignmentsView extends JFrame {
 
-	public JButtonTableExample() {
+	public AssignmentsView() {
 		super("JButtonTable Example");
 
 		DefaultTableModel dm = new DefaultTableModel();
@@ -106,7 +106,7 @@ public class JButtonTableExample extends JFrame {
 	public static void main(String[] args) {
 
 
-		JButtonTableExample frame = new JButtonTableExample();
+		AssignmentsView frame = new AssignmentsView();
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
