@@ -11,8 +11,8 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 public class AssignmentsView {
-	private String[] headerLabels;
-	private String[][] rows;
+	private Object[] headerLabels;
+	private Object[][] rows;
 	private JFrame frame;
 	public AssignmentsView() {
 		// read the input file
@@ -21,7 +21,7 @@ public class AssignmentsView {
 			BufferedReader br = new BufferedReader(new FileReader("testValues_assignmentGrades.csv"));
 			headerLabels = br.readLine().split(",");
 			// read the rows into an ArrayList (because its length is flexible)
-			ArrayList<String[]> rowsAsAdded = new ArrayList<>();
+			ArrayList<Object[]> rowsAsAdded = new ArrayList<>();
 			int numRows = 0;
 			String row = br.readLine();
 			while (row != null){
@@ -30,7 +30,7 @@ public class AssignmentsView {
 				numRows++;
 			}
 			// now add the rows to the final 2D array of rows (now that you know how many rows there are and can declare the array length)
-			rows = new String[numRows][];
+			rows = new Object[numRows][];
 			for (int i = 0; i < numRows; i++) {
 				rows[i] = rowsAsAdded.get(i);
 			}
@@ -56,7 +56,7 @@ public class AssignmentsView {
 		JTableHeader header = table.getTableHeader();
 		header.addMouseListener(new ButtonListener_Header(header, renderer));
 		for (int i = 0; i < headerLabels.length; i++) {
-			String colTitle = headerLabels[i];
+			Object colTitle = headerLabels[i];
 			model.getColumn(i).setHeaderRenderer(renderer);
 			// make the cells clickable
 			table.getColumn(colTitle).setCellRenderer(new ButtonRenderer());
