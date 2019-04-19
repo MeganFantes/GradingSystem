@@ -1,5 +1,4 @@
-package model;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,6 +67,6 @@ public class Statistics {
     }
 
     public String toString(){
-        return "obtain statistics";
+        return "obtain Statistics";
     }
 }

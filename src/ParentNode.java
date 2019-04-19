@@ -1,5 +1,10 @@
-package model;
+import javafx.scene.Parent;
+import sun.plugin2.os.windows.FLASHWINFO;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,7 +31,7 @@ public class ParentNode extends TreeNode {
         aggregateScore = new HashMap<>();
     }
 
-    // ====== required methods from model.TreeNode
+    // ====== required methods from TreeNode
     public void traverse(int depth){
         String padsym = "  ";
         String padding = "";
@@ -145,7 +150,7 @@ public class ParentNode extends TreeNode {
     }
 
     public Object[][] genScoreTableArray(ArrayList<String> studentOrder){
-        // this function can only be called when its children is model.LeafNode
+        // this function can only be called when its children is LeafNode
         assert(children.size()>0 && children.get(0).getChild(0).isLeaf());
 
         // row # = # student + 3  (extra 3 row : Grading Option / Total Score / Average
@@ -193,7 +198,7 @@ public class ParentNode extends TreeNode {
     }
 
     public Object[][] genSummaryTableArray(ArrayList<String> studentOrder){
-        // this function can only be called when its children is NOT model.LeafNode
+        // this function can only be called when its children is NOT LeafNode
         // TODO: implicit assumption : called @ root
         assert(children.size()>0 && !children.get(0).getChild(0).isLeaf());
 

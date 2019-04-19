@@ -1,12 +1,10 @@
-package model;
-
 import java.io.*;
 import java.util.*;
 
 public class StudentPool implements Serializable{
     // assume csv format : BUID, name, title
     private String primaryKeyName;
-    private HashMap<String, Student> allStudent; // key: BUID, val: model.Student obj
+    private HashMap<String, Student> allStudent; // key: BUID, val: Student obj
     private HashMap<String, HashSet<String>> fieldSet; // key: field name, val: all distinct content in that field
 
     public StudentPool(){
