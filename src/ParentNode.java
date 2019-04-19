@@ -142,20 +142,20 @@ public class ParentNode extends TreeNode {
 
         // row # = # student + 3  (extra 3 row : Grading Option / Total Score / Average
         // col # = # children + 1 (extra 1 col : idx0, student information
-        int numRow = 4 + studentOrder.size();
+        int numRow = 3 + studentOrder.size();
         int numCol = 1 + children.size();
         Object[][] retTable = new Object[numRow][numCol];
 
         // 1st row : grading option (i.e. input type)
         retTable[0][0] = new String("Grading Option");
         for (int i=1; i<numCol; i++){
-            retTable[0][i] = ((LeafNode)children.get(i-1)).getInputType();
+            retTable[0][i] = ((LeafNode)children.get(i-1).getChild(0)).getInputType();
         }
 
         // 2nd row : total score
         retTable[1][0] = new String("Total Score");
         for (int i=1; i<numCol; i++){
-            retTable[1][i] = ((LeafNode)children.get(i-1)).getTotalScore();
+            retTable[1][i] = ((LeafNode)children.get(i-1).getChild(0)).getTotalScore();
         }
 
         // 3rd row : statistic button
