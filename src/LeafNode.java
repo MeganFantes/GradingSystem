@@ -115,15 +115,7 @@ public class LeafNode extends TreeNode{
     // ========== getters ==========
     public Leaf getLeafByKey(String key){return allLeaf.get(key);}
 
-    public float[] getAllLeafValue(){
-        // use primitive float instead of Float to avoid object referencing
-        float[] retArray = new float[allLeaf.size()];
-        int curridx = 0;
-        for (Map.Entry<String, Leaf> entry : allLeaf.entrySet()){
-            retArray[curridx++] = entry.getValue().getValue();
-        }
-        return retArray;
-    }
+    public HashMap<String, Leaf> getAllLeaf(){return allLeaf;}
 
     public Float getWeight(){return 100f;} // one ParentNode has at most 1 LeafNode
 

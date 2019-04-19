@@ -1,9 +1,12 @@
+import com.sun.org.glassfish.external.statistics.Statistic;
 import javafx.scene.Parent;
 import javafx.scene.control.Cell;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Test_main2 {
     /*
@@ -46,6 +49,18 @@ public class Test_main2 {
 
         root.printAggregateResult();
 
+        // check statistics for aggregation
+        System.out.println(" =====  HW statistics =====");
+        Statistics stobj = new Statistics(hw.getAggregateScore());
+        ezPrintHashmap(stobj.computeStatistics());
+        // check statistics for original column
+        System.out.println(" =====  hw1 (raw) statistics =====");
+        stobj = new Statistics((LeafNode)hw1.getChild(0));
+        ezPrintHashmap(stobj.computeStatistics());
+        System.out.println(" =====  written exam (deduct)  statistics =====");
+        stobj = new Statistics((LeafNode)paper.getChild(0));
+        ezPrintHashmap(stobj.computeStatistics());
+
         // ruin tree in some setup, test every kind of error
         // 1. u3(=megan) paper exam score not entered
         // 2. design totalScore not set
@@ -53,7 +68,7 @@ public class Test_main2 {
         ((LeafNode)paper.getChild(0)).getLeafByKey("u3").setScore(Float.NaN);
         ((LeafNode)design.getChild(0)).setTotalScore(-1f);
         hw2.setWeight(40f); // original 50
-
+        System.out.println(" \n=====  error msg test =====");
         ArrayList<String> errors = root.treeValidation(null);
         for (String error : errors){
             System.out.println(error);
@@ -66,5 +81,11 @@ public class Test_main2 {
         design total score not set
         (all error in leaf)
          */
+    }
+
+    private static void ezPrintHashmap(HashMap<String, Float> ip){
+        for (Map.Entry<String, Float> entry : ip.entrySet()) {
+            System.out.println(entry.getKey() +" -> " + entry.getValue());
+        }
     }
 }
