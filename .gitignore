@@ -4,17 +4,3 @@
 .DS_Store
 *.class
 ./out
-*.class
-out/production/GradingSystem/AssignmentsView$1.class
-*.class
-out/production/GradingSystem/AssignmentsView$1.class
-out/production/GradingSystem/META-INF/GradingSystem.kotlin_module
-out/production/GradingSystem/ButtonRenderer.class
-out/production/GradingSystem/AssignmentsView.class
-out/production/GradingSystem/AssignmentsView$1.class
-out/production/GradingSystem/ButtonRenderer.class
-out/production/GradingSystem/ButtonRenderer.class
-out/production/GradingSystem/ButtonRenderer.class
-out/production/GradingSystem/AssignmentsView.class
-.idea/misc.xml
-.idea/workspace.xml
