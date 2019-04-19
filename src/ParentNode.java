@@ -121,7 +121,21 @@ public class ParentNode extends TreeNode {
     }
 
     public Object[] genFieldRowArray(){
-        Object[] fieldRow = new Object[children.size()+2];
+        int numColumn;
+        Object[] fieldRow=null;
+        if(children.size()>0 && children.get(0).getChild(0).isLeaf()){
+            numColumn = children.size()+1;
+            fieldRow = new Object[numColumn];
+        } else if(children.size()>0 && !children.get(0).getChild(0).isLeaf()){
+            numColumn = children.size()+2;
+            fieldRow = new Object[numColumn];
+            fieldRow[numColumn-1] = "Final Percentage";
+        } else {
+            // call this function @ wrong parentNode
+            assert(false);
+        }
+
+        assert(fieldRow != null);
 
         if (studentPool==null)
             fieldRow[0] = new String("Import student");
@@ -131,14 +145,13 @@ public class ParentNode extends TreeNode {
         for (TreeNode child : children){
             fieldRow[currIdx++] = child;
         }
-        fieldRow[currIdx] = "Final Percentage";
 
         return fieldRow;
     }
 
     public Object[][] genScoreTableArray(ArrayList<String> studentOrder){
         // this function can only be called when its children is LeafNode
-        assert(children.size()>0 && children.get(0).isLeaf());
+        assert(children.size()>0 && children.get(0).getChild(0).isLeaf());
 
         // row # = # student + 3  (extra 3 row : Grading Option / Total Score / Average
         // col # = # children + 1 (extra 1 col : idx0, student information
@@ -187,7 +200,7 @@ public class ParentNode extends TreeNode {
     public Object[][] genSummaryTableArray(ArrayList<String> studentOrder){
         // this function can only be called when its children is NOT LeafNode
         // TODO: implicit assumption : called @ root
-        assert(children.size()>0 && !children.get(0).isLeaf());
+        assert(children.size()>0 && !children.get(0).getChild(0).isLeaf());
 
         int numCol = children.size()+2; // 2 extra row : idx0 : student info / idx last : final score
         int numRow = studentOrder.size();
