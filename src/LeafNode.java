@@ -11,7 +11,7 @@ public class LeafNode extends TreeNode{
         studentPool = null;
         totalScore = new Float(-1);
         allLeaf = new HashMap<>();
-        inputType = CellInputType.SELECT;
+        inputType = CellInputType.RAW;
     }
 
     private void generateLeafs(String primaryKeyName){
@@ -61,9 +61,9 @@ public class LeafNode extends TreeNode{
         }
 
         // check input type is set
-        if (inputType == CellInputType.SELECT){
-            errorSofar.add("input type not set in " + lastCriteria);
-        }
+        //if (inputType == CellInputType.SELECT){
+        //    errorSofar.add("input type not set in " + lastCriteria);
+        //}
 
         // check every leaf has valid score (not NaN, >=0, percentage < 100%)
         for (Map.Entry<String, Leaf> entry : allLeaf.entrySet()){
@@ -126,10 +126,15 @@ public class LeafNode extends TreeNode{
     }
 
     public Float getWeight(){return 100f;} // one ParentNode has at most 1 LeafNode
+
+    public Float getTotalScore(){return totalScore;}
+
+    public CellInputType getInputType(){return inputType;}
     // ========================================
 
-    // setters
+    // ========== setters =========
     public void setInputType(CellInputType type){inputType = type;}
+
     public void setTotalScore(float totalScore){this.totalScore = totalScore;}
 
     public void viewAllLeaf(String padding){
@@ -137,6 +142,7 @@ public class LeafNode extends TreeNode{
             System.out.println(padding+entry.getKey()+"->"+entry.getValue());
         }
     }
+    // ========================================
 
     @Override
     public String toString() {
