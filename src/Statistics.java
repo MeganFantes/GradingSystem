@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.Map;
 
 public class Statistics {
     // note that this class only called to generate object that connect to a leaf node during runtime
@@ -11,14 +10,33 @@ public class Statistics {
     }
 
     public HashMap<String, Float> computeStatistics(){
+        // all statistics represented in percentage
         float[] allScores = leafNode.getAllLeafValue();
+
         float sum = 0f, sqrsum = 0f;
-        float minScore = allScores[0], maxScore = allScores[0];
-        for(int i=0; i<allScores.length; i++) {
-            sum += allScores[i];
-            sqrsum += allScores[i] * allScores[i];
-            minScore = Math.min(minScore, allScores[i]);
-            maxScore = Math.max(maxScore, allScores[i]);
+        float minScore = 101, maxScore = 0;
+
+        for(float score : allScores) {
+            // convert score to percentage
+            float percent = 0;
+            switch (leafNode.getInputType()){
+                case PERCENTAGE:
+                    percent = score * 100;
+                    break;
+                case DEDUCTION:
+                    percent = (leafNode.getTotalScore()-score) / leafNode.getTotalScore() * 100;
+                    break;
+                case RAW:
+                    percent = score / leafNode.getTotalScore() * 100;
+                    break;
+                default:
+                    assert(false);
+            }
+
+            sum += percent;
+            sqrsum += percent*percent;
+            minScore = Math.min(minScore, percent);
+            maxScore = Math.max(maxScore, percent);
         }
 
         float avg = sum / allScores.length;
@@ -32,5 +50,9 @@ public class Statistics {
         retMap.put("stddev", stddev);
 
         return retMap;
+    }
+
+    public String toString(){
+        return "obtain Statistics";
     }
 }
