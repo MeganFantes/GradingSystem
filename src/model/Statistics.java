@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package model;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,6 +68,6 @@ public class Statistics {
     }
 
     public String toString(){
-        return "obtain Statistics";
+        return "obtain statistics";
     }
 }

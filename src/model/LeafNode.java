@@ -1,3 +1,5 @@
+package model;
+
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.*;
@@ -22,7 +24,7 @@ public class LeafNode extends TreeNode{
     }
 
 
-    // ====== required methods from TreeNode =======
+    // ====== required methods from model.TreeNode =======
     public void traverse(int depth){
         String padsym = "  ";
         String padding = "";
@@ -61,7 +63,7 @@ public class LeafNode extends TreeNode{
         }
 
         // check input type is set
-        //if (inputType == CellInputType.SELECT){
+        //if (inputType == model.CellInputType.SELECT){
         //    errorSofar.add("input type not set in " + lastCriteria);
         //}
 
@@ -117,7 +119,7 @@ public class LeafNode extends TreeNode{
 
     public HashMap<String, Leaf> getAllLeaf(){return allLeaf;}
 
-    public Float getWeight(){return 100f;} // one ParentNode has at most 1 LeafNode
+    public Float getWeight(){return 100f;} // one model.ParentNode has at most 1 model.LeafNode
 
     public Float getTotalScore(){return totalScore;}
 

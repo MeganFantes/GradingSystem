@@ -1,3 +1,5 @@
+package model;
+
 import java.io.Serializable;
 
 public class Leaf implements Serializable, NoteInterface{
@@ -16,7 +18,7 @@ public class Leaf implements Serializable, NoteInterface{
         value = Float.valueOf(s);
     }
 
-    // ======== required methods from NoteInterface =======
+    // ======== required methods from model.NoteInterface =======
     public boolean hasNote(){ return note.hasNote();}
     public String getContent(){return note.getContent();}
     public void writeNote(String str){note.writeNote(str);}
