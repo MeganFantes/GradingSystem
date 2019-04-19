@@ -1,3 +1,8 @@
+import model.CellInputType;
+import model.LeafNode;
+import model.ParentNode;
+import model.StudentPool;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
