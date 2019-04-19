@@ -140,51 +140,46 @@ public class ParentNode extends TreeNode {
         // this function can only be called when its children is LeafNode
         assert(children.size()>0 && children.get(0).isLeaf());
 
-        // row # = # student + 4
-        // col # = # children + 1
-        Object[][] retTable = null;
+        // row # = # student + 3  (extra 3 row : Grading Option / Total Score / Average
+        // col # = # children + 1 (extra 1 col : idx0, student information
+        int numRow = 4 + studentOrder.size();
+        int numCol = 1 + children.size();
+        Object[][] retTable = new Object[numRow][numCol];
 
-            int numRow = 4 + studentOrder.size();
-            int numCol = 1 + children.size();
-            retTable = new Object[numRow][numCol];
+        // 1st row : grading option (i.e. input type)
+        retTable[0][0] = new String("Grading Option");
+        for (int i=1; i<numCol; i++){
+            retTable[0][i] = ((LeafNode)children.get(i-1)).getInputType();
+        }
 
-            // info row
-            retTable[0][0] = new String("studentInfo");
-            for (int i=1; i<numCol; i++){
-                retTable[0][i] = children.get(i-1);
-            }
+        // 2nd row : total score
+        retTable[1][0] = new String("Total Score");
+        for (int i=1; i<numCol; i++){
+            retTable[1][i] = ((LeafNode)children.get(i-1)).getTotalScore();
+        }
 
-            // weight row
-            retTable[1][0] = new String("weight");
-            for (int i=1; i<numCol; i++){
-                retTable[1][i] = ((ParentNode)(children.get(i-1))).getWeight();
-            }
+        // 3rd row : statistic button
+        retTable[2][0] = new String("Statistics");
+        for (int i=1; i<numCol; i++){
+            Statistics statisticsObj =  new Statistics((LeafNode)children.get(i-1).getChild(0));
+            retTable[2][i] = statisticsObj;
+        }
 
-            // total row
-            retTable[2][0] = new String("Total");
-            for (int i=1; i<numCol; i++){
-                retTable[2][i] = ((ParentNode)(children.get(i-1))).getChild(0);
-            }
-
-            // statistic row
-            retTable[3][0] = new String("Average");
-            for (int i=1; i<numCol; i++){
-                retTable[3][i] = new String("average" + i);
-            }
-
-            // row by row student score
-            int rowStart = 4;
-            for (int row = rowStart; row<numRow; row++){
-                String studentkey = studentOrder.get(row-rowStart);
-                for (int col = 0; col<numCol; col++){
-                    if (col==0) {
-                        retTable[row][col] = studentPool.getStudentByKey(studentkey);
-                    }
-                    else{
-                        retTable[row][col] = ((LeafNode)(children.get(col-1).getChild(0))).getLeafByKey(studentkey);
-                    }
+        // remaining rows : row by row student score
+        int rowStart = 3;
+        for (int row = rowStart; row<numRow; row++){
+            String studentkey = studentOrder.get(row-rowStart);
+            for (int col = 0; col<numCol; col++){
+                if (col==0) {
+                    // 1st column is student info
+                    retTable[row][col] = studentPool.getStudentByKey(studentkey);
+                }
+                else{
+                    // other columns are scores
+                    retTable[row][col] = ((LeafNode)(children.get(col-1).getChild(0))).getLeafByKey(studentkey);
                 }
             }
+        }
 
         return retTable;
     }
