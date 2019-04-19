@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-class Leaf implements Serializable, NoteInterface{
+public class Leaf implements Serializable, NoteInterface{
     public final float default_score = Float.NaN;
 
     private Note note;
