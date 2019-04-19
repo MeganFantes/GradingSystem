@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Test_main1 {
     /*
-    test genTable
+    test various genTable (don't forget to run Test_main to generate test_course_without_score.ser
      */
     public static void main(String[] args){
         // load course from test_main
@@ -70,6 +70,7 @@ public class Test_main1 {
         }
 
         // test various 2d array generation
+        // ===== test summarizatoin (only allowed in root ) ======
         System.out.println("\n ===== testing genSummary before computing last score ======");
         ArrayList<String> studentOrder = root.getStudentPool().getPrimaryKeyAndSortBy("student id");
 
@@ -80,35 +81,47 @@ public class Test_main1 {
 
         // field row
         Object[] fieldRow = root.genFieldRowArray();
-        String thisLine = "";
-        for (int i=0; i<fieldRow.length; i++){
-            String tmp = String.format("%20s", fieldRow[i]);
-            thisLine += tmp + ",";
-        }
-        System.out.println(thisLine+"\n");
+        ezShow1d(fieldRow);
         // table array
         Object[][] tableArray = root.genSummaryTableArray(studentOrder);  // ** summary only allowed at root
-        for (int i=0; i<tableArray.length; i++){
-            thisLine = "";
-            for (int j=0; j<tableArray[0].length; j++){
-                String tmp = tableArray[i][j].toString();
-                tmp = String.format("%20s", tmp);
-                thisLine += tmp + ",";
-            }
-            System.out.println(thisLine);
-        }
+        ezShow2d(tableArray);
 
 
         System.out.println("\n ===== testing genSummary after computing last score ======");
         root.computeFinalScore();
         fieldRow = root.genFieldRowArray();
-        thisLine = "";
-        for (int i=0; i<fieldRow.length; i++){
-            String tmp = String.format("%20s", fieldRow[i]);
-            thisLine += tmp + ",";
-        }
-        System.out.println(thisLine+"\n");
+        ezShow1d(fieldRow);
         tableArray = root.genSummaryTableArray(studentOrder);  // ** summary only allowed at root
+        ezShow2d(tableArray);
+
+        // ===== test genScore (only allowed in children of root, ie, ParentNodes of height 2 ) ======
+        System.out.println("\n ==== HWs score Table ===== ");
+        fieldRow = hws.genFieldRowArray();
+        ezShow1d(fieldRow);
+        tableArray = hws.genScoreTableArray(studentOrder);
+        ezShow2d(tableArray);
+
+        System.out.println("\n ==== Mid score Table ===== ");
+        fieldRow = midterm.genFieldRowArray();
+        ezShow1d(fieldRow);
+        tableArray = midterm.genScoreTableArray(studentOrder);
+        ezShow2d(tableArray);
+
+    }
+
+    private static void ezShow1d(Object[] toshow) {
+        assert(toshow != null);
+        String thisline = "";
+        for (int i = 0; i < toshow.length; i++) {
+            String tmp = String.format("%20s", toshow[i]);
+            thisline += tmp + ",";
+        }
+        System.out.println(thisline);
+    }
+
+    private static void ezShow2d(Object[][] tableArray){
+        assert(tableArray!=null);
+        String thisLine;
         for (int i=0; i<tableArray.length; i++){
             thisLine = "";
             for (int j=0; j<tableArray[0].length; j++){
@@ -118,9 +131,5 @@ public class Test_main1 {
             }
             System.out.println(thisLine);
         }
-
-        // test genScoreTable array
-        // TODO
-
     }
 }

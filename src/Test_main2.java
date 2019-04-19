@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class Test_main2 {
     /*
     test computeFinalScore, treeValidation
-    (don't forget to run Test_main first to gen test course file
+    (don't forget to run Test_main first to gen test course grading criteria file
+                  and then Test_main1 to gen complete tree (including scores)
      */
     public static void main(String[] args){
         // load course from test_main
@@ -48,11 +49,9 @@ public class Test_main2 {
         // ruin tree in some setup, test every kind of error
         // 1. u3(=megan) paper exam score not entered
         // 2. design totalScore not set
-        // 3. hw2 input type not set
         // 4. hw1 + hw2 weight != 100
         ((LeafNode)paper.getChild(0)).getLeafByKey("u3").setScore(Float.NaN);
         ((LeafNode)design.getChild(0)).setTotalScore(-1f);
-        ((LeafNode)hw2.getChild(0)).setInputType(CellInputType.SELECT);
         hw2.setWeight(40f); // original 50
 
         ArrayList<String> errors = root.treeValidation(null);
@@ -62,7 +61,6 @@ public class Test_main2 {
 
         /*
         expected output order :
-        hw2 input type not set
         sub-category weight sum not equal to 100 in HW
         invalid score [megan] at design
         design total score not set

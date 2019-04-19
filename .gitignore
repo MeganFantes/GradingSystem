@@ -2,9 +2,5 @@
 *.iml
 *.class
 .DS_Store
-out/production/GradingSystem/EditableHeaderRenderer$MouseEventReposter.class
-out/production/GradingSystem/AssignmentsView$2.class
-out/production/GradingSystem/AssignmentsView$1.class
-out/production/GradingSystem/AssignmentsView$1.class
 *.class
-*.class
+./out
