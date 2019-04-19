@@ -1,3 +1,3 @@
 public enum  CellInputType {
-    RAW, DEDUCTION, PERCENTAGE, SELECT;
+    RAW, DEDUCTION, PERCENTAGE;
 }
