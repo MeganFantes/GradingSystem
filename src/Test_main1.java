@@ -1,5 +1,4 @@
-import model.LeafNode;
-import model.ParentNode;
+import javafx.scene.Parent;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -78,7 +77,7 @@ public class Test_main1 {
         ArrayList<String> displayField = new ArrayList<>(); // show only student id
         displayField.add("student id");
         displayField.add("first name");
-        root.getStudentPool().setStudentDisplayInfo(displayField);
+        root.studentPool.setStudentDisplayInfo(displayField);
 
         // field row
         Object[] fieldRow = root.genFieldRowArray();
