@@ -13,11 +13,6 @@ public class Leaf implements Serializable, NoteInterface {
         value = default_score;
     }
 
-    public Leaf(String s){
-        note = new Note();
-        value = Float.valueOf(s);
-    }
-
     // ======== required methods from Model.NoteInterface =======
     public boolean hasNote(){ return note.hasNote();}
     public String getContent(){return note.getContent();}
@@ -30,5 +25,9 @@ public class Leaf implements Serializable, NoteInterface {
     // setters
     public void setScore(float score){value = score;}
 
-    public String toString(){return Float.toString(value);}
+    public String toString(){
+        if (value.isNaN())
+            return "";
+        return Float.toString(value);
+    }
 }
