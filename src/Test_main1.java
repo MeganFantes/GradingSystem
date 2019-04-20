@@ -95,6 +95,13 @@ public class Test_main1 {
         tableArray = root.genSummaryTableArray(studentOrder);  // ** summary only allowed at root
         ezShow2d(tableArray);
 
+        System.out.println("\n ===== testing genSummary after double clicking computing last score ======");
+        root.computeFinalScore();
+        fieldRow = root.genFieldRowArray();
+        ezShow1d(fieldRow);
+        tableArray = root.genSummaryTableArray(studentOrder);  // ** summary only allowed at root
+        ezShow2d(tableArray);
+
         // ===== test genScore (only allowed in children of root, ie, ParentNodes of height 2 ) ======
         System.out.println("\n ==== HWs score Table ===== ");
         fieldRow = hws.genFieldRowArray();

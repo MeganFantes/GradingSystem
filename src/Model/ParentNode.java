@@ -89,8 +89,7 @@ public class ParentNode extends TreeNode {
         // not first time of calling this function, set all score to zero & re-accumulate
         if (aggregateScore.size() > 0){
             for (HashMap.Entry<String, Float> entry : aggregateScore.entrySet()) {
-                Float currScore = entry.getValue();
-                currScore = 0f;
+                aggregateScore.put(entry.getKey(), 0f);
             }
         }
 
