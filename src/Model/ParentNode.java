@@ -78,7 +78,7 @@ public class ParentNode extends TreeNode {
             totalWeight += child.getWeight();
         }
         if (!totalWeight.equals(100f))
-            errorSofar.add("sub-categories weight sum in " + criteria + " not equal to 100%");
+            errorSofar.add("sub-categories weight sum in [" + criteria + "] not equal to 100%");
 
         return errorSofar;
     }

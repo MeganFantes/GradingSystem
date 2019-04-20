@@ -65,9 +65,10 @@ public class Test_main2 {
         // 1. u3(=megan) paper exam score not entered
         // 2. design totalScore not set
         // 4. hw1 + hw2 weight != 100
-        ((LeafNode)paper.getChild(0)).getLeafByKey("u3").setScore(Float.NaN);
-        ((LeafNode)design.getChild(0)).setTotalScore(-1f);
+        ((LeafNode)paper.getChild(0)).getLeafByKey("u3").setScore(Float.NaN); // no longer a error
+        ((LeafNode)design.getChild(0)).setTotalScore(Float.NaN);
         hw2.setWeight(40f); // original 50
+        ((LeafNode)(hw1.getChild(0))).getLeafByKey("u1").setScore(110f); // explosion percentage
         System.out.println(" \n=====  error msg test (root only )=====");
         ArrayList<String> errors = root.treeValidation(null, true);
         for (String error : errors){
@@ -78,10 +79,9 @@ public class Test_main2 {
         System.out.println(" \n=====  error msg test (whole tree )=====");
         /*
         expected output order :
+        invalid score for [yuehying, lee] in hw1
         sub-category weight sum not equal to 100 in HW
-        invalid score [megan] at design
         design total score not set
-        (all error in leaf)
          */
         errors = root.treeValidation(null, false);
         for (String error : errors){

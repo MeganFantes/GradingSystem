@@ -11,7 +11,7 @@ public class LeafNode extends TreeNode {
 
     public LeafNode(){
         studentPool = null;
-        totalScore = new Float(-1);
+        totalScore = Float.NaN;
         allLeaf = new HashMap<>();
         inputType = CellInputType.RAW;
     }
@@ -57,9 +57,10 @@ public class LeafNode extends TreeNode {
         String lastCriteria = errorSofar.get(lastIdx);
         errorSofar.remove(lastIdx);
 
-        // check totalScore is set
-        if (totalScore < 0){
-            errorSofar.add("total score not set in " + lastCriteria);
+        // check totalScore is set, if unset, no need to check leaf percentage 100
+        if (totalScore.isNaN()){
+            errorSofar.add("total score not set in [" + lastCriteria+"]");
+            return errorSofar;
         }
 
         // check input type is set
@@ -71,8 +72,15 @@ public class LeafNode extends TreeNode {
         // NaN means unset (user intentionally)
         for (Map.Entry<String, Leaf> entry : allLeaf.entrySet()){
             Float currScore = entry.getValue().getValue();
-            if (currScore.isNaN() || currScore<0 || (currScore >= totalScore && inputType != CellInputType.PERCENTAGE)) {
+            if (currScore==Float.NaN){
+                // intentailly empty score from user
+                continue;
+            }
+            if (currScore<0 ||
+                (currScore >= totalScore && inputType != CellInputType.PERCENTAGE) ||
+                (inputType==CellInputType.PERCENTAGE && currScore > 100)) {
                 String studenInfo = studentPool.getStudentByKey(entry.getKey()).getAttribute("first name");
+                studenInfo += " ," + studentPool.getStudentByKey(entry.getKey()).getAttribute("last name");
                 errorSofar.add( "invalid score for [" + studenInfo + "] in " + lastCriteria);
             }
         }
