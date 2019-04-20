@@ -199,14 +199,30 @@ public class ParentNode extends TreeNode {
         // TODO: implicit assumption : called @ root
         assert(children.size()>0 && !children.get(0).getChild(0).isLeaf());
 
-        int numCol = children.size()+2; // 2 extra row : idx0 : student info / idx last : final score
-        int numRow = studentOrder.size();
+        int numCol = children.size()+2; // 2 extra col : idx0 : student info / idxlast : final score
+        int numRow = studentOrder.size()+2; // 2 extra row (in-order) : weight, statistics
         Object[][] retTable = new Object[numRow][numCol];
+
+        // 1st row: weight of that criteria
+        retTable[0][0] = "Weight";
+        retTable[0][numCol-1] = "100";
+        for (int i=1; i<=children.size(); i++)
+             retTable[0][i] = children.get(i-1).getWeight();
+
+        // 2nd row: statistics
+        retTable[1][0] = "Statistics";
+        for (int i=1; i<=children.size(); i++){
+            Statistics statisticsObj =  new Statistics(((ParentNode)children.get(i-1)).getAggregateScore());
+            retTable[1][i] = statisticsObj;
+        }
+        retTable[1][numCol-1] = new Statistics(this.aggregateScore);
+
+        int currRow = 2;
         if (aggregateScore.size()==0){
-            // yet click calc final score, fill in every score with buf
-            String buf = "#";
-            for(int i=0; i<numRow; i++){
-                Student currStudent = studentPool.getStudentByKey(studentOrder.get(i));
+            // yet click calc final score, fill in every score with buf string
+            String buf = "";
+            for(int i=currRow; i<numRow; i++){
+                Student currStudent = studentPool.getStudentByKey(studentOrder.get(i-currRow));
                 for (int j=0; j<numCol; j++){
                     if (j==0)
                         retTable[i][j] = currStudent;
@@ -215,8 +231,8 @@ public class ParentNode extends TreeNode {
                 }
             }
         } else {
-            for(int i=0; i<numRow; i++){
-                String currStudentPKey =  studentOrder.get(i);
+            for(int i=currRow; i<numRow; i++){
+                String currStudentPKey =  studentOrder.get(i-currRow);
                 for (int j=0; j<numCol; j++){
                     if (j==0) { // first column is student information
                         Student currStudent = studentPool.getStudentByKey(currStudentPKey);

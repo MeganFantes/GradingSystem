@@ -35,9 +35,9 @@ public class Statistics {
         }
     }
 
-    public Statistics(HashMap<String, Float> scoreMap){
+    public Statistics(HashMap<String, Float> aggregationScore){
         // scoreMap is from aggregation (where range in [0~100] %)
-        allPercentageScore = scoreMap;
+        allPercentageScore = aggregationScore;
         totalScore = 100;
     }
 
