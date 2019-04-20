@@ -68,12 +68,14 @@ public class Test_main2 {
         ((LeafNode)paper.getChild(0)).getLeafByKey("u3").setScore(Float.NaN);
         ((LeafNode)design.getChild(0)).setTotalScore(-1f);
         hw2.setWeight(40f); // original 50
-        System.out.println(" \n=====  error msg test =====");
-        ArrayList<String> errors = root.treeValidation(null);
+        System.out.println(" \n=====  error msg test (root only )=====");
+        ArrayList<String> errors = root.treeValidation(null, true);
         for (String error : errors){
             System.out.println(error);
+            // this shouldn't show anything, cuz we only check ParentNode(ie, sum to 100)
         }
 
+        System.out.println(" \n=====  error msg test (whole tree )=====");
         /*
         expected output order :
         sub-category weight sum not equal to 100 in HW
@@ -81,6 +83,11 @@ public class Test_main2 {
         design total score not set
         (all error in leaf)
          */
+        errors = root.treeValidation(null, false);
+        for (String error : errors){
+            System.out.println(error);
+        }
+
     }
 
     private static void ezPrintHashmap(HashMap<String, Float> ip){

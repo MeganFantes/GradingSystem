@@ -49,7 +49,7 @@ public class LeafNode extends TreeNode {
         generateLeafs(studentPool.getPrimaryKey());
     }
 
-    public ArrayList<String> treeValidation(ArrayList<String> errorSofar){
+    public ArrayList<String> treeValidation(ArrayList<String> errorSofar, boolean checkRootChildrenOnly){
         assert(errorSofar.size() >= 1);
 
         // last element in errorSofar is the criteria of previous level
@@ -67,7 +67,8 @@ public class LeafNode extends TreeNode {
         //    errorSofar.add("input type not set in " + lastCriteria);
         //}
 
-        // check every leaf has valid score (not NaN, >=0, percentage < 100%)
+        // check every leaf has valid score
+        // NaN means unset (user intentionally)
         for (Map.Entry<String, Leaf> entry : allLeaf.entrySet()){
             Float currScore = entry.getValue().getValue();
             if (currScore.isNaN() || currScore<0 || (currScore >= totalScore && inputType != CellInputType.PERCENTAGE)) {

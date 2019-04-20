@@ -17,7 +17,7 @@ public abstract class TreeNode implements Serializable, NoteInterface {
     public abstract TreeNode copyStructure();
     public abstract void connectStudentPool(StudentPool studentPool);
     public abstract TreeNode getChild(int childIndex);
-    public abstract ArrayList<String> treeValidation(ArrayList<String> errorSofar);
+    public abstract ArrayList<String> treeValidation(ArrayList<String> errorSofar, boolean checkRootChildrenOnly);
     public abstract HashMap<String, Float> computeFinalScore();
     public abstract Float getWeight();
     public abstract boolean isLeaf();

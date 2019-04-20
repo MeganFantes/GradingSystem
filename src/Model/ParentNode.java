@@ -59,7 +59,7 @@ public class ParentNode extends TreeNode {
             child.connectStudentPool(pool);
     }
 
-    public ArrayList<String> treeValidation(ArrayList<String> errorSofar){
+    public ArrayList<String> treeValidation(ArrayList<String> errorSofar, boolean checkRootChildrenOnly){
         if (errorSofar == null) {
             errorSofar = new ArrayList<>();
         } else {
@@ -71,8 +71,10 @@ public class ParentNode extends TreeNode {
         // check children weight sum to 100
         Float totalWeight = 0f;
         for (TreeNode child : children){
-            errorSofar.add(criteria); // tricky way to pass previous level criteria (to locate leaf position)
-            errorSofar = child.treeValidation(errorSofar);
+            if (!checkRootChildrenOnly) {
+                errorSofar.add(criteria); // tricky way to pass previous level criteria (to locate leaf position)
+                errorSofar = child.treeValidation(errorSofar, checkRootChildrenOnly);
+            }
             totalWeight += child.getWeight();
         }
         if (!totalWeight.equals(100f))
