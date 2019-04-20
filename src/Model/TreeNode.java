@@ -1,8 +1,10 @@
+package Model;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class TreeNode implements Serializable, NoteInterface{
+public abstract class TreeNode implements Serializable, NoteInterface {
     protected Note note;
     protected StudentPool studentPool;
 
@@ -20,7 +22,7 @@ public abstract class TreeNode implements Serializable, NoteInterface{
     public abstract Float getWeight();
     public abstract boolean isLeaf();
 
-    // NoteInterface functions
+    // Model.NoteInterface functions
     public boolean hasNote(){ return note.hasNote();}
     public String getContent(){return note.getContent();}
     public void writeNote(String str){note.writeNote(str);}

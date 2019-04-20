@@ -1,3 +1,5 @@
+package Model;
+
 public interface NoteInterface {
     public boolean hasNote();
     public String getContent();

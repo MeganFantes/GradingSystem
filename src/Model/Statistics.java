@@ -1,4 +1,8 @@
-import java.util.ArrayList;
+package Model;
+
+import Model.Leaf;
+import Model.LeafNode;
+
 import java.util.HashMap;
 import java.util.Map;
 
