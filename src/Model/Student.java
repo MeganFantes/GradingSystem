@@ -28,7 +28,7 @@ public class Student implements Serializable {
 
         for (String field : fieldToShow){
             String currField = field.toUpperCase();
-            if (attributes.containsKey(currField)){
+            if (attributes.containsKey(currField) || currField.equals("NAME")){
                 displayField.add(currField);
             }
         }
@@ -48,7 +48,11 @@ public class Student implements Serializable {
         */
         String ret = "";
         for (String attribute : displayField){
-            ret += attributes.get(attribute) + "/";
+            if (attribute.toUpperCase().equals("NAME")){
+                ret += attributes.get("FIRST NAME") + " ," + attributes.get("LAST NAME");
+            } else {
+                ret += attributes.get(attribute) + "__";
+            }
         }
         return ret;
     }

@@ -75,9 +75,15 @@ public class Test_main1 {
         System.out.println("\n ===== testing genSummary before computing last score ======");
         ArrayList<String> studentOrder = root.getStudentPool().getPrimaryKeyAndSortBy("student id");
 
-        ArrayList<String> displayField = new ArrayList<>(); // show only student id
+        // set up display info for student
+        String buf = "";
+        for (String field : root.getStudentPool().getDisplayOption()){
+            buf += field+", ";
+        }
+        System.out.println("=== available display field ====\n"+buf+"\n");
+        ArrayList<String> displayField = new ArrayList<>();
         displayField.add("student id");
-        displayField.add("first name");
+        displayField.add("name");
         root.getStudentPool().setStudentDisplayInfo(displayField);
 
         // field row

@@ -139,10 +139,26 @@ public class StudentPool implements Serializable{
         return allStudent.getOrDefault(key, null);
     }
 
+    public ArrayList<String> getDisplayOption(){
+        ArrayList<String> ret = new ArrayList<>();
+        boolean nameAdded = false;
+        for (HashMap.Entry<String, HashSet<String>> entry : fieldSet.entrySet()) {
+            if (entry.getKey().contains("name".toUpperCase())){
+                if (!nameAdded){
+                    ret.add("NAME");
+                    nameAdded = true;
+                }
+            } else {
+                ret.add(entry.getKey());
+            }
+        }
+        return ret;
+    }
     // ==============================
 
     // ============ setters ============
     public void setStudentDisplayInfo(ArrayList<String> fieldToShow){
+        assert (fieldToShow.size()==1);
         for (HashMap.Entry<String, Student> entry : allStudent.entrySet()) {
             entry.getValue().setDisplayField(fieldToShow);
         }
