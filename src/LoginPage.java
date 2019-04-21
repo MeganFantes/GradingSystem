@@ -47,6 +47,11 @@ public class LoginPage extends JFrame{
 		bt1.setBounds(110, 250, 200, 50);
 		bt1.setUI(new BEButtonUI(). setNormalColor(BEButtonUI.NormalColor.lightBlue));
 		bt1.setFont(font);
+		bt1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoginActionPerformed(evt);
+            }
+        });	
  
  
 		//加入文本框
@@ -89,25 +94,23 @@ public class LoginPage extends JFrame{
 		 * 处理点击事件
 		 */
 		//登陆点击事件
-		ActionListener bt1_ls=new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				String admin=jtext1.getText();
-				char[] password=jtext2.getPassword();
-				String str=String.valueOf(password); //将char数组转化为string类型  
-				System.out.println(admin);
-				System.out.println(str);
-				/*to jump*/
-				LoadingPage frame = new LoadingPage();
-				frame.setTitle("Load/Create a class");
 
-				frame.setVisible(true);
-				hl.jf_1.dispose();//销毁当前界面
-
-				
-			}
-		};
-		bt1.addActionListener(bt1_ls);	
+		
      }
+	public void LoginActionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		String admin=jtext1.getText();
+		char[] password=jtext2.getPassword();
+		String str=String.valueOf(password); //将char数组转化为string类型  
+		System.out.println(admin);
+		System.out.println(str);
+		/*to jump*/
+		LoadingPage frame = new LoadingPage(this);
+		frame.setTitle("Load/Create a class");
+
+		frame.setVisible(true);
+		jf_1.dispose();//销毁当前界面
+
+		
+	};
 }

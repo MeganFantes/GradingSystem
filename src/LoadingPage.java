@@ -1,9 +1,14 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -14,21 +19,26 @@ import javax.swing.JTextField;
 
 public class LoadingPage extends JFrame {
 
+	private JFrame f=new JFrame();
 	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
-
+	public void initial()
+	{
+		
+	}
 
 	/**
 	 * Create the frame.
 	 */
-	public LoadingPage() {
+	public LoadingPage(JFrame parent) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 561, 418);
 
 		
 		contentPane = new JPanel();
+		f.add(contentPane);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -54,9 +64,15 @@ public class LoadingPage extends JFrame {
 		scrollPane_1.setBounds(81, 170, 372, 80);
 		contentPane.add(scrollPane_1);
 		
-		JButton btnNewButton = new JButton("Create a new class");
-		btnNewButton.setBounds(184, 299, 186, 27);
-		contentPane.add(btnNewButton);
+		JButton LoadButton = new JButton("Create a new class");
+		LoadButton.setBounds(184, 299, 186, 27);
+		LoadButton.setUI(new BEButtonUI(). setNormalColor(BEButtonUI.NormalColor.lightBlue));
+		LoadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoadButtonActionPerformed(evt);
+            }
+        });	
+		contentPane.add(LoadButton);
 		
 		JList list = new JList();
 		list.setBounds(81, 36, 372, 89);
@@ -69,4 +85,17 @@ public class LoadingPage extends JFrame {
 		contentPane.add(scrollPane);
 		
 	}
+
+		public void LoadButtonActionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			/*to jump*/
+			CreateClass frame = new CreateClass();
+			frame.setTitle("Create a class");
+			frame.setVisible(true);
+			this.dispose();
+
+		}
+			
+
+
 }
