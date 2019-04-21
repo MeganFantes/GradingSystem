@@ -17,23 +17,13 @@ public class CreateClass extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CreateClass frame = new CreateClass();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
 	 */
-	public CreateClass() {
+	public CreateClass(JFrame parent) {
+		setLocationRelativeTo(parent);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -41,21 +31,46 @@ public class CreateClass extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		JButton ImportClassButton = new JButton("Import from a previous class");
+		ImportClassButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				ImportClassButtonActionPerformed(evt);
 			}
 		});
 		
-		btnNewButton.setBounds(80, 30, 250, 50);
-		contentPane.add(btnNewButton, BorderLayout.NORTH);
+		ImportClassButton.setBounds(80, 30, 250, 50);
+		contentPane.add(ImportClassButton);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.setBounds(80, 120, 250,50);
-		contentPane.add(btnNewButton_1 );
+		JButton CreateClassButton = new JButton("Create a new class");
+		CreateClassButton.setBounds(80, 120, 250,50);
+		contentPane.add(CreateClassButton );
+		CreateClassButton.addActionListener(new ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	CreateClassButtonActionPerformed(evt);
+            }
+        });
+		
 		JLabel lblNewLabel = new JLabel("New label");
 		contentPane.add(lblNewLabel);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(parent);
 	}
+	public void CreateClassButtonActionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		/*to jump*/
+		NewClass frame = new NewClass(this);
+		frame.setTitle("Create a class");
+		frame.setVisible(true);
+		this.dispose();
 
+	}
+	public void ImportClassButtonActionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		/*to jump*/
+		//NewClass frame = new NewClass(this);
+		//frame.setTitle("Create a class");
+		//frame.setVisible(true);
+		this.dispose();
+
+	}
 }

@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 public class LoadingPage extends JFrame {
 
 	private JFrame f=new JFrame();
+	
 	private JPanel contentPane;
 
 	/**
@@ -33,6 +34,7 @@ public class LoadingPage extends JFrame {
 	 * Create the frame.
 	 */
 	public LoadingPage(JFrame parent) {
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 561, 418);
 
@@ -83,19 +85,20 @@ public class LoadingPage extends JFrame {
 		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(81, 36, 372, 89);
 		contentPane.add(scrollPane);
+		setLocationRelativeTo(parent);
 		
 	}
 
 		public void LoadButtonActionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			/*to jump*/
-			CreateClass frame = new CreateClass();
+			CreateClass frame = new CreateClass(this);
 			frame.setTitle("Create a class");
 			frame.setVisible(true);
 			this.dispose();
 
 		}
-			
+	
 
 
 }

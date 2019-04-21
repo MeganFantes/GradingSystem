@@ -28,9 +28,9 @@ public class LoginPage extends JFrame{
     private static JLabel jl_admin;
     private static JLabel jl_password;
     private final JPanel contentPanel = new JPanel();
-    public LoginPage (){//初始化登陆界面
+    public LoginPage (){//initialize
 
-    	Font font =new Font("Times New Roman", Font.PLAIN, 20);//设置字体
+    	Font font =new Font("Times New Roman", Font.PLAIN, 20);//font
 	    jf_1=new JFrame("Login Page");
 		jf_1.setSize(650, 500);
 		jl_1=new JLabel();
@@ -43,7 +43,7 @@ public class LoginPage extends JFrame{
 		jl_password.setBounds(20, 120, 80, 50);
 		jl_password.setFont(font);
 		
-		bt1=new JButton("Login");         //更改成loginButton
+		bt1=new JButton("Login");         //loginButton
 		bt1.setBounds(110, 250, 200, 50);
 		bt1.setUI(new BEButtonUI(). setNormalColor(BEButtonUI.NormalColor.lightBlue));
 		bt1.setFont(font);
@@ -54,12 +54,12 @@ public class LoginPage extends JFrame{
         });	
  
  
-		//加入文本框
+		//textfield
 		jtext1=new JTextField("");
 		jtext1.setBounds(150, 50, 250, 50);
 		jtext1.setFont(font);
 		
-		jtext2=new JPasswordField("");//密码输入框
+		jtext2=new JPasswordField("");//password
 		jtext2.setBounds(150, 120, 250, 50);
 		jtext2.setFont(font);
 		
@@ -73,10 +73,10 @@ public class LoginPage extends JFrame{
 		jf_1.add(jl_1);
 		jf_1.setVisible(true);
 		jf_1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf_1.setLocation(300,400);
+		jf_1.setLocation(700,300);
 	}
 	public static void main(String[] args) {
-		//初始化登陆界面
+		//initial
 	    try
 	    {
 	        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
@@ -93,7 +93,7 @@ public class LoginPage extends JFrame{
 		/**
 		 * 处理点击事件
 		 */
-		//登陆点击事件
+
 
 		
      }
@@ -101,7 +101,7 @@ public class LoginPage extends JFrame{
 		// TODO Auto-generated method stub
 		String admin=jtext1.getText();
 		char[] password=jtext2.getPassword();
-		String str=String.valueOf(password); //将char数组转化为string类型  
+		String str=String.valueOf(password); //char->string
 		System.out.println(admin);
 		System.out.println(str);
 		/*to jump*/
@@ -109,7 +109,7 @@ public class LoginPage extends JFrame{
 		frame.setTitle("Load/Create a class");
 
 		frame.setVisible(true);
-		jf_1.dispose();//销毁当前界面
+		jf_1.dispose();
 
 		
 	};
