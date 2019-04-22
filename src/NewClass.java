@@ -107,7 +107,9 @@ public class NewClass extends JFrame {
 		contentPane.add(lblWeigh);
 		
 		jpc = new JPanel();
-		jpc.setBounds(14, 192, 416, 1);
+		jpc.setBounds(0, 192, 400, 1);
+
+		
 		contentPane.add(jpc);
 		setLocationRelativeTo(parent);
 
@@ -116,7 +118,6 @@ public class NewClass extends JFrame {
 	public void AddCriteriaButtonActionPerformed(ActionEvent arg0, JFrame parent) {
 		// TODO Auto-generated method stub
 		JButton jb=(JButton) arg0.getSource();
-		System.out.println(jb.toString());
 		if (jb==AddCriteriaButton)
 		{
 		/*to jump*/
@@ -126,15 +127,18 @@ public class NewClass extends JFrame {
 		System.out.println("countnum: "+ countnum);
 		countnum+=1;
 		MyJPanel newcrit=new MyJPanel(index);
+
 		//MyJPanel newwgh=new MyJPanel(index+1);
 		index+=1;
-		
+		//newwgh.setBounds(187, 143+50*countnum, 50, 24);
+		jpc.setBounds(0, 192, 400, 1+50*countnum);
+		jpc.setLayout(null);
+		jpc.add(newcrit);
 		/*JTextField newcrit=new JTextField();
 		JTextField newwgh=new JTextField();*/
-		newcrit.setBounds(14, 143+50*countnum, 50, 50);
-		//newwgh.setBounds(187, 143+50*countnum, 50, 24);
-		jpc.setBounds(14, 192, 416, 1+50*countnum);
-		jpc.add(newcrit);	
+		newcrit.setBounds(14, -50+50*countnum, 450, 50);
+
+	
 		//jpc.add(newwgh);	
 
 		/*contentPane.setVisible(false);
@@ -153,7 +157,6 @@ public class NewClass extends JFrame {
 		}
 		else if(jb==FinishButton)
 		{
-			System.out.println("number= "+jpc.getComponentCount());
             for (int i = 0; i < jpc.getComponentCount(); i++) {
                 MyJPanel mjp = (MyJPanel) jpc.getComponent(i);
                 System.out.println("The value of row "+(i+1)+" is "+mjp.getJTFValue());
@@ -168,12 +171,17 @@ class MyJPanel extends JPanel{
 	
     public JTextField jtf1;
     public JTextField jtf2;
+    
     public MyJPanel(int index) {
-        
-        jtf1 = new JTextField(15);
-        jtf2 = new JTextField(15);
+    	setLayout(null);
+        jtf1 = new JTextField();
+        jtf2 = new JTextField();
+        jtf1.setBounds(0,0,153, 24);
+        jtf2.setBounds(173,0,168, 24);
+
         add(jtf1);
         add(jtf2);
+		
     }
     //get value
     public String getJTFValue() {
