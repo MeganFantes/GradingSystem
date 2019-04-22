@@ -24,6 +24,7 @@ public class NewClass extends JFrame {
 	private JTextField textField_1;
 	private JTextField textFieldaa;
 	private JButton AddCriteriaButton;
+	private JButton DeleteCriteriaButton;
 	private JButton FinishButton;
 	private int countnum=0;
 	private int index=0;
@@ -111,6 +112,17 @@ public class NewClass extends JFrame {
 
 		
 		contentPane.add(jpc);
+		
+		DeleteCriteriaButton = new JButton("Delete a criteria");
+		DeleteCriteriaButton.setBounds(211, 193, 189, 27);
+		contentPane.add(DeleteCriteriaButton);
+		DeleteCriteriaButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				AddCriteriaButtonActionPerformed(evt,parent);
+			}
+		});
+		
+		
 		setLocationRelativeTo(parent);
 
 
@@ -147,19 +159,46 @@ public class NewClass extends JFrame {
 		contentPane.setVisible(true);*/
 		
 		contentPane.remove(AddCriteriaButton);
+		contentPane.remove(DeleteCriteriaButton);
 		contentPane.remove(FinishButton);
 		AddCriteriaButton.setBounds(14, 193+countnum*50, 189, 27);
+		DeleteCriteriaButton.setBounds(211, 193+countnum*50, 189, 27);
 		FinishButton.setBounds(38, 232+countnum*50, 113, 27);
 		contentPane.add(AddCriteriaButton);
+		contentPane.add(DeleteCriteriaButton);
 		contentPane.add(FinishButton);
 		SwingUtilities.updateComponentTreeUI(this);
 		contentPane.repaint();
 		}
 		else if(jb==FinishButton)
 		{
+			System.out.println("The value of row 1 is "+crit1.getText()+" "+wgh1.getText());
             for (int i = 0; i < jpc.getComponentCount(); i++) {
                 MyJPanel mjp = (MyJPanel) jpc.getComponent(i);
                 System.out.println("The value of row "+(i+1)+" is "+mjp.getJTFValue());
+            }
+		}
+		else if(jb==DeleteCriteriaButton)
+		{
+            if(jpc.getComponentCount()>0) { // 得到jpc里的MyJPanel的组件数量
+                jpc.remove(jpc.getComponentCount()-1);//删除末尾的一个组件 ,
+                index-=1;
+                countnum-=1;
+        		jpc.setBounds(0, 192, 400, 1+50*countnum);
+        		jpc.setLayout(null);
+        		/*JTextField newcrit=new JTextField();
+        		JTextField newwgh=new JTextField();*/
+        		contentPane.remove(AddCriteriaButton);
+        		contentPane.remove(DeleteCriteriaButton);
+        		contentPane.remove(FinishButton);
+        		AddCriteriaButton.setBounds(14, 193+countnum*50, 189, 27);
+        		DeleteCriteriaButton.setBounds(211, 193+countnum*50, 189, 27);
+        		FinishButton.setBounds(38, 232+countnum*50, 113, 27);
+        		contentPane.add(AddCriteriaButton);
+        		contentPane.add(DeleteCriteriaButton);
+        		contentPane.add(FinishButton);
+        		SwingUtilities.updateComponentTreeUI(this);
+        		contentPane.repaint();
             }
 		}
 
