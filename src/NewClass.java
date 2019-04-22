@@ -175,7 +175,7 @@ public class NewClass extends JFrame {
 			System.out.println("The value of row 1 is "+crit1.getText()+" "+wgh1.getText());
             for (int i = 0; i < jpc.getComponentCount(); i++) {
                 MyJPanel mjp = (MyJPanel) jpc.getComponent(i);
-                System.out.println("The value of row "+(i+1)+" is "+mjp.getJTFValue());
+                System.out.println("The value of row "+(i+2)+" is "+mjp.getJTFValue());
             }
 		}
 		else if(jb==DeleteCriteriaButton)

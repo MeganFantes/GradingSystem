@@ -5,7 +5,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
@@ -70,7 +73,14 @@ public class CreateClass extends JFrame {
 		//NewClass frame = new NewClass(this);
 		//frame.setTitle("Create a class");
 		//frame.setVisible(true);
-		this.dispose();
+		JFileChooser jfc=new JFileChooser();
+		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY );
+		jfc.showDialog(new JLabel(), "Choose a CSV file");
+		File file=jfc.getSelectedFile();
+		if(file.isFile()){
+			System.out.println("File name: "+file.getAbsolutePath());
+		}
+		System.out.println(jfc.getSelectedFile().getName());
 
 	}
 }
