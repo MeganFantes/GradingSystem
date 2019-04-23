@@ -1,10 +1,11 @@
+import Model.ParentNode;
+import Model.StudentPool;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class AssignmentsView {
@@ -13,32 +14,49 @@ public class AssignmentsView {
 	private JFrame frame;
 	private final Dimension frameDimension = new Dimension(800, 400);
 
-	public AssignmentsView(Object category) {
+	public AssignmentsView(int categoryIndex) {
 		// read the input file
-		try {
+//		try {
 			// read the headerLabels
-			BufferedReader br = new BufferedReader(new FileReader("testValues_assignmentGrades.csv"));
-			headerLabels = br.readLine().split(",");
+//			BufferedReader br = new BufferedReader(new FileReader("testValues_assignmentGrades.csv"));
+//			headerLabels = br.readLine().split(",");
+			String inputfileName = "./test_course_with_score.ser";
+			ParentNode root = null;
+			try {
+				FileInputStream fis = new FileInputStream(inputfileName);
+				ObjectInputStream objis = new ObjectInputStream(fis);
+				root = (ParentNode) objis.readObject();
+				System.out.println("read successfully");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.println(" =====  read tree =====");
+			root.traverse(0);
+			ParentNode assignmentChild = (ParentNode) root.getChild(categoryIndex); // TODO: this 0 here should be the index of the button that is clicked
+			headerLabels = assignmentChild.genFieldRowArray();
+
 			// read the rows into an ArrayList (because its length is flexible)
-			ArrayList<Object[]> rowsAsAdded = new ArrayList<>();
-			int numRows = 0;
-			String row = br.readLine();
-			while (row != null){
-				rowsAsAdded.add(row.split(","));
-				row = br.readLine();
-				numRows++;
-			}
-			// now add the rows to the final 2D array of rows (now that you know how many rows there are and can declare the array length)
-			rows = new Object[numRows][];
-			for (int i = 0; i < numRows; i++) {
-				rows[i] = rowsAsAdded.get(i);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//			ArrayList<Object[]> rowsAsAdded = new ArrayList<>();
+//			int numRows = 0;
+//			String row = br.readLine();
+//			while (row != null){
+//				rowsAsAdded.add(row.split(","));
+//				row = br.readLine();
+//				numRows++;
+//			}
+//			// now add the rows to the final 2D array of rows (now that you know how many rows there are and can declare the array length)
+//			rows = new Object[numRows][];
+			StudentPool studentPool = root.getStudentPool();
+			rows = assignmentChild.genScoreTableArray(studentPool.getPrimaryKeyAndSortBy("last name"));
+//			for (int i = 0; i < numRows; i++) {
+//				rows[i] = rowsAsAdded.get(i);
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
 		// create JFrame
-		frame = new JFrame("View " + category);
+		frame = new JFrame("View " + root.getChild(categoryIndex).toString());
 
 		// add the navigation buttons to the frame
 		frame.getContentPane().add(new NavigationButtonBanner(frame), BorderLayout.NORTH);
@@ -65,6 +83,6 @@ public class AssignmentsView {
 	}
 
 	public static void main(String[] args) {
-		AssignmentsView assignmentsView = new AssignmentsView("Main");
+		AssignmentsView assignmentsView = new AssignmentsView(0);
 	}
 }

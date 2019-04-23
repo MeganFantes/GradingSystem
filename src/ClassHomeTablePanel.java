@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class ClassHomeTablePanel extends JPanel {
 	private Object[] headerLabels;
@@ -38,11 +39,11 @@ public class ClassHomeTablePanel extends JPanel {
 			JButton button;
 			// add functionality of the STUDENT header button
 			if (i == 0) {
-				button = new BtnStudentHeader(headerLabels[i]);
+				button = new BtnStudentHeader(headerLabels[i], Arrays.asList(headerLabels).indexOf(headerLabels[i]));
 			}
 			// add functionality of the rest of the header buttons (the assignment title buttons)
 			else {
-				button = new BtnCategoryHeader(headerLabels[i], callingFrame);
+				button = new BtnCategoryHeader(headerLabels[i], Arrays.asList(headerLabels).indexOf(headerLabels[i]), callingFrame);
 			}
 			button.setPreferredSize(buttonSize);
 			button.setMinimumSize(buttonSize);
@@ -115,9 +116,9 @@ public class ClassHomeTablePanel extends JPanel {
 }
 
 class BtnCategoryHeader extends JButton {
-	BtnCategoryHeader(Object label, JFrame callingFrame) {
+	BtnCategoryHeader(Object label, int categoryIndex, JFrame callingFrame) {
 		super((String) label);
-		addActionListener(new AL_CategoryHeader(label, callingFrame));
+		addActionListener(new AL_CategoryHeader(label, categoryIndex, callingFrame));
 	}
 }
 
@@ -125,17 +126,19 @@ class AL_CategoryHeader implements ActionListener {
 //	JButton callingButton;
 	Object callingCategory;
 	JFrame callingFrame;
-	public AL_CategoryHeader(Object category, JFrame callingFrame) {
+	int categoryIndex;
+	public AL_CategoryHeader(Object category, int categoryIndex, JFrame callingFrame) {
 		super();
 //		this.callingButton = btn;
 		this.callingCategory = category;
 		this.callingFrame = callingFrame;
+		this.categoryIndex = categoryIndex;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 //		JOptionPane.showMessageDialog(callingButton, "You clicked on the " + callingButton.getText() + " button, you will be able to edit the name and weight of the category here");
-		AssignmentsView assignmentsView = new AssignmentsView(callingCategory);
+		AssignmentsView assignmentsView = new AssignmentsView(categoryIndex);
 		callingFrame.dispose();
 	}
 }
