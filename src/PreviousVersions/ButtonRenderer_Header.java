@@ -1,8 +1,10 @@
+package PreviousVersions;
+
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
-class ButtonRenderer_Header extends JButton implements TableCellRenderer {
+public class ButtonRenderer_Header extends JButton implements TableCellRenderer {
 	int pushedColumn;
 
 	public ButtonRenderer_Header() {

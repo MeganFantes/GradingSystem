@@ -1,4 +1,4 @@
-// Example from http://www.crionics.com/products/opensource/faq/swing_ex/SwingExamples.html
+package PreviousVersions;// Example from http://www.crionics.com/products/opensource/faq/swing_ex/SwingExamples.html
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Insets;

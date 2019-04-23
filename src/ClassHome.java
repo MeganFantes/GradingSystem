@@ -7,17 +7,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AssignmentsView {
+public class ClassHome {
 	private Object[] headerLabels;
 	private Object[][] rows;
 	private JFrame frame;
-	private final Dimension frameDimension = new Dimension(800, 400);
 
-	public AssignmentsView(Object category) {
+	public ClassHome() {
 		// read the input file
 		try {
 			// read the headerLabels
-			BufferedReader br = new BufferedReader(new FileReader("testValues_assignmentGrades.csv"));
+			BufferedReader br = new BufferedReader(new FileReader("testValues_classGrades.csv"));
 			headerLabels = br.readLine().split(",");
 			// read the rows into an ArrayList (because its length is flexible)
 			ArrayList<Object[]> rowsAsAdded = new ArrayList<>();
@@ -38,21 +37,20 @@ public class AssignmentsView {
 		}
 
 		// create JFrame
-		frame = new JFrame("View " + category);
+		frame = new JFrame("Class Home");
 
 		// add the navigation buttons to the frame
 		frame.getContentPane().add(new NavigationButtonBanner(frame), BorderLayout.NORTH);
 
 		// add table
-		JPanel tablePanel = new AssignmentsTablePanel(headerLabels, rows, frame);
+		JPanel tablePanel = new ClassHomeTablePanel(headerLabels, rows, frame);
 		frame.getContentPane().add(tablePanel);
 
 		// make the JFrame visible
 		JScrollPane scroll = new JScrollPane(tablePanel);
-		scroll.setColumnHeaderView(((AssignmentsTablePanel) tablePanel).getHeaderPanel()); // freeze the header row so you can see it as you scroll
+		scroll.setColumnHeaderView(((ClassHomeTablePanel) tablePanel).getHeaderPanel()); // freeze the header row so you can see it as you scroll
 		frame.getContentPane().add(scroll); // this line adds the table to the frame (you do not need a separate panel)
-//		frame.setSize(800, 400);
-		frame.setSize(frameDimension);
+		frame.setSize(800, 400);
 		frame.setVisible(true);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -65,6 +63,6 @@ public class AssignmentsView {
 	}
 
 	public static void main(String[] args) {
-		AssignmentsView assignmentsView = new AssignmentsView("Main");
+		ClassHome classHome = new ClassHome();
 	}
 }

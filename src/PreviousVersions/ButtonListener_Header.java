@@ -1,14 +1,16 @@
+package PreviousVersions;
+
 import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-class ButtonListener_Header extends MouseAdapter {
+public class ButtonListener_Header extends MouseAdapter {
 	JTableHeader header;
 
 	ButtonRenderer_Header renderer;
 
-	ButtonListener_Header(JTableHeader header, ButtonRenderer_Header renderer) {
+	public ButtonListener_Header(JTableHeader header, ButtonRenderer_Header renderer) {
 		this.header = header;
 		this.renderer = renderer;
 	}

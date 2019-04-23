@@ -1,4 +1,7 @@
 Student,HW1,HW2,HW3,HW4
+Grading Option,raw score,percentage,deduction,raw score
+Total,100,20,180,50
+Average,62,42,48,45
 Alice,52,36,74,39
 Bob,98,8,97,48
 Charles,81,47,38,74

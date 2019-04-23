@@ -1,3 +1,5 @@
+package PreviousVersions;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,14 +10,14 @@ import java.awt.event.ActionListener;
  */
 
 
-class ButtonEditor_Grade extends DefaultCellEditor {
+public class ButtonEditor_Student extends DefaultCellEditor {
 	protected JButton button;
 
 	private String label;
 
 	private boolean isPushed;
 
-	public ButtonEditor_Grade(JCheckBox checkBox) {
+	public ButtonEditor_Student(JCheckBox checkBox) {
 		super(checkBox);
 		button = new JButton();
 		button.setOpaque(true);
@@ -45,7 +47,7 @@ class ButtonEditor_Grade extends DefaultCellEditor {
 		if (isPushed) {
 			//
 			//
-			JOptionPane.showMessageDialog(button, "Grade: " + label);
+			JOptionPane.showMessageDialog(button, "You clicked on student: " + label);
 			// System.out.println(label + ": Ouch!");
 		}
 		isPushed = false;

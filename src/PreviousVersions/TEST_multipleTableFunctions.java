@@ -1,3 +1,5 @@
+package PreviousVersions;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -7,13 +9,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AssignmentsView {
+public class TEST_multipleTableFunctions {
 	private Object[] headerLabels;
 	private Object[][] rows;
 	private JFrame frame;
-	private final Dimension frameDimension = new Dimension(800, 400);
 
-	public AssignmentsView(Object category) {
+	public TEST_multipleTableFunctions() {
 		// read the input file
 		try {
 			// read the headerLabels
@@ -38,21 +39,38 @@ public class AssignmentsView {
 		}
 
 		// create JFrame
-		frame = new JFrame("View " + category);
+		frame = new JFrame("Multiple Panels as Table");
 
 		// add the navigation buttons to the frame
-		frame.getContentPane().add(new NavigationButtonBanner(frame), BorderLayout.NORTH);
+//		frame.getContentPane().add(new NavigationButtonBanner(), BorderLayout.NORTH);
 
-		// add table
-		JPanel tablePanel = new AssignmentsTablePanel(headerLabels, rows, frame);
+		// main panel
+		JPanel tablePanel = new JPanel(new GridLayout(rows.length + 1,1));
+
+		// add header
+		JPanel headerPanel = new JPanel(new GridLayout(0, headerLabels.length));
+		for (int i = 0; i < headerLabels.length; i++) {
+			JButton button = new JButton((String) headerLabels[i]);
+			headerPanel.add(button);
+		}
+		tablePanel.add(headerPanel);
+
+		// add the rest of the buttons
+		for (Object[] row : rows) {
+			JPanel rowPanel = new JPanel(new GridLayout(0, row.length));
+			for (int i = 0; i < row.length; i++) {
+				JButton cellButton = new JButton((String) row[i]);
+				rowPanel.add(cellButton);
+			}
+			tablePanel.add(rowPanel);
+		}
+
 		frame.getContentPane().add(tablePanel);
 
 		// make the JFrame visible
 		JScrollPane scroll = new JScrollPane(tablePanel);
-		scroll.setColumnHeaderView(((AssignmentsTablePanel) tablePanel).getHeaderPanel()); // freeze the header row so you can see it as you scroll
 		frame.getContentPane().add(scroll); // this line adds the table to the frame (you do not need a separate panel)
-//		frame.setSize(800, 400);
-		frame.setSize(frameDimension);
+		frame.setSize(800, 400);
 		frame.setVisible(true);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -62,9 +80,11 @@ public class AssignmentsView {
 		// make the JFrame appear in the middle of the screen
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+
+
 	}
 
 	public static void main(String[] args) {
-		AssignmentsView assignmentsView = new AssignmentsView("Main");
+		TEST_multipleTableFunctions tmtf = new TEST_multipleTableFunctions();
 	}
 }
