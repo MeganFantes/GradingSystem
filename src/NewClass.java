@@ -10,11 +10,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.border.EmptyBorder;
+
+import Model.ParentNode;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import Model.ParentNode;
 
 public class NewClass extends JFrame {
 
@@ -37,14 +41,16 @@ public class NewClass extends JFrame {
 	private String Semester_Name;
 	private ArrayList<String> criteria_list;
 	private ArrayList<String> weights_list;
+	private ParentNode root;
 	/**
 	 * Launch the application.
 
 	/**
 	 * Create the frame.
 	 */
-	public NewClass(JFrame parent) {
-
+	public NewClass(JFrame parent,ParentNode root) {
+		this.root=root;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 473, 450);
 		contentPane = new JPanel();
@@ -193,7 +199,7 @@ public class NewClass extends JFrame {
                 weights_list.add(C_R[1]);
                 
                 
-                
+              
             }
             /*
             for (String x:criteria_list)

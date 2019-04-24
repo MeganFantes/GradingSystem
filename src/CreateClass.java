@@ -12,11 +12,12 @@ import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
+import Model.ParentNode;
 
 public class CreateClass extends JFrame {
 
 	private JPanel contentPane;
-
+	private ParentNode root;
 	/**
 	 * Launch the application.
 	 */
@@ -25,8 +26,8 @@ public class CreateClass extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CreateClass(JFrame parent) {
-		
+	public CreateClass(JFrame parent,ParentNode root) {
+		this.root=root;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -61,7 +62,7 @@ public class CreateClass extends JFrame {
 	public void CreateClassButtonActionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		/*to jump*/
-		NewClass frame = new NewClass(this);
+		NewClass frame = new NewClass(this,root);
 		frame.setTitle("Create a class");
 		frame.setVisible(true);
 		this.dispose();

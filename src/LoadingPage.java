@@ -18,6 +18,7 @@ import javax.swing.JList;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import Model.ParentNode;
 
 public class LoadingPage extends JFrame {
 
@@ -26,6 +27,7 @@ public class LoadingPage extends JFrame {
 	private JList list;
 	private JPanel contentPane;
 	private boolean isChanging=false;
+	private ParentNode root;
 
 	/**
 	 * Launch the application.
@@ -37,8 +39,8 @@ public class LoadingPage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LoadingPage(JFrame parent) {
-
+	public LoadingPage(JFrame parent,ParentNode root) {
+		this.root=root;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 561, 418);
 
@@ -115,7 +117,7 @@ public class LoadingPage extends JFrame {
 		public void LoadButtonActionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			/*to jump*/
-			CreateClass frame = new CreateClass(this);
+			CreateClass frame = new CreateClass(this,root);
 			frame.setTitle("Create a class");
 			frame.setVisible(true);
 			this.dispose();

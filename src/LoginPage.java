@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
 import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI.NormalColor;
+import Model.ParentNode;
  
 public class LoginPage extends JFrame{
 
@@ -28,6 +29,7 @@ public class LoginPage extends JFrame{
     private static JLabel jl_admin;
     private static JLabel jl_password;
     private final JPanel contentPanel = new JPanel();
+    private ParentNode root;
     public LoginPage (){//initialize
 
     	Font font =new Font("Times New Roman", Font.PLAIN, 20);//font
@@ -105,7 +107,7 @@ public class LoginPage extends JFrame{
 		System.out.println(admin);
 		System.out.println(str);
 		/*to jump*/
-		LoadingPage frame = new LoadingPage(this);
+		LoadingPage frame = new LoadingPage(this,root);
 		frame.setTitle("Load/Create a class");
 
 		frame.setVisible(true);
