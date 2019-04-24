@@ -1,3 +1,5 @@
+package PreviousVersions;
+
 public class GradingSystemModel {
     public static void main(String[] args){
         Float weight1 = new Float(10f);

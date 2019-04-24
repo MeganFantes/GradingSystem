@@ -1,8 +1,12 @@
+import Model.ParentNode;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 
 public class NavigationButtonBanner extends JPanel {
 	// buttons on the panel
@@ -33,33 +37,59 @@ public class NavigationButtonBanner extends JPanel {
 		});
 
 		btnCalcFinalGrade.setText("Calculate Final Grade");
-		btnCalcFinalGrade.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-
+		btnCalcFinalGrade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				GradingSystem.controller.computeFinalScore();
+				ClassHome classHome = new ClassHome();
+				callingFrame.dispose();
+//				String inputfileName = "./test_course_with_score.ser";
+//				ParentNode root = null;
+//				try {
+//					FileInputStream fis = new FileInputStream(inputfileName);
+//					ObjectInputStream objis = new ObjectInputStream(fis);
+//					root = (ParentNode) objis.readObject();
+//					System.out.println("read successfully");
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//				System.out.println(" =====  read tree =====");
+//				root.traverse(0);
+//				root.computeFinalScore();
+//				Object[][] tableArray = root.genSummaryTableArray(root.getStudentPool().getPrimaryKeyAndSortBy(""));
+//				String thisLine;
+//				for (int i=0; i<tableArray.length; i++){
+//					thisLine = "";
+//					for (int j=0; j<tableArray[0].length; j++){
+//						String tmp = tableArray[i][j].toString();
+//						tmp = String.format("%20s", tmp);
+//						thisLine += tmp + ",";
+//					}
+//					System.out.println(thisLine);
+//				}
 			}
 		});
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		GroupLayout layout = new GroupLayout(this);
 		this.setLayout(layout);
 		layout.setHorizontalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addGroup(layout.createSequentialGroup()
 								          .addGap(5)
 								          .addComponent(btnClassHome)
-								          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 385, Short.MAX_VALUE)
+								          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 385, Short.MAX_VALUE)
 								          .addComponent(btnCalcFinalGrade)
 								          .addGap(5)
 								          .addComponent(btnAddColumn)
 								          .addGap(5))
 		);
 		layout.setVerticalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addGroup(layout.createSequentialGroup()
 								          .addGap(5)
-								          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-										                    .addComponent(btnClassHome, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-										                    .addComponent(btnCalcFinalGrade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										                    .addComponent(btnAddColumn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								          .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+										                    .addComponent(btnClassHome, GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+										                    .addComponent(btnCalcFinalGrade, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										                    .addComponent(btnAddColumn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 								          .addGap(5))
 		);
 	}

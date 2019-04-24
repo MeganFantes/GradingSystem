@@ -2,39 +2,55 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class ClassHome {
-	private Object[] headerLabels;
-	private Object[][] rows;
+//	private Object[] headerLabels;
+//	private Object[][] rows;
 	private JFrame frame;
+//	private static Controller controller;
 
 	public ClassHome() {
+		// TODO: update function after you calculate final score
 		// read the input file
-		try {
+//		try {
 			// read the headerLabels
-			BufferedReader br = new BufferedReader(new FileReader("testValues_classGrades.csv"));
-			headerLabels = br.readLine().split(",");
+//			BufferedReader br = new BufferedReader(new FileReader("testValues_classGrades.csv"));
+//			headerLabels = br.readLine().split(",");
+//			String inputfileName = "./test_course_with_score.ser";
+//			ParentNode root = null;
+//			try {
+//				FileInputStream fis = new FileInputStream(inputfileName);
+//				ObjectInputStream objis = new ObjectInputStream(fis);
+//				root = (ParentNode) objis.readObject();
+//				System.out.println("read successfully");
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			System.out.println(" =====  read tree =====");
+//			root.traverse(0);
+//			headerLabels = root.genFieldRowArray();
 			// read the rows into an ArrayList (because its length is flexible)
-			ArrayList<Object[]> rowsAsAdded = new ArrayList<>();
-			int numRows = 0;
-			String row = br.readLine();
-			while (row != null){
-				rowsAsAdded.add(row.split(","));
-				row = br.readLine();
-				numRows++;
-			}
-			// now add the rows to the final 2D array of rows (now that you know how many rows there are and can declare the array length)
-			rows = new Object[numRows][];
-			for (int i = 0; i < numRows; i++) {
-				rows[i] = rowsAsAdded.get(i);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//			ArrayList<Object[]> rowsAsAdded = new ArrayList<>();
+//			int numRows = 0;
+//			String row = br.readLine();
+//			while (row != null){
+//				rowsAsAdded.add(row.split(","));
+//				row = br.readLine();
+//				numRows++;
+//			}
+//			// now add the rows to the final 2D array of rows (now that you know how many rows there are and can declare the array length)
+//			rows = new Object[numRows][];
+//			for (int i = 0; i < numRows; i++) {
+//				rows[i] = rowsAsAdded.get(i);
+//			}
+//			StudentPool studentPool = root.getStudentPool();
+//			rows = root.genSummaryTableArray(studentPool.getPrimaryKeyAndSortBy("last name"));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		controller = c;
+//		headerLabels = controller.getClassSummaryViewHeader();
+//		rows = controller.getClassSummaryViewRows();
 
 		// create JFrame
 		frame = new JFrame("Class Home");
@@ -43,7 +59,7 @@ public class ClassHome {
 		frame.getContentPane().add(new NavigationButtonBanner(frame), BorderLayout.NORTH);
 
 		// add table
-		JPanel tablePanel = new ClassHomeTablePanel(headerLabels, rows, frame);
+		JPanel tablePanel = new ClassHomeTablePanel(frame);
 		frame.getContentPane().add(tablePanel);
 
 		// make the JFrame visible
