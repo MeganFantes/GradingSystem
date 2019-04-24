@@ -42,15 +42,24 @@ public class ClassHomeTablePanel extends JPanel {
 			// add functionality of the STUDENT header button
 			if (i == 0) {
 				button = new BtnStudentHeader(headerLabels[i]);
+				button.setPreferredSize(buttonSize);
+				headerPanel.add(button);
+			}
+			// make the FINAL SCORE header a label, not a button
+			else if (i == headerLabels.length - 1) {
+				JLabel label = new JLabel(headerLabels[i].toString());
+				label.setPreferredSize(buttonSize);
+				headerPanel.add(label);
 			}
 			// add functionality of the rest of the header buttons (the assignment title buttons)
 			else {
 				button = new BtnCategoryHeader(headerLabels[i], callingFrame);
+				button.setPreferredSize(buttonSize);
+				headerPanel.add(button);
 			}
-			button.setPreferredSize(buttonSize);
+
 //			button.setMinimumSize(buttonSize);
 //			button.setMaximumSize(buttonSize);
-			headerPanel.add(button);
 		}
 		add(headerPanel);
 	}
