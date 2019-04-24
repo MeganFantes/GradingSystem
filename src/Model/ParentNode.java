@@ -266,7 +266,7 @@ public class ParentNode extends TreeNode {
     }
     public StudentPool getStudentPool(){return studentPool;}
     public HashMap<String, Float> getAggregateScore(){return aggregateScore;}
-
+    public String getCriteria(){return criteria;}
     // ========================================
 
     // ========== setters ==========
