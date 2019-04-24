@@ -2,6 +2,8 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -23,7 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import Model.ParentNode;
 
-public class NewClass extends JFrame {
+public class ImportClass extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel jpc;
@@ -45,6 +47,7 @@ public class NewClass extends JFrame {
 	private ArrayList<String> criteria_list;
 	private ArrayList<String> weights_list;
 	private ParentNode root;
+	private static String path;
 	/**
 	 * Launch the application.
 
@@ -54,13 +57,24 @@ public class NewClass extends JFrame {
 	public static void main(String[] args) {
 		JFrame parent=new JFrame();
 		ParentNode root = new ParentNode();
-		NewClass frame = new NewClass(parent,root);
+		ImportClass frame = new ImportClass(parent,root,path);
+		System.out.println(path);
 		frame.setTitle("Create a class");
 		frame.setVisible(true);
      }
 	
-	public NewClass(JFrame parent,ParentNode root) {
+	public ImportClass(JFrame parent,ParentNode root,String path) {
+		this.path=path;
 		this.root=root;
+        try {
+            FileInputStream fis = new FileInputStream(path);
+            ObjectInputStream objis = new ObjectInputStream(fis);
+            root = (ParentNode) objis.readObject();
+            System.out.println("read successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		ArrayList<ParentNode> children=root.getAllChildren();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 473, 450);
@@ -256,31 +270,4 @@ public class NewClass extends JFrame {
 		}
 
 	}
-}
-
-class MyJPanel extends JPanel{
-	
-	
-    public JTextField jtf1;
-    public JTextField jtf2;
-    
-    public MyJPanel(int index) {
-    	setLayout(null);
-        jtf1 = new JTextField();
-        jtf2 = new JTextField();
-        jtf1.setBounds(0,0,153, 24);
-        jtf2.setBounds(173,0,168, 24);
-
-        add(jtf1);
-        add(jtf2);
-		
-    }
-    //get value
-    public String getJTFValue() {
-        return jtf1.getText()+" "+jtf2.getText();
-    }
-    //setvalue
-    public void setJTFValue(String value) {
-        jtf1.setText(value);
-    }
 }

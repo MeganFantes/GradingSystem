@@ -26,6 +26,13 @@ public class CreateClass extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public static void main(String[] args) {
+		JFrame parent=new JFrame();
+		ParentNode root = new ParentNode();
+		CreateClass frame = new CreateClass(parent,root);
+		frame.setTitle("Create a class");
+		frame.setVisible(true);
+     }
 	public CreateClass(JFrame parent,ParentNode root) {
 		this.root=root;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,6 +89,11 @@ public class CreateClass extends JFrame {
 			System.out.println("File name: "+file.getAbsolutePath());
 		}
 		System.out.println(jfc.getSelectedFile().getName());
+		String path=file.getAbsolutePath();
+		ImportClass frame= new ImportClass(this,root,path);
+		frame.setTitle("Imported From Previous Class");
+		frame.setVisible(true);
+		this.dispose();
 
 	}
 }

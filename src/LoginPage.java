@@ -30,7 +30,8 @@ public class LoginPage extends JFrame{
     private static JLabel jl_password;
     private final JPanel contentPanel = new JPanel();
     private ParentNode root;
-    public LoginPage (){//initialize
+    public LoginPage (ParentNode root){//initialize
+    	this.root=root;
 
     	Font font =new Font("Times New Roman", Font.PLAIN, 20);//font
 	    jf_1=new JFrame("Login Page");
@@ -79,6 +80,7 @@ public class LoginPage extends JFrame{
 	}
 	public static void main(String[] args) {
 		//initial
+		ParentNode root=new ParentNode();
 	    try
 	    {
 	        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
@@ -91,7 +93,7 @@ public class LoginPage extends JFrame{
 	    {
 	        //TODO exception
 	    } 
-		LoginPage hl =new LoginPage();
+		LoginPage hl =new LoginPage(root);
 		/**
 		 * 处理点击事件
 		 */
@@ -109,7 +111,7 @@ public class LoginPage extends JFrame{
 		/*to jump*/
 		LoadingPage frame = new LoadingPage(this,root);
 		frame.setTitle("Load/Create a class");
-
+		
 		frame.setVisible(true);
 		jf_1.dispose();
 
