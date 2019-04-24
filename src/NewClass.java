@@ -34,6 +34,9 @@ public class NewClass extends JFrame {
 	private JLabel lblCriteria;
 	private JLabel lblWeigh;
 	private Vector weigh;
+	private String Semester_Name;
+	private ArrayList<String> criteria_list;
+	private ArrayList<String> weights_list;
 	/**
 	 * Launch the application.
 
@@ -170,13 +173,39 @@ public class NewClass extends JFrame {
 		SwingUtilities.updateComponentTreeUI(this);
 		contentPane.repaint();
 		}
+		
 		else if(jb==FinishButton)
 		{
+			Semester_Name=textField_1.getText()+"-"+textField.getText();
+;			//System.out.println(Semester_Name);
 			System.out.println("The value of row 1 is "+crit1.getText()+" "+wgh1.getText());
+			criteria_list=new ArrayList<String>();
+			weights_list=new ArrayList<String>();
+			criteria_list.add(crit1.getText());
+			weights_list.add(wgh1.getText());
             for (int i = 0; i < jpc.getComponentCount(); i++) {
                 MyJPanel mjp = (MyJPanel) jpc.getComponent(i);
                 System.out.println("The value of row "+(i+2)+" is "+mjp.getJTFValue());
+                String result=mjp.getJTFValue();
+                String[] C_R=result.split(" ");
+
+                criteria_list.add(C_R[0]);
+                weights_list.add(C_R[1]);
+                
+                
+                
             }
+            /*
+            for (String x:criteria_list)
+            {
+            	if (x!=null)
+            		System.out.println(x);
+            }
+            for (String x:weights_list)
+            {
+            	if (x!=null)
+            		System.out.println(x);
+            }*/
 		}
 		else if(jb==DeleteCriteriaButton)
 		{
