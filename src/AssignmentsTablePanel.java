@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import Model.Dummy;
+import Model.StudentPool;
 
 public class AssignmentsTablePanel extends JPanel {
 	private Object[] headerLabels;
@@ -163,7 +165,14 @@ class BtnStudentHeader extends JButton {
 	BtnStudentHeader(Object student) {
 //		super((String) label);
 		super(student.toString());
-		addActionListener(new AL_StudentHeader(this));
+		addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StudentPool s = (StudentPool)(((Dummy) student).getRealObject());
+				s.viewAllStudent();
+				Popup_StudentInfo p = new Popup_StudentInfo (s.getDisplayOption());
+			}
+		});
 	}
 }
 
@@ -175,7 +184,7 @@ class AL_StudentHeader implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Popup_StudentInfo popup_studentInfo = new Popup_StudentInfo();
+		//Popup_StudentInfo popup_studentInfo = new Popup_StudentInfo();
 	}
 }
 
