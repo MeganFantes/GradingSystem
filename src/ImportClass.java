@@ -18,6 +18,7 @@ import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 import Model.ParentNode;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -48,6 +49,9 @@ public class ImportClass extends JFrame {
 	private ArrayList<String> weights_list;
 	private ParentNode root;
 	private static String path;
+	private ArrayList<String> critlist;
+	private ArrayList<Float> weightlist;
+	private int numcols=0;
 	/**
 	 * Launch the application.
 
@@ -64,6 +68,9 @@ public class ImportClass extends JFrame {
      }
 	
 	public ImportClass(JFrame parent,ParentNode root,String path) {
+		critlist=new ArrayList<String>();
+		weightlist=new ArrayList<Float>();
+		
 		this.path=path;
 		this.root=root;
         try {
@@ -75,6 +82,15 @@ public class ImportClass extends JFrame {
             e.printStackTrace();
         }
 		ArrayList<ParentNode> children=root.getAllChildren();
+		for (int i=0; i<children.size();i++)
+		{
+			critlist.add(children.get(i).getCriteria());
+			weightlist.add(children.get(i).getWeight());
+		}
+
+		
+		
+		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 473, 450);
@@ -156,13 +172,23 @@ public class ImportClass extends JFrame {
 			}
 		});
 		
-		
+		numcols=children.size();
+		if (numcols>0)
+		{
+			crit1.setText(critlist.get(0));
+			wgh1.setText(weightlist.get(0).toString());
+		}
+		for (int i=1;i<numcols;i++)
+		{
+			loadingtable(parent,critlist.get(i),weightlist.get(i).toString());
+		}
 		setLocationRelativeTo(parent);
 
 
 	}
 	public void AddCriteriaButtonActionPerformed(ActionEvent arg0, JFrame parent) {
 		// TODO Auto-generated method stub
+		int finishflag=1;
 		JButton jb=(JButton) arg0.getSource();
 		if (jb==AddCriteriaButton)
 		{
@@ -219,12 +245,23 @@ public class ImportClass extends JFrame {
                 System.out.println("The value of row "+(i+2)+" is "+mjp.getJTFValue());
                 String result=mjp.getJTFValue();
                 String[] C_R=result.split(" ");
-
-                criteria_list.add(C_R[0]);
-                weights_list.add(C_R[1]);
-                
-                
-              
+                if (C_R.length<2)
+                {
+                	finishflag=0;
+                	System.out.println("fail!");
+                	break;
+                }
+                else if(C_R[0].equals(""))
+                {
+                	finishflag=0;
+                	System.out.println("fail");
+                	break;
+                }
+                else {
+	                criteria_list.add(C_R[0]);
+	                weights_list.add(C_R[1]);
+                }
+  
             }
             /*
             for (String x:criteria_list)
@@ -237,13 +274,28 @@ public class ImportClass extends JFrame {
             	if (x!=null)
             		System.out.println(x);
             }*/
-            root.updateCurrNode(Semester_Name, criteria_list, weights_list);
-            root.traverse(0);
-            ArrayList<String> errors = root.treeValidation(null,  true);
-            if (errors.size()>0)
+            if(crit1.getText().equals("")||wgh1.getText().equals("")||textField.getText().equals("")||textField_1.getText().equals(""))
             {
-            
+            	finishflag=0;
+            	System.out.println("fail");
             }
+            System.out.println("flag=: "+finishflag);
+            if (finishflag!=0)
+            {
+                ArrayList<String> errors = root.treeValidation(null,  true);
+                root.updateCurrNode(Semester_Name, criteria_list, weights_list);
+                root.traverse(0);
+                if (errors.size()>0)
+                {
+                	JOptionPane.showMessageDialog(parent,"All weighs should add up to 100","Weight Error",JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            else
+            {
+            	JOptionPane.showMessageDialog(parent,"Please fill in all blanks","Empty blanks",JOptionPane.INFORMATION_MESSAGE);
+            }
+
+
 		}
 		else if(jb==DeleteCriteriaButton)
 		{
@@ -270,4 +322,33 @@ public class ImportClass extends JFrame {
 		}
 
 	}
+	public void loadingtable(JFrame parent,String string1,String string2)
+	{
+		countnum+=1;
+		MyJPanel newcrit=new MyJPanel(index);
+
+		//MyJPanel newwgh=new MyJPanel(index+1);
+		index+=1;
+		//newwgh.setBounds(187, 143+50*countnum, 50, 24);
+		jpc.setBounds(0, 192, 400, 1+50*countnum);
+		jpc.setLayout(null);
+		jpc.add(newcrit);
+		/*JTextField newcrit=new JTextField();
+		JTextField newwgh=new JTextField();*/
+		newcrit.setBounds(14, -50+50*countnum, 450, 50);	
+		newcrit.setJTFValue(string1, string2);
+		contentPane.remove(AddCriteriaButton);
+		contentPane.remove(DeleteCriteriaButton);
+		contentPane.remove(FinishButton);
+		AddCriteriaButton.setBounds(14, 193+countnum*50, 189, 27);
+		DeleteCriteriaButton.setBounds(211, 193+countnum*50, 189, 27);
+		FinishButton.setBounds(38, 232+countnum*50, 113, 27);
+		contentPane.add(AddCriteriaButton);
+		contentPane.add(DeleteCriteriaButton);
+		contentPane.add(FinishButton);
+		SwingUtilities.updateComponentTreeUI(this);
+		contentPane.repaint();
+		
+	}
 }
+

@@ -96,4 +96,5 @@ public class CreateClass extends JFrame {
 		this.dispose();
 
 	}
+
 }
