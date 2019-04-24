@@ -1,3 +1,5 @@
+import Model.Statistics;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -65,7 +67,7 @@ public class AssignmentsTablePanel extends JPanel {
 				for (int col = 0; col < rows[row].length; col++) {
 					// Set the label of the grading options row (it is not a clickable button)
 					if (col == 0) {
-						JLabel cellLabel = new JLabel((String) rows[row][col].toString());
+						JLabel cellLabel = new JLabel((String) rows[row][col]);
 //						cellLabel.setSize(width,height);
 						cellLabel.setPreferredSize(buttonSize);
 //						cellLabel.setMinimumSize(buttonSize);
@@ -74,7 +76,7 @@ public class AssignmentsTablePanel extends JPanel {
 					}
 					// make the clickable buttons of the grading options row, so you can click on the button and change the grading option
 					else {
-						JButton cellButton = new BtnAssignmentGradingOption(rows[row][col].toString());
+						JButton cellButton = new BtnAssignmentGradingOption(rows[row][col]);
 //						cellButton.setSize(width,height);
 						cellButton.setPreferredSize(buttonSize);
 //						cellButton.setMinimumSize(buttonSize);
@@ -88,7 +90,7 @@ public class AssignmentsTablePanel extends JPanel {
 				for (int col = 0; col < rows[row].length; col++) {
 					// Set the label of the total points row (it is not a clickable button)
 					if (col == 0) {
-						JLabel cellLabel = new JLabel((String) rows[row][col].toString());
+						JLabel cellLabel = new JLabel((String) rows[row][col]);
 //						cellLabel.setSize(width,height);
 						cellLabel.setPreferredSize(buttonSize);
 //						cellLabel.setMinimumSize(buttonSize);
@@ -97,7 +99,7 @@ public class AssignmentsTablePanel extends JPanel {
 					}
 					// make the clickable buttons of the total points row, so you can click on the button and change the grading option
 					else {
-						JButton cellButton = new BtnTotalPoints(rows[row][col].toString());
+						JButton cellButton = new BtnTotalPoints(rows[row][col]);
 //						cellButton.setSize(width,height);
 						cellButton.setPreferredSize(buttonSize);
 //						cellButton.setMinimumSize(buttonSize);
@@ -111,7 +113,7 @@ public class AssignmentsTablePanel extends JPanel {
 				for (int col = 0; col < rows[row].length; col++) {
 					// Set the label of the average row (it is not a clickable button)
 					if (col == 0) {
-						JLabel cellLabel = new JLabel((String) rows[row][col].toString());
+						JLabel cellLabel = new JLabel((String) rows[row][col]);
 //						cellLabel.setSize(width,height);
 						cellLabel.setPreferredSize(buttonSize);
 //						cellLabel.setMinimumSize(buttonSize);
@@ -120,7 +122,7 @@ public class AssignmentsTablePanel extends JPanel {
 					}
 					// make the clickable buttons of the average row, so you can click on the button and see the summary statistics for the assignment
 					else {
-						JButton cellButton = new BtnAssignmentAverage(rows[row][col].toString());
+						JButton cellButton = new BtnAssignmentAverage(rows[row][col]);
 //						cellButton.setSize(width,height);
 						cellButton.setPreferredSize(buttonSize);
 //						cellButton.setMinimumSize(buttonSize);
@@ -135,11 +137,11 @@ public class AssignmentsTablePanel extends JPanel {
 					// Set the clickable student information button
 					JButton cellButton;
 					if (col == 0) {
-						cellButton = new BtnStudent(rows[row][col].toString());
+						cellButton = new BtnStudent(rows[row][col]);
 					}
 					// make the clickable assignment grade button, so you can click on a grade and edit the grade or add a note
 					else {
-						cellButton = new BtnAssignmentGrade(rows[row][col].toString());
+						cellButton = new BtnAssignmentGrade(rows[row][col]);
 					}
 //					cellButton.setSize(width,height);
 					cellButton.setPreferredSize(buttonSize);
@@ -243,21 +245,28 @@ class BtnAssignmentAverage extends JButton {
 	BtnAssignmentAverage(Object label) {
 //		super((String) label);
 		super(label.toString());
-		addActionListener(new AL_AssignmentAverage(this));
+		//addActionListener(new AL_AssignmentAverage(this));
+		addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Statistics stat = (Statistics) label;
+				Popup_Average p = new Popup_Average(stat);
+			}
+		});
 	}
 }
 
-class AL_AssignmentAverage implements ActionListener {
-	JButton callingButton;
-	public AL_AssignmentAverage(JButton btn) {
-		super();
-		this.callingButton = btn;
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Popup_Average p = new Popup_Average();
-	}
-}
+//class AL_AssignmentAverage implements ActionListener {
+//	JButton callingButton;
+//	public AL_AssignmentAverage(JButton btn) {
+//		super();
+//		this.callingButton = btn;
+//	}
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		Popup_Average p = new Popup_Average();
+//	}
+//}
 
 class BtnStudent extends JButton {
 	BtnStudent(Object label) {

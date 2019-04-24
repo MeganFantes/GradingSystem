@@ -1,9 +1,12 @@
+import Model.Statistics;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.HashMap;
 
 class Popup_StudentInfo {
     private JFrame f;
@@ -120,19 +123,20 @@ class Popup_Average {
     static JLabel L6;
     static JLabel L7;
     static JLabel L8;
-    public Popup_Average() {
+    public Popup_Average(Statistics statistics) {
+        HashMap<String, Float> statMap = statistics.computeStatistics();
         f = new JFrame("Average Statistics");
         L1 = new JLabel("Average");
         L2 = new JLabel("Minimum");
         L3 = new JLabel("Maximum");
         L4 = new JLabel("Standard Deviation");
         b = new JButton("Done");
-        AL_AssignmentAverage te = new AL_AssignmentAverage(b);
-        b.addActionListener(te);
-        L5 = new JLabel("");
-        L6 = new JLabel("");
-        L7 = new JLabel("");
-        L8 = new JLabel("");
+        //AL_AssignmentAverage te = new AL_AssignmentAverage(b);
+        //b.addActionListener(te);
+        L5 = new JLabel(String.valueOf(statMap.get("avg")));
+        L6 = new JLabel(String.valueOf(statMap.get("min")));
+        L7 = new JLabel(String.valueOf(statMap.get("max")));
+        L8 = new JLabel(String.valueOf(statMap.get("stddev")));
         JPanel p = new JPanel(new GridLayout(8,1));
         b.setPreferredSize(new Dimension(25, 25));
         p.add(L1);
@@ -156,9 +160,9 @@ class Popup_Average {
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
     }
-    public static void main(String args[]) {
-        Popup_Average p = new Popup_Average();
-    }
+//    public static void main(String args[]) {
+//        Popup_Average p = new Popup_Average();
+//    }
 }
 
 class Popup_GradingOption {
