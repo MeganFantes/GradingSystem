@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
 
@@ -20,8 +22,10 @@ import javax.swing.JTextField;
 public class LoadingPage extends JFrame {
 
 	private JFrame f=new JFrame();
-	
+	private JList list_1;
+	private JList list;
 	private JPanel contentPane;
+	private boolean isChanging=false;
 
 	/**
 	 * Launch the application.
@@ -57,9 +61,19 @@ public class LoadingPage extends JFrame {
 		
 
 		
-		JList list_1 = new JList();
+		list_1 = new JList();
 		list_1.setListData(new String[]{"CS591 Spring 2018","CS591 Autumn 2018","CS591 Autumn 2017","CS591 Autumn 2016"});
 		list_1.setBounds(81, 170, 372, 80);
+		list_1.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+            	if (!isChanging)
+            	{
+            		isChanging =true;
+            		Click_list1(e);
+            		isChanging= false;
+            	}
+            }
+        });
 		contentPane.add(list_1);
 		
 		JScrollPane scrollPane_1 = new JScrollPane(list_1);
@@ -76,10 +90,19 @@ public class LoadingPage extends JFrame {
         });	
 		contentPane.add(LoadButton);
 		
-		JList list = new JList();
+		list = new JList();
 		list.setBounds(81, 36, 372, 89);
 		list.setListData(new String[]{"CS591 Spring 2019","CS591 Autumn 2019"});
-
+		list.addListSelectionListener(new ListSelectionListener() {
+		      public void valueChanged(ListSelectionEvent e) {
+	            	if (!isChanging)
+	            	{
+	            		isChanging =true;
+	            		Click_list(e);
+	            		isChanging= false;
+	            	}
+		         }
+		      });
 		contentPane.add(list);
 		
 		JScrollPane scrollPane = new JScrollPane(list);
@@ -98,7 +121,12 @@ public class LoadingPage extends JFrame {
 			this.dispose();
 
 		}
-	
+		public void Click_list(ListSelectionEvent e) {
+			list_1.clearSelection();
+		}
+		public void Click_list1(ListSelectionEvent e) {
+			list.clearSelection();
+		}
 
 
 }

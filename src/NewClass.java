@@ -103,7 +103,7 @@ public class NewClass extends JFrame {
 		lblCriteria.setBounds(59, 107, 72, 18);
 		contentPane.add(lblCriteria);
 		
-		lblWeigh = new JLabel("Weigh");
+		lblWeigh = new JLabel("Weights");
 		lblWeigh.setBounds(237, 107, 72, 18);
 		contentPane.add(lblWeigh);
 		
