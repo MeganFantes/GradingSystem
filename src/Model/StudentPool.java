@@ -148,7 +148,10 @@ public class StudentPool implements Serializable{
                     ret.add("NAME");
                     nameAdded = true;
                 }
-            } else {
+            } else if (entry.getKey().equals("CLASS YEAR")) {
+                continue;
+            }
+            else {
                 ret.add(entry.getKey());
             }
         }

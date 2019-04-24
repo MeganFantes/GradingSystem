@@ -13,7 +13,7 @@ public class Dummy {
 
     @Override
     public String toString(){
-        if (display==null){
+        if (display==null && realObject!=null){
             return realObject.toString();
         }
         return display;
