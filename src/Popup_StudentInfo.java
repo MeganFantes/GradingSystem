@@ -1,3 +1,6 @@
+import Model.Leaf;
+import Model.NoteInterface;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -309,4 +312,68 @@ class Popup_Total {
     public static void main(String args[]) {
         Popup_Total p = new Popup_Total();
     }
+}
+
+class Popup_AssignmentHeader {
+    private JFrame f;
+
+    public Popup_AssignmentHeader(Object assignment) {
+        f = new JFrame("Edit " + assignment);
+
+
+    }
+
+    public static void main(String[] args) {
+    	Popup_AssignmentHeader popup_assignmentHeader = new Popup_AssignmentHeader(new Object());
+    }
+}
+
+class Popup_AssignmentGrade {
+	private JFrame f;
+	private JPanel p;
+	private JLabel labelGrade;
+	private JLabel labelNote;
+	private JButton btnDone;
+	private JTextField textfieldGrade;
+	private JTextArea textareaNote;
+
+	public Popup_AssignmentGrade(Object assignmentGrade, JButton callingButton) {
+		f = new JFrame("Edit Assignment Grade and Add Note");
+		p = new JPanel(new GridLayout(3, 2));
+
+		labelGrade = new JLabel("Grade:");
+		labelNote = new JLabel("Note:");
+		btnDone = new JButton("Done");
+		textfieldGrade = new JTextField(String.valueOf(((Leaf) assignmentGrade).getValue()));
+		textareaNote = new JTextArea(((NoteInterface) assignmentGrade).getContent());
+
+		btnDone.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO: add listener too get grade, like we get note below
+				((NoteInterface) assignmentGrade).writeNote(textareaNote.getText());
+				if (((NoteInterface) assignmentGrade).hasNote()) callingButton.setBackground(Color.RED);
+				f.dispose();
+			}
+		});
+
+		p.add(labelGrade);
+		p.add(textfieldGrade);
+		p.add(labelNote);
+		p.add(textareaNote);
+		p.add(btnDone);
+
+		f.add(p);
+		f.setSize(300, 300);
+		f.setLayout(new BorderLayout());
+		f.getContentPane().add(p, BorderLayout.NORTH);
+		f.setVisible(true);
+		// make the JFrame appear in the middle of the screen
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
+	}
+
+//	public static void main(String[] args) {
+//		Popup_AssignmentGrade popup_assignmentGrade = new Popup_AssignmentGrade(new Object());
+//	}
 }
