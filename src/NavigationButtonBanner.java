@@ -28,7 +28,7 @@ public class NavigationButtonBanner extends JPanel {
 		btnAddColumn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				Popup_AddColumn p = new Popup_AddColumn();
 			}
 		});
 

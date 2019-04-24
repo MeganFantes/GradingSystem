@@ -15,6 +15,8 @@ public class AssignmentsTablePanel extends JPanel {
 	private final Dimension headerPanelSize;
 	private final Dimension rowPanelSize;
 
+	private JTextField tf;
+
 	public AssignmentsTablePanel(Object[] headerLabels, Object[][] rows, JFrame callingFrame) {
 		this.headerLabels = headerLabels;
 		this.rows = rows;
@@ -164,14 +166,27 @@ class BtnStudentHeader extends JButton {
 }
 
 class AL_StudentHeader implements ActionListener {
-	JButton callingButton;
+	static JButton callingButton;
+	static JRadioButton jRadioButton1;
+	static JRadioButton jRadioButton2;
+	static JRadioButton jRadioButton3;
+	static JRadioButton jRadioButton4;
+	static JButton jButton;
+	static ButtonGroup G1;
+	static JLabel L1;
+	static JFrame f;
 	public AL_StudentHeader(JButton btn) {
 		super();
 		this.callingButton = btn;
 	}
+
+	public AL_StudentHeader() {
+		super();
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog(callingButton, "You clicked on the Student button, you will be able to choose how you display student information here");
+		Popup_StudentInfo popup_studentInfo = new Popup_StudentInfo();
 	}
 }
 
@@ -210,7 +225,7 @@ class AL_GradingOptions implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog(callingButton, "You are now editing the grading options for an assignment");
+		Popup_GradingOption p = new Popup_GradingOption();
 	}
 }
 
@@ -229,7 +244,8 @@ class AL_TotalPoints implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog(callingButton, "You are now editing the total points for an assignment");
+		//JOptionPane.showMessageDialog(callingButton, "You are now editing the total points for an assignment");
+		Popup_Total p = new Popup_Total();
 	}
 }
 
@@ -248,7 +264,7 @@ class AL_AssignmentAverage implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog(callingButton, "You are now seeing the summary statistics for the assignment");
+		Popup_Average p = new Popup_Average();
 	}
 }
 
@@ -267,7 +283,8 @@ class AL_Student implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog(callingButton, "You clicked on a student, you will be able to see this student's information here");
+		//JOptionPane.showMessageDialog(callingButton, "You clicked on a student, you will be able to see this student's information here");
+		Popup_Student p = new Popup_Student();
 	}
 }
 

@@ -155,7 +155,8 @@ class AL_CategoryAverage implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog(callingButton, "You are now seeing the summary statistics of a category");
+		//JOptionPane.showMessageDialog(callingButton, "You are now seeing the summary statistics of a category");
+		Popup_Average p = new Popup_Average();
 	}
 }
 
