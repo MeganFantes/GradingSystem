@@ -125,7 +125,7 @@ public class ParentNode extends TreeNode {
         } else if(children.size()>0 && !children.get(0).getChild(0).isLeaf()){
             numColumn = children.size()+2;
             fieldRow = new Object[numColumn];
-            fieldRow[numColumn-1] = "Final Percentage";
+            fieldRow[numColumn-1] = new Dummy("Final Percentage", null);
         } else {
             // call this function @ wrong parentNode
             assert(false);
@@ -134,9 +134,9 @@ public class ParentNode extends TreeNode {
         assert(fieldRow != null);
 
         if (studentPool==null)
-            fieldRow[0] = new String("Import student");
+            fieldRow[0] = new Dummy("Import student", null);
         else
-            fieldRow[0] = new String("Student");
+            fieldRow[0] = new Dummy("Student", studentPool);
         int currIdx = 1;
         for (TreeNode child : children){
             fieldRow[currIdx++] = child;
@@ -156,15 +156,19 @@ public class ParentNode extends TreeNode {
         Object[][] retTable = new Object[numRow][numCol];
 
         // 1st row : grading option (i.e. input type)
-        retTable[0][0] = new String("Grading Option");
+        retTable[0][0] = new Dummy("Grading Option", null);
         for (int i=1; i<numCol; i++){
-            retTable[0][i] = ((LeafNode)children.get(i-1).getChild(0)).getInputType();
+            LeafNode curr = ((LeafNode)children.get(i-1).getChild(0));
+            Dummy tmp = new Dummy(null, curr);
+            retTable[0][i] = tmp;
         }
 
         // 2nd row : total score
         retTable[1][0] = new String("Total Score");
         for (int i=1; i<numCol; i++){
-            retTable[1][i] = ((LeafNode)children.get(i-1).getChild(0)).getTotalScore();
+            LeafNode curr = ((LeafNode)children.get(i-1).getChild(0));
+            Dummy tmp = new Dummy(null, curr);
+            retTable[1][i] = tmp;
         }
 
         // 3rd row : statistic button
