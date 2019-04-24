@@ -278,6 +278,18 @@ public class ParentNode extends TreeNode {
     public void removeChild(int childIdx){
         children.remove(childIdx);
     }
+    public void updateCurrNode(String classname, ArrayList<String> criteria_name, ArrayList<String> criteria_weight){
+        this.criteria = classname;
+        this.children.clear();
+        assert(criteria_name.size()==criteria_weight.size());
+        for (int i=0; i<criteria_name.size(); i++){
+            ParentNode tmp = new ParentNode();
+            tmp.setCriteria(criteria_name.get(i));
+            float currweight = Float.parseFloat(criteria_weight.get(i).trim());
+            tmp.setWeight(currweight);
+            children.add(tmp);
+        }
+    }
     // ========================================
 
     @Override
