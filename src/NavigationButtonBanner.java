@@ -1,8 +1,12 @@
+import Model.ParentNode;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 
 public class NavigationButtonBanner extends JPanel {
 	// buttons on the panel
@@ -10,15 +14,14 @@ public class NavigationButtonBanner extends JPanel {
 	private static JButton btnCalcFinalGrade;
 	private static JButton btnAddColumn;
 	public NavigationButtonBanner(JFrame callingFrame) {
-		// TODO: add button functionality
 
 		btnClassHome = new javax.swing.JButton();
 		btnAddColumn = new javax.swing.JButton();
 		btnCalcFinalGrade = new javax.swing.JButton();
 
 		btnClassHome.setText("Class Home");
-		btnClassHome.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+		btnClassHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
 				ClassHome classHome = new ClassHome();
 				callingFrame.dispose();
 			}
@@ -33,33 +36,36 @@ public class NavigationButtonBanner extends JPanel {
 		});
 
 		btnCalcFinalGrade.setText("Calculate Final Grade");
-		btnCalcFinalGrade.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-
+		btnCalcFinalGrade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				GradingSystem.controller.computeFinalScore();
+				ClassHome classHome = new ClassHome();
+				callingFrame.dispose();
 			}
 		});
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+		// set navigation button panel layout
+		GroupLayout layout = new GroupLayout(this);
 		this.setLayout(layout);
 		layout.setHorizontalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addGroup(layout.createSequentialGroup()
 								          .addGap(5)
 								          .addComponent(btnClassHome)
-								          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 385, Short.MAX_VALUE)
+								          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 385, Short.MAX_VALUE)
 								          .addComponent(btnCalcFinalGrade)
 								          .addGap(5)
 								          .addComponent(btnAddColumn)
 								          .addGap(5))
 		);
 		layout.setVerticalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addGroup(layout.createSequentialGroup()
 								          .addGap(5)
-								          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-										                    .addComponent(btnClassHome, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-										                    .addComponent(btnCalcFinalGrade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										                    .addComponent(btnAddColumn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								          .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+										                    .addComponent(btnClassHome, GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+										                    .addComponent(btnCalcFinalGrade, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										                    .addComponent(btnAddColumn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 								          .addGap(5))
 		);
 	}
