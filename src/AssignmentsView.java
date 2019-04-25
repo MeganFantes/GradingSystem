@@ -67,7 +67,7 @@ public class AssignmentsView {
 		frame.getContentPane().add(new NavigationButtonBanner(frame), BorderLayout.NORTH);
 
 		// add table
-		JPanel tablePanel = new AssignmentsTablePanel(category);
+		JPanel tablePanel = new AssignmentsTablePanel(category, frame);
 		frame.getContentPane().add(tablePanel);
 
 		// make the JFrame visible

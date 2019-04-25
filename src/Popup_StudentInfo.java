@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 
 class Popup_StudentInfo {
@@ -18,8 +19,16 @@ class Popup_StudentInfo {
     //private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
+    private Object category;
 
-    public Popup_StudentInfo(ArrayList<String> s) {
+    public Popup_StudentInfo(ArrayList<String> s, JFrame callingFrame, Object category){
+        this(s, callingFrame);
+//        AssignmentsView assignmentsView = new AssignmentsView(category);
+        this.category = category;
+    }
+
+
+    public Popup_StudentInfo(ArrayList<String> s, JFrame callingFrame) {
         f = new JFrame("Student Information");
         buttonGroupStudent = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
@@ -28,6 +37,7 @@ class Popup_StudentInfo {
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
+        this.category = null;
 
 
         jLabel1.setText("View student information");
@@ -36,12 +46,6 @@ class Popup_StudentInfo {
         jRadioButton1.setText(s.get(0));
 
 
-        jRadioButton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
 
 //        buttonGroupStudent.add(jRadioButton2);
 //        jRadioButton2.setText("Last name");
@@ -53,6 +57,33 @@ class Popup_StudentInfo {
         jRadioButton4.setText(s.get(2));
 
         jButton1.setText("Done");
+        jButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<String> s = new ArrayList<String>();
+                for (Enumeration<AbstractButton> buttons = buttonGroupStudent.getElements(); buttons.hasMoreElements();) {
+                    AbstractButton button = buttons.nextElement();
+
+                    if (button.isSelected()) {
+                        s.add(button.getText());
+                        break;
+                    }
+                }
+                //String t = b.getText();
+
+                //s.add(t);
+                GradingSystem.controller.getStudentPool().setStudentDisplayInfo(s);
+                if (GradingSystem.controller.getCurrentState() == GradingSystem.controller.getRoot()){
+                    ClassHome classHome = new ClassHome();
+                }
+                else {
+                    AssignmentsView assignmentsView = new AssignmentsView(category);
+                }
+                f.dispose();
+                callingFrame.dispose();
+
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(f.getContentPane());
         f.getContentPane().setLayout(layout);

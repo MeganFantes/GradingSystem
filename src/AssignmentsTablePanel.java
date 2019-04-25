@@ -12,22 +12,24 @@ public class AssignmentsTablePanel extends JPanel {
 	private Object[] headerLabels;
 	private Object[][] rows;
 	private JPanel headerPanel;
-//	private JFrame callingFrame;
+	private JFrame callingFrame;
 	private final Dimension buttonSize = new Dimension(100, 25);
 	private final int panelWidth;
 //	private final int panelWidth = 400;
 //	private final Dimension panelSize;
 	private final Dimension headerPanelSize;
 	private final Dimension rowPanelSize;
+	private Object category;
     private JTextField tf;
-	public AssignmentsTablePanel(Object category) {
+	public AssignmentsTablePanel(Object category, JFrame callingFrame) {
 		this.headerLabels = GradingSystem.controller.getAssignmentViewHeader(category);
 		this.rows = GradingSystem.controller.getAssignmentViewRows(category);
 		this.panelWidth = headerLabels.length*buttonSize.width;
 //		this.panelSize = new Dimension(panelWidth,(rows.length+1)*buttonSize.height);
 		this.headerPanelSize = new Dimension(panelWidth, buttonSize.height + 5);
 		this.rowPanelSize = new Dimension(panelWidth, buttonSize.height);
-//		this.callingFrame = callingFrame;
+		this.callingFrame = callingFrame;
+		this.category = category;
 //		setPreferredSize(panelSize);
 		setLayout(new GridLayout(rows.length + 1, 1));
 		addHeader();
@@ -43,7 +45,7 @@ public class AssignmentsTablePanel extends JPanel {
 			JButton button;
 			// add functionality of the STUDENT header button
 			if (i == 0) {
-				button = new BtnStudentHeader(headerLabels[i]);
+				button = new BtnStudentHeader(headerLabels[i], callingFrame, category);
 			}
 			// add functionality of the rest of the header buttons (the assignment title buttons)
 			else {
@@ -69,7 +71,7 @@ public class AssignmentsTablePanel extends JPanel {
 				for (int col = 0; col < rows[row].length; col++) {
 					// Set the label of the grading options row (it is not a clickable button)
 					if (col == 0) {
-						JLabel cellLabel = new JLabel((String) rows[row][col]);
+						JLabel cellLabel = new JLabel(rows[row][col].toString());
 //						cellLabel.setSize(width,height);
 						cellLabel.setPreferredSize(buttonSize);
 //						cellLabel.setMinimumSize(buttonSize);
@@ -162,15 +164,26 @@ public class AssignmentsTablePanel extends JPanel {
 }
 
 class BtnStudentHeader extends JButton {
-	BtnStudentHeader(Object student) {
+	BtnStudentHeader(Object student, JFrame frame, Object category){
+		super(student.toString());
+		addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StudentPool s = (StudentPool)(((Dummy) student).getRealObject());
+				//s.viewAllStudent();
+				Popup_StudentInfo p = new Popup_StudentInfo (s.getDisplayOption(), frame, category);
+			}
+		});
+	}
+	BtnStudentHeader(Object student, JFrame frame) {
 //		super((String) label);
 		super(student.toString());
 		addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				StudentPool s = (StudentPool)(((Dummy) student).getRealObject());
-				s.viewAllStudent();
-				Popup_StudentInfo p = new Popup_StudentInfo (s.getDisplayOption());
+				//s.viewAllStudent();
+				Popup_StudentInfo p = new Popup_StudentInfo (s.getDisplayOption(), frame);
 			}
 		});
 	}

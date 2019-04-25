@@ -6,7 +6,7 @@ public class Dummy {
 
     public Dummy(String str, Object realObject){
         display = str;
-        realObject = realObject;
+        this.realObject = realObject;
     }
 
     public Object getRealObject(){return realObject;}

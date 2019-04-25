@@ -1,4 +1,5 @@
 import Model.ParentNode;
+import Model.StudentPool;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
@@ -7,10 +8,12 @@ import java.util.Arrays;
 public class Controller {
 	private static ParentNode root;
 	private Object studentNode;
+	private ParentNode currentState;
 
 	public Controller() {
 		root = setRoot();
 		studentNode = root.genFieldRowArray()[0];
+		currentState = root;
 	}
 
 	private ParentNode setRoot() {
@@ -49,6 +52,10 @@ public class Controller {
 		return getAssignmentChild(category).genScoreTableArray(root.getStudentPool().getPrimaryKeyAndSortBy("last name"));
 	}
 
+	public StudentPool getStudentPool() {
+		return root.getStudentPool();
+	}
+
 	public ParentNode getAssignmentChild(Object category) {
 		return (ParentNode) root.getChild(getCategoryIndex(category));
 	}
@@ -60,6 +67,18 @@ public class Controller {
 
 	public void computeFinalScore() {
 		root.computeFinalScore();
+	}
+
+	public ParentNode getCurrentState() {
+		return currentState;
+	}
+
+	public void setCurrentState(ParentNode newCurrentState){
+		currentState = newCurrentState;
+	}
+
+	public ParentNode getRoot(){
+		return root;
 	}
 
 	public static void main(String[] args) {

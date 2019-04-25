@@ -43,7 +43,7 @@ public class ClassHomeTablePanel extends JPanel {
 			JButton button;
 			// add functionality of the STUDENT header button
 			if (i == 0) {
-				button = new BtnStudentHeader(headerLabels[i]);
+				button = new BtnStudentHeader(headerLabels[i], callingFrame);
 				button.setPreferredSize(buttonSize);
 				headerPanel.add(button);
 			}
@@ -137,6 +137,7 @@ class BtnCategoryHeader extends JButton {
 			public void actionPerformed(ActionEvent e) {
 				//AssignmentsView assignmentsView = new AssignmentsView(category);
 				AssignmentsView assignmentsView = new AssignmentsView(category);
+				GradingSystem.controller.setCurrentState(GradingSystem.controller.getAssignmentChild(category));
 				callingFrame.dispose();
 			}
 		});
