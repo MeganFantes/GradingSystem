@@ -1,7 +1,33 @@
+# intellij specific git ignore:
 .idea
 *.iml
 *.class
 .DS_Store
-*.class
 ./out
-*.class
+
+# after looking at Yuansheng's Eclipse commit, these should be ignored:
+out/
+bin/
+
+## from: https://stackoverflow.com/questions/18726217/gitignore-file-for-java-eclipse-project
+# eclipse specific git ignore:
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch

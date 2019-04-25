@@ -49,7 +49,7 @@ public class ClassHomeTablePanel extends JPanel {
 			}
 			// make the FINAL SCORE header a label, not a button
 			else if (i == headerLabels.length - 1) {
-				JLabel label = new JLabel((String) headerLabels[i]);
+				JLabel label = new JLabel(headerLabels[i].toString());
 				label.setPreferredSize(buttonSize);
 				headerPanel.add(label);
 			}
