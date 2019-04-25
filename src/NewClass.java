@@ -11,8 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.border.EmptyBorder;
 
-import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
-
 import Model.ParentNode;
 
 import javax.swing.JLabel;
@@ -234,13 +232,13 @@ public class NewClass extends JFrame {
             System.out.println("flag=: "+finishflag);
             if (finishflag!=0)
             {
-                ArrayList<String> errors = root.treeValidation(null,  true);
-                if (errors.size()>0)
+				root.updateCurrNode(Semester_Name, criteria_list, weights_list);
+				root.traverse(0);
+				ArrayList<String> errors = root.treeValidation(null,  true);
+				if (errors.size()>0)
                 {
-                	JOptionPane.showMessageDialog(parent,"All weighs should add up to 100","Weight Error",JOptionPane.INFORMATION_MESSAGE);
-                }
-                root.updateCurrNode(Semester_Name, criteria_list, weights_list);
-                root.traverse(0);
+					JOptionPane.showMessageDialog(parent,"All weighs should add up to 100","Weight Error",JOptionPane.INFORMATION_MESSAGE);
+				}
             }
             else
             {
@@ -251,8 +249,8 @@ public class NewClass extends JFrame {
 		}
 		else if(jb==DeleteCriteriaButton)
 		{
-            if(jpc.getComponentCount()>0) { // 得到jpc里的MyJPanel的组件数量
-                jpc.remove(jpc.getComponentCount()-1);//删除末尾的一个组件 ,
+            if(jpc.getComponentCount()>0) {
+                jpc.remove(jpc.getComponentCount()-1);
                 index-=1;
                 countnum-=1;
         		jpc.setBounds(0, 192, 400, 1+50*countnum);
