@@ -404,10 +404,15 @@ class Popup_AssignmentGrade {
 	private JButton btnDone;
 	private JTextField textfieldGrade;
 	private JTextArea textareaNote;
+	private Object assignmentGrade;
+	private JButton callingButton;
 
 	public Popup_AssignmentGrade(Object assignmentGrade, JButton callingButton) {
 		f = new JFrame("Edit Assignment Grade and Add Note");
 		p = new JPanel(new GridLayout(3, 2));
+
+		this.assignmentGrade = assignmentGrade;
+		this.callingButton = callingButton;
 
 		labelGrade = new JLabel("Grade:");
 		labelNote = new JLabel("Note:");
@@ -415,12 +420,16 @@ class Popup_AssignmentGrade {
 		textfieldGrade = new JTextField(String.valueOf(((Leaf) assignmentGrade).getValue()));
 		textareaNote = new JTextArea(((NoteInterface) assignmentGrade).getContent());
 
+
 		btnDone.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO: add listener too get grade, like we get note below
-				((NoteInterface) assignmentGrade).writeNote(textareaNote.getText());
-				if (((NoteInterface) assignmentGrade).hasNote()) callingButton.setBackground(Color.RED);
+//				((NoteInterface) assignmentGrade).writeNote(textareaNote.getText());
+//				if (((NoteInterface) assignmentGrade).hasNote()) callingButton.setBackground(Color.RED);
+				checkForNote();
+				((Leaf) assignmentGrade).setScore(Float.parseFloat(textfieldGrade.getText()));
+				callingButton.setText(assignmentGrade.toString());
 				f.dispose();
 			}
 		});
@@ -439,6 +448,19 @@ class Popup_AssignmentGrade {
 		// make the JFrame appear in the middle of the screen
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
+	}
+
+	private void checkForNote() {
+		String note = textareaNote.getText();
+		((NoteInterface) assignmentGrade).writeNote(note);
+		if (note.equals("")) {
+			// This grade does NOT have a note
+			callingButton.setBackground(null);
+		}
+		else {
+			// this grade has a note
+			callingButton.setBackground(Color.CYAN);
+		}
 	}
 
 //	public static void main(String[] args) {

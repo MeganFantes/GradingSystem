@@ -325,13 +325,13 @@ class BtnAssignmentGrade extends JButton {
 	BtnAssignmentGrade(Object grade) {
 		super(grade.toString());
 		boolean hasNote = ((NoteInterface) grade).hasNote();
-		if (((NoteInterface) grade).hasNote()) setBackground(Color.RED);
+		if (((NoteInterface) grade).hasNote()) setBackground(Color.CYAN);
 		JButton callingButton = this;
 		addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Popup_AssignmentGrade popup_assignmentGrade = new Popup_AssignmentGrade(grade, callingButton);
-				if (((NoteInterface) grade).hasNote()) setBackground(Color.RED);
+//				if (((NoteInterface) grade).hasNote()) setBackground(Color.CYAN);
 			}
 		});
 
