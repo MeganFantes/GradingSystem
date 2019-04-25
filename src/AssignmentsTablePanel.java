@@ -230,21 +230,27 @@ class BtnAssignmentGradingOption extends JButton {
 	BtnAssignmentGradingOption(Object label) {
 //		super((String) label);
 		super(label.toString());
-		addActionListener(new AL_GradingOptions(this));
+		JButton callingBtn = this;
+		addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Popup_GradingOption p = new Popup_GradingOption(label, callingBtn);
+			}
+		});
 	}
 }
 
-class AL_GradingOptions implements ActionListener {
-	JButton callingButton;
-	public AL_GradingOptions(JButton btn) {
-		super();
-		this.callingButton = btn;
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Popup_GradingOption p = new Popup_GradingOption();
-	}
-}
+//class AL_GradingOptions implements ActionListener {
+//	JButton callingButton;
+//	public AL_GradingOptions(JButton btn) {
+//		super();
+//		this.callingButton = btn;
+//	}
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		Popup_GradingOption p = new Popup_GradingOption();
+//	}
+//}
 
 class BtnTotalPoints extends JButton {
 	BtnTotalPoints(Object label) {

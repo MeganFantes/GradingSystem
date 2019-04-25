@@ -1,7 +1,4 @@
-import Model.Leaf;
-import Model.NoteInterface;
-
-import Model.Statistics;
+import Model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +16,7 @@ class Popup_StudentInfo {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JRadioButton jRadioButton1;
-    //private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private Object category;
@@ -36,7 +33,7 @@ class Popup_StudentInfo {
         buttonGroupStudent = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
-        //jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
@@ -50,8 +47,8 @@ class Popup_StudentInfo {
 
 
 
-//        buttonGroupStudent.add(jRadioButton2);
-//        jRadioButton2.setText("Last name");
+        buttonGroupStudent.add(jRadioButton2);
+        jRadioButton2.setText(s.get(3));
 
         buttonGroupStudent.add(jRadioButton3);
         jRadioButton3.setText(s.get(1));
@@ -100,8 +97,8 @@ class Popup_StudentInfo {
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(24, 24, 24)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        //.addComponent(jRadioButton2)
                                                         .addComponent(jRadioButton1)
+                                                        .addComponent(jRadioButton2)
                                                         .addComponent(jRadioButton3)
                                                         .addComponent(jRadioButton4)
                                                         .addComponent(jButton1))))
@@ -115,7 +112,7 @@ class Popup_StudentInfo {
                                 .addGap(27, 27, 27)
                                 .addComponent(jRadioButton1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                //.addComponent(jRadioButton2)
+                                .addComponent(jRadioButton2)
                                 .addGap(18, 18, 18)
                                 .addComponent(jRadioButton3)
                                 .addGap(18, 18, 18)
@@ -212,10 +209,14 @@ class Popup_GradingOption {
     static ButtonGroup G1;
     static JFrame f;
     static JTextField t;
-    public Popup_GradingOption() {
+    Object label;
+    AbstractButton selectedBtn;
+    public Popup_GradingOption(Object label, JButton callingButton) {
+        this.label = label;
         jRadioButton1 = new JRadioButton();
         jRadioButton2 = new JRadioButton();
         jRadioButton3 = new JRadioButton();
+
         //L1 = new JLabel();
         jButton = new JButton("Done");
         G1 = new ButtonGroup();
@@ -228,6 +229,37 @@ class Popup_GradingOption {
         G1.add(jRadioButton3);
         // button won't resize
         jButton.setPreferredSize(new Dimension(10,10));
+        jButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LeafNode g = (LeafNode)(((Dummy) label).getRealObject());
+                for (Enumeration<AbstractButton> buttons = G1.getElements(); buttons.hasMoreElements();) {
+                    AbstractButton button = buttons.nextElement();
+                    if (button.isSelected()) {
+                        selectedBtn = button;
+                        if (button.getText().equals("Raw score")) {
+                            g.setInputType(CellInputType.RAW);
+                        }
+                        else if (button.getText().equals("Percentage")) {
+                            g.setInputType(CellInputType.PERCENTAGE);
+                        }
+                        else if (button.getText().equals("Point deduction")) {
+                            g.setInputType(CellInputType.DEDUCTION);
+                        }
+                        //s.add(button.getText());
+//                        g.setInputType(CellInputType.RAW);
+//                        break;
+
+                        //return an updated table
+                        //f.dispose();
+                    }
+                    f.dispose();
+                    callingButton.setText(selectedBtn.getText());
+                    //AssignmentsView assignmentsView = new AssignmentsView(g);
+                }
+//                     g.setInputType(CellInputType.RAW);
+            }
+        });
         JPanel p = new JPanel(new GridLayout(4,2));
         p.add(jRadioButton1);
         p.add(jRadioButton2);
@@ -242,9 +274,9 @@ class Popup_GradingOption {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
     }
-    public static void main(String args[]) {
-        Popup_GradingOption p = new Popup_GradingOption();
-    }
+//    public static void main(String args[]) {
+//        Popup_GradingOption p = new Popup_GradingOption();
+//    }
 }
 
 class Popup_AddColumn {
