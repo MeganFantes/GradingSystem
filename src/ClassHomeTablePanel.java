@@ -49,7 +49,7 @@ public class ClassHomeTablePanel extends JPanel {
 			}
 			// make the FINAL SCORE header a label, not a button
 			else if (i == headerLabels.length - 1) {
-				JLabel label = new JLabel((headerLabels[i].toString()));
+				JLabel label = new JLabel((String) headerLabels[i]);
 				label.setPreferredSize(buttonSize);
 				headerPanel.add(label);
 			}
@@ -135,7 +135,6 @@ class BtnCategoryHeader extends JButton {
 		addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//AssignmentsView assignmentsView = new AssignmentsView(category);
 				AssignmentsView assignmentsView = new AssignmentsView(category);
 				GradingSystem.controller.setCurrentState(GradingSystem.controller.getAssignmentChild(category));
 				callingFrame.dispose();
