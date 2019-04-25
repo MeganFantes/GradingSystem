@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 class Popup_StudentInfo {
@@ -19,7 +18,7 @@ class Popup_StudentInfo {
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
 
-    public Popup_StudentInfo(ArrayList<String> s) {
+    public Popup_StudentInfo() {
         f = new JFrame("Student Information");
         buttonGroupStudent = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
@@ -33,7 +32,7 @@ class Popup_StudentInfo {
         jLabel1.setText("View student information");
 
         buttonGroupStudent.add(jRadioButton1);
-        jRadioButton1.setText(s.get(0));
+        jRadioButton1.setText("Name");
 
 
         jRadioButton1.addActionListener(new ActionListener() {
@@ -47,10 +46,10 @@ class Popup_StudentInfo {
 //        jRadioButton2.setText("Last name");
 
         buttonGroupStudent.add(jRadioButton3);
-        jRadioButton3.setText(s.get(1));
+        jRadioButton3.setText("Email");
 
         buttonGroupStudent.add(jRadioButton4);
-        jRadioButton4.setText(s.get(2));
+        jRadioButton4.setText("Student ID");
 
         jButton1.setText("Done");
 
