@@ -159,7 +159,7 @@ public class ParentNode extends TreeNode {
         retTable[0][0] = new Dummy("Grading Option", null);
         for (int i=1; i<numCol; i++){
             LeafNode curr = ((LeafNode)children.get(i-1).getChild(0));
-            Dummy tmp = new Dummy(null, curr);
+            Dummy tmp = new Dummy(curr.getInputType().toString(), curr);
             retTable[0][i] = tmp;
         }
 
@@ -167,7 +167,7 @@ public class ParentNode extends TreeNode {
         retTable[1][0] = new String("Total Score");
         for (int i=1; i<numCol; i++){
             LeafNode curr = ((LeafNode)children.get(i-1).getChild(0));
-            Dummy tmp = new Dummy(null, curr);
+            Dummy tmp = new Dummy(curr.getTotalScore().toString(), curr);
             retTable[1][i] = tmp;
         }
 
