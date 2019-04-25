@@ -8,11 +8,13 @@ public class StudentPool implements Serializable{
     private String primaryKeyName;
     private HashMap<String, Student> allStudent; // key: BUID, val: Student obj
     private HashMap<String, HashSet<String>> fieldSet; // key: field name, val: all distinct content in that field
+    private String displayFieldName;
 
     public StudentPool(){
         primaryKeyName = "STUDENT ID";
         allStudent = new HashMap<>();
         fieldSet = new HashMap<>();
+        displayFieldName = "STUDENT ID"; // default display order
     }
 
     public StudentPool(String primaryKeyName){
@@ -20,6 +22,7 @@ public class StudentPool implements Serializable{
         this.primaryKeyName = primaryKeyName.toUpperCase();
         allStudent = new HashMap<>();
         fieldSet = new HashMap<>();
+        displayFieldName = "STUDENT ID"; // default display order
     }
 
 
@@ -105,13 +108,14 @@ public class StudentPool implements Serializable{
     }
 
     public ArrayList<String> getPrimaryKeyAndSortBy(String sortField){
-        final String desiredSortField = sortField.toUpperCase();
+        //final String desiredSortField = sortField.toUpperCase();
+        String desiredSortField = this.displayFieldName;
         ArrayList<String> ret = new ArrayList<>();
         for (String key : fieldSet.getOrDefault(primaryKeyName, null)){
             ret.add(key);
         }
 
-        final String defaultSortKey = new String("last name").toUpperCase();
+        final String defaultSortKey = new String("first name").toUpperCase();
         if (fieldSet.getOrDefault(desiredSortField, null)==null){
             System.out.println("desired sort attribute not exist, sort by " + defaultSortKey);
             Collections.sort(ret, (a,b)->{
@@ -161,7 +165,8 @@ public class StudentPool implements Serializable{
 
     // ============ setters ============
     public void setStudentDisplayInfo(ArrayList<String> fieldToShow){
-        assert (fieldToShow.size()==1);
+        assert (fieldToShow.size()==1); // only allow to show one field a time
+        displayFieldName = fieldToShow.get(0);
         for (HashMap.Entry<String, Student> entry : allStudent.entrySet()) {
             entry.getValue().setDisplayField(fieldToShow);
         }
