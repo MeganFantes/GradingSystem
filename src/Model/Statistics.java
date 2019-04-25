@@ -3,6 +3,7 @@ package Model;
 import Model.Leaf;
 import Model.LeafNode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,39 +12,73 @@ public class Statistics {
     // thus don't need to implement serializable
     private float totalScore;
     private HashMap<String, Float> allPercentageScore;
+    private LeafNode leafNode;
 
     public Statistics(LeafNode leafNode){
+        this.leafNode = leafNode;
+        allPercentageScore = null;
         totalScore = 100; // [%]
-        allPercentageScore = new HashMap<>();
-        for (Map.Entry<String, Leaf> entry : leafNode.getAllLeaf().entrySet()) {
-            Float trueScore = 0f;
-            Float currScore = entry.getValue().getValue();
-            switch (leafNode.getInputType()){
-                case PERCENTAGE:
-                    trueScore = currScore;
-                    break;
-                case DEDUCTION:
-                    trueScore = (leafNode.getTotalScore()-currScore) / leafNode.getTotalScore() * 100;
-                    break;
-                case RAW:
-                    trueScore = currScore / leafNode.getTotalScore() * 100;
-                    break;
-                default:
-                    assert(false);
-            }
-            allPercentageScore.put(entry.getKey(), trueScore);
-        }
     }
 
     public Statistics(HashMap<String, Float> aggregationScore){
         // scoreMap is from aggregation (where range in [0~100] %)
+        leafNode = null;
         allPercentageScore = aggregationScore;
         totalScore = 100;
     }
 
     public HashMap<String, Float> computeStatistics(){
-        // all statistics represented in percentage
+        if (leafNode != null){
+            // from LeafNode, socre might be updated
+            // so we need to recompute to percentage every time
 
+            // convert all score in LeafNode to percentage
+            ArrayList<Float> currLeafScores = new ArrayList<>();
+            for (Map.Entry<String, Leaf> entry : leafNode.getAllLeaf().entrySet()) {
+                Float trueScore = 0f;
+                Float currScore = entry.getValue().getValue();
+                switch (leafNode.getInputType()){
+                    case PERCENTAGE:
+                        trueScore = currScore;
+                        break;
+                    case DEDUCTION:
+                        trueScore = (leafNode.getTotalScore()-currScore) / leafNode.getTotalScore() * 100;
+                        break;
+                    case RAW:
+                        trueScore = currScore / leafNode.getTotalScore() * 100;
+                        break;
+                    default:
+                        assert(false);
+                }
+                currLeafScores.add(trueScore);
+            }
+
+            // all statistics represented in percentage
+            float sum = 0f, sqrsum = 0f;
+            float minScore = 101, maxScore = 0;
+
+            for (Float percent : currLeafScores) {
+                sum += percent;
+                sqrsum += percent*percent;
+                minScore = Math.min(minScore, percent);
+                maxScore = Math.max(maxScore, percent);
+            }
+
+            float avg = sum / currLeafScores.size();
+            float sqravg = sqrsum / currLeafScores.size();
+            float stddev = (float)Math.sqrt(sqravg - avg*avg);
+
+            HashMap<String, Float> retMap = new HashMap<>();
+            retMap.put("min", minScore);
+            retMap.put("max", maxScore);
+            retMap.put("avg", avg);
+            retMap.put("stddev", stddev);
+
+            return retMap;
+        }
+
+
+        // all statistics represented in percentage
         float sum = 0f, sqrsum = 0f;
         float minScore = 101, maxScore = 0;
 
