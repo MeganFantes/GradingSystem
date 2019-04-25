@@ -320,24 +320,30 @@ class Popup_Student {
     static JLabel L6;
     static JLabel L7;
     static JLabel L8;
+    //static JLabel L9;
+    //static JLabel L10;
     public Popup_Student(){
         f = new JFrame("Student Info");
         L1 = new JLabel("Name");
-        L2 = new JLabel("Email");
-        L3 = new JLabel("StudentID");
+        L2 = new JLabel("StudentID");
+        L3 = new JLabel("Email");
+        L4 = new JLabel("Class Year");
         b = new JButton("Done");
-        L4 = new JLabel("");
         L5 = new JLabel("");
         L6 = new JLabel("");
+        L7 = new JLabel("");
+        L8 = new JLabel("");
         //JPanel p = new JPanel(new GridLayout(4,2));
         b.setPreferredSize(new Dimension(10,25));
-        JPanel p = new JPanel(new GridLayout(6,2));
+        JPanel p = new JPanel(new GridLayout(8,2));
         p.add(L1);
-        p.add(L4);
-        p.add(L2);
         p.add(L5);
-        p.add(L3);
+        p.add(L2);
         p.add(L6);
+        p.add(L3);
+        p.add(L7);
+        p.add(L4);
+        p.add(L8);
         p.add(b);
         f.add(p);
         f.setSize(300, 300);
@@ -358,8 +364,9 @@ class Popup_Total {
     static JFrame f;
     static JLabel L1;
     static JTextField t1;
-    public Popup_Total(){
-        JButton callingButton;
+    //JButton callingButton;
+    public Popup_Total(Object label, JButton callingButton){
+        //JButton callingButton;
         jButton = new JButton("Done");
         f = new JFrame("Total points");
         L1 = new JLabel("Total points");
@@ -368,6 +375,16 @@ class Popup_Total {
         p.add(L1);
         p.add(t1);
         p.add(jButton);
+        jButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LeafNode total = (LeafNode)(((Dummy) label).getRealObject());
+                Float currentScore = Float.valueOf(t1.getText());
+                total.setTotalScore(currentScore);
+                callingButton.setText(total.getTotalScore().toString());
+                f.dispose();
+            }
+        });
         f.add(p);
         f.setSize(300, 300);
         f.setLayout(new BorderLayout());
@@ -377,9 +394,9 @@ class Popup_Total {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
     }
-    public static void main(String args[]) {
-        Popup_Total p = new Popup_Total();
-    }
+//    public static void main(String args[]) {
+//        Popup_Total p = new Popup_Total();
+//    }
 }
 
 class Popup_AssignmentHeader {

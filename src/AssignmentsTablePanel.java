@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import Model.Dummy;
 import Model.StudentPool;
+import Model.Student;
 
 public class AssignmentsTablePanel extends JPanel {
 	private Object[] headerLabels;
@@ -256,22 +257,28 @@ class BtnTotalPoints extends JButton {
 	BtnTotalPoints(Object label) {
 //		super((String) label);
 		super(label.toString());
-		addActionListener(new AL_TotalPoints(this));
+		JButton callingBtn = this;
+		addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Popup_Total p = new Popup_Total(label, callingBtn);
+			}
+		});
 	}
 }
 
-class AL_TotalPoints implements ActionListener {
-	JButton callingButton;
-	public AL_TotalPoints(JButton btn) {
-		super();
-		this.callingButton = btn;
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		//JOptionPane.showMessageDialog(callingButton, "You are now editing the total points for an assignment");
-		Popup_Total p = new Popup_Total();
-	}
-}
+//class AL_TotalPoints implements ActionListener {
+//	JButton callingButton;
+//	public AL_TotalPoints(JButton btn) {
+//		super();
+//		this.callingButton = btn;
+//	}
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		//JOptionPane.showMessageDialog(callingButton, "You are now editing the total points for an assignment");
+//		Popup_Total p = new Popup_Total();
+//	}
+//}
 
 class BtnAssignmentAverage extends JButton {
 	BtnAssignmentAverage(Object label) {
@@ -304,7 +311,12 @@ class BtnStudent extends JButton {
 	BtnStudent(Object label) {
 //		super((String) label);
 		super(label.toString());
-		addActionListener(new AL_Student(this));
+		addActionListener(new AL_Student(this) {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				Student currentStudent = (Student) label;
+//			}
+		});
 	}
 }
 
