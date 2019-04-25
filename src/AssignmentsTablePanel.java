@@ -1,5 +1,7 @@
 import Model.NoteInterface;
 
+import Model.Statistics;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -7,27 +9,31 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import Model.Dummy;
+import Model.StudentPool;
 
 public class AssignmentsTablePanel extends JPanel {
 	private Object[] headerLabels;
 	private Object[][] rows;
 	private JPanel headerPanel;
-//	private JFrame callingFrame;
+	private JFrame callingFrame;
 	private final Dimension buttonSize = new Dimension(100, 25);
 	private final int panelWidth;
 //	private final int panelWidth = 400;
 //	private final Dimension panelSize;
 	private final Dimension headerPanelSize;
 	private final Dimension rowPanelSize;
+	private Object category;
     private JTextField tf;
-	public AssignmentsTablePanel(Object category) {
+	public AssignmentsTablePanel(Object category, JFrame callingFrame) {
 		this.headerLabels = GradingSystem.controller.getAssignmentViewHeader(category);
 		this.rows = GradingSystem.controller.getAssignmentViewRows(category);
 		this.panelWidth = headerLabels.length*buttonSize.width;
 //		this.panelSize = new Dimension(panelWidth,(rows.length+1)*buttonSize.height);
 		this.headerPanelSize = new Dimension(panelWidth, buttonSize.height + 5);
 		this.rowPanelSize = new Dimension(panelWidth, buttonSize.height);
-//		this.callingFrame = callingFrame;
+		this.callingFrame = callingFrame;
+		this.category = category;
 //		setPreferredSize(panelSize);
 		setLayout(new GridLayout(rows.length + 1, 1));
 		addHeader();
@@ -43,7 +49,7 @@ public class AssignmentsTablePanel extends JPanel {
 			JButton button;
 			// add functionality of the STUDENT header button
 			if (i == 0) {
-				button = new BtnStudentHeader(headerLabels[i]);
+				button = new BtnStudentHeader(headerLabels[i], callingFrame, category);
 			}
 			// add functionality of the rest of the header buttons (the assignment title buttons)
 			else {
@@ -162,10 +168,28 @@ public class AssignmentsTablePanel extends JPanel {
 }
 
 class BtnStudentHeader extends JButton {
-	BtnStudentHeader(Object student) {
+	BtnStudentHeader(Object student, JFrame frame, Object category){
+		super(student.toString());
+		addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StudentPool s = (StudentPool)(((Dummy) student).getRealObject());
+				//s.viewAllStudent();
+				Popup_StudentInfo p = new Popup_StudentInfo (s.getDisplayOption(), frame, category);
+			}
+		});
+	}
+	BtnStudentHeader(Object student, JFrame frame) {
 //		super((String) label);
 		super(student.toString());
-		addActionListener(new AL_StudentHeader(this));
+		addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StudentPool s = (StudentPool)(((Dummy) student).getRealObject());
+				//s.viewAllStudent();
+				Popup_StudentInfo p = new Popup_StudentInfo (s.getDisplayOption(), frame);
+			}
+		});
 	}
 }
 
@@ -177,7 +201,7 @@ class AL_StudentHeader implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Popup_StudentInfo popup_studentInfo = new Popup_StudentInfo();
+		//Popup_StudentInfo popup_studentInfo = new Popup_StudentInfo();
 	}
 }
 
@@ -247,21 +271,28 @@ class BtnAssignmentAverage extends JButton {
 	BtnAssignmentAverage(Object label) {
 //		super((String) label);
 		super(label.toString());
-		addActionListener(new AL_AssignmentAverage(this));
+		//addActionListener(new AL_AssignmentAverage(this));
+		addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Statistics stat = (Statistics) label;
+				Popup_Average p = new Popup_Average(stat);
+			}
+		});
 	}
 }
 
-class AL_AssignmentAverage implements ActionListener {
-	JButton callingButton;
-	public AL_AssignmentAverage(JButton btn) {
-		super();
-		this.callingButton = btn;
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Popup_Average p = new Popup_Average();
-	}
-}
+//class AL_AssignmentAverage implements ActionListener {
+//	JButton callingButton;
+//	public AL_AssignmentAverage(JButton btn) {
+//		super();
+//		this.callingButton = btn;
+//	}
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		Popup_Average p = new Popup_Average();
+//	}
+//}
 
 class BtnStudent extends JButton {
 	BtnStudent(Object label) {

@@ -51,7 +51,7 @@ public class Student implements Serializable {
             if (attribute.toUpperCase().equals("NAME")){
                 ret += attributes.get("FIRST NAME") + " ," + attributes.get("LAST NAME");
             } else {
-                ret += attributes.get(attribute) + "__";
+                ret += attributes.get(attribute);
             }
         }
         return ret;

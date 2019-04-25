@@ -1,3 +1,5 @@
+import Model.Statistics;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -41,13 +43,13 @@ public class ClassHomeTablePanel extends JPanel {
 			JButton button;
 			// add functionality of the STUDENT header button
 			if (i == 0) {
-				button = new BtnStudentHeader(headerLabels[i]);
+				button = new BtnStudentHeader(headerLabels[i], callingFrame);
 				button.setPreferredSize(buttonSize);
 				headerPanel.add(button);
 			}
 			// make the FINAL SCORE header a label, not a button
 			else if (i == headerLabels.length - 1) {
-				JLabel label = new JLabel(headerLabels[i].toString());
+				JLabel label = new JLabel((String) headerLabels[i]);
 				label.setPreferredSize(buttonSize);
 				headerPanel.add(label);
 			}
@@ -83,7 +85,7 @@ public class ClassHomeTablePanel extends JPanel {
 				for (int col = 0; col < rows[row].length; col++) {
 					// Set the label of the average row (it is not a clickable button)
 					if (col == 0) {
-						JLabel cellLabel = new JLabel(rows[row][col].toString());
+						JLabel cellLabel = new JLabel((String) rows[row][col]);
 						cellLabel.setPreferredSize(buttonSize);
 //						cellLabel.setMinimumSize(buttonSize);
 //						cellLabel.setMaximumSize(buttonSize);
@@ -91,7 +93,7 @@ public class ClassHomeTablePanel extends JPanel {
 					}
 					// make the clickable buttons of the average row, so you can click on the button and see summary statistics
 					else {
-						JButton cellButton = new BtnCategoryAverage(rows[row][col].toString());
+						JButton cellButton = new BtnCategoryAverage(rows[row][col]);
 						cellButton.setPreferredSize(buttonSize);
 						cellButton.setMinimumSize(buttonSize);
 						cellButton.setMaximumSize(buttonSize);
@@ -105,11 +107,11 @@ public class ClassHomeTablePanel extends JPanel {
 					// Set the clickable student information button
 					JButton cellButton;
 					if (col == 0) {
-						cellButton = new BtnStudent(rows[row][col].toString());
+						cellButton = new BtnStudent(rows[row][col]);
 					}
 					// make the clickable assignment grade button, so you can click on a grade and edit the grade or add a note
 					else {
-						cellButton = new BtnCategoryGrade(rows[row][col].toString());
+						cellButton = new BtnCategoryGrade(rows[row][col]);
 					}
 					cellButton.setPreferredSize(buttonSize);
 					cellButton.setMinimumSize(buttonSize);
@@ -134,6 +136,7 @@ class BtnCategoryHeader extends JButton {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				AssignmentsView assignmentsView = new AssignmentsView(category);
+				GradingSystem.controller.setCurrentState(GradingSystem.controller.getAssignmentChild(category));
 				callingFrame.dispose();
 			}
 		});
@@ -175,7 +178,8 @@ class BtnCategoryAverage extends JButton {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//JOptionPane.showMessageDialog(getParent(), "You are now seeing the summary statistics of a category");
-                Popup_Average p = new Popup_Average();
+				Statistics stat = (Statistics) label;
+				Popup_Average p = new Popup_Average(stat);
 			}
 		});
 	}

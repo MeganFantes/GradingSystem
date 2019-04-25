@@ -23,6 +23,7 @@ public class NavigationButtonBanner extends JPanel {
 		btnClassHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				ClassHome classHome = new ClassHome();
+				GradingSystem.controller.setCurrentState(GradingSystem.controller.getRoot());
 				callingFrame.dispose();
 			}
 		});
