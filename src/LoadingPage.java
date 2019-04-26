@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import Model.ParentNode;
 import java.io.File;
+import java.nio.file.FileSystems;
 
 public class LoadingPage extends JFrame {
 
@@ -69,15 +70,29 @@ public void initial()
 		list_1.setListData(allFileInFolder(GradingSystem.pastCourseFolder));
 		list_1.setBounds(81, 170, 372, 80);
 		list_1.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-            	if (!isChanging)
-            	{
-            		isChanging =true;
-            		Click_list1(e);
-            		isChanging= false;
-            	}
-            }
-        });
+			public void valueChanged(ListSelectionEvent e) {
+				if (!isChanging)
+				{
+					isChanging =true;
+					Click_list1(e);
+					isChanging= false;
+				}
+			}
+		});
+		list_1.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				JList list = (JList)evt.getSource();
+				if (evt.getClickCount() == 2) {
+					// Double-click detected
+					String fileToRead = GradingSystem.pastCourseFolder + list_1.getSelectedValue();
+					//String absolutePath = FileSystems.getDefault().getPath(fileToRead).normalize().toAbsolutePath().toString();
+					System.out.println("opening Past course: " + fileToRead);
+					parent.dispose();
+					GradingSystem.controller.openCourse(fileToRead);
+					ClassHome classHome = new ClassHome();
+				}
+			}
+		});
 		contentPane.add(list_1);
 
 		JScrollPane scrollPane_1 = new JScrollPane(list_1);
@@ -98,15 +113,28 @@ public void initial()
 		list.setBounds(81, 36, 372, 89);
 		list.setListData(allFileInFolder(GradingSystem.currCourseFolder));
 		list.addListSelectionListener(new ListSelectionListener() {
-		      public void valueChanged(ListSelectionEvent e) {
-	            	if (!isChanging)
-	            	{
-	            		isChanging =true;
-	            		Click_list(e);
-	            		isChanging= false;
-	            	}
-		         }
-		      });
+			  public void valueChanged(ListSelectionEvent e) {
+					if (!isChanging)
+					{
+						isChanging =true;
+						Click_list(e);
+						isChanging= false;
+					}
+				 }
+			  });
+		list.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				JList list = (JList)evt.getSource();
+				if (evt.getClickCount() == 2) {
+					// Double-click detected
+					String fileToRead = GradingSystem.currCourseFolder + list.getSelectedValue();
+					System.out.println("opening Curr course: " + fileToRead);
+					parent.dispose();
+					GradingSystem.controller.openCourse(fileToRead);
+					ClassHome classHome = new ClassHome();
+				}
+			}
+		});
 		contentPane.add(list);
 
 		JScrollPane scrollPane = new JScrollPane(list);

@@ -116,6 +116,21 @@ public class Controller {
 		return root;
 	}
 
+	public void openCourse(String pathToCourse){
+		ParentNode newRoot = null;
+		try {
+			FileInputStream fis = new FileInputStream(pathToCourse);
+			ObjectInputStream objis = new ObjectInputStream(fis);
+			newRoot = (ParentNode) objis.readObject();
+			System.out.println("read successfully");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//newRoot.traverse(0);
+		root = newRoot;
+		currentState = newRoot;
+	}
+
 	public static void main(String[] args) {
 		Controller controller = new Controller();
 		ClassHome classHome = new ClassHome();
