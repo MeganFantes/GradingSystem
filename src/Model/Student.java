@@ -26,7 +26,7 @@ public class Student implements Serializable {
         ret.add(this.getAttribute("LAST NAME")+", "+this.getAttribute("FIRST NAME"));
         ret.add(this.getAttribute("STUDENT ID"));
         ret.add(this.getAttribute("EMAIL"));
-        ret.add(this.getAttribute("SCHOOL YEAR"));
+        ret.add(this.getAttribute("CLASS YEAR"));
         return ret;
     }
 

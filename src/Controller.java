@@ -1,3 +1,4 @@
+import Model.LeafNode;
 import Model.ParentNode;
 import Model.StudentPool;
 
@@ -75,6 +76,16 @@ public class Controller {
 
 	public void setCurrentState(ParentNode newCurrentState){
 		currentState = newCurrentState;
+	}
+
+	public void createChild(String criteria){
+		LeafNode newLeaf = new LeafNode();
+		newLeaf.connectStudentPool(root.getStudentPool());
+		newLeaf.generateLeafs(GradingSystem.controller.getRoot().getStudentPool().getPrimaryKey());
+		ParentNode newParent = new ParentNode();
+		newParent.setCriteria(criteria);
+		newParent.addChild(newLeaf);
+		currentState.addChild(newParent);
 	}
 
 	public ParentNode getRoot(){

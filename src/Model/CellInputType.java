@@ -1,5 +1,5 @@
 package Model;
 
 public enum  CellInputType {
-    RAW, DEDUCTION, PERCENTAGE;
+    Raw, Deduction, Percentage;
 }

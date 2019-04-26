@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -180,7 +181,12 @@ class Popup_Average {
         p.add(L4);
         p.add(L8);
         p.add(b);
-
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+            }
+        });
         f.setSize(300, 300);
 
         f.setLayout(new BorderLayout());
@@ -199,16 +205,16 @@ class Popup_Average {
 
 class Popup_GradingOption {
     JButton callingButton;
-    static JButton jButton;
-    static JRadioButton jRadioButton1;
-    static JRadioButton jRadioButton2;
-    static JRadioButton jRadioButton3;
-    static JLabel L1;
-    static JLabel L2;
-    static JLabel L3;
-    static ButtonGroup G1;
-    static JFrame f;
-    static JTextField t;
+    JButton jButton;
+    JRadioButton jRadioButton1;
+    JRadioButton jRadioButton2;
+    JRadioButton jRadioButton3;
+    JLabel L1;
+    JLabel L2;
+    JLabel L3;
+    ButtonGroup G1;
+    JFrame f;
+    JTextField t;
     Object label;
     AbstractButton selectedBtn;
     public Popup_GradingOption(Object label, JButton callingButton) {
@@ -222,8 +228,8 @@ class Popup_GradingOption {
         G1 = new ButtonGroup();
         f = new JFrame("Grading Options");
         jRadioButton1.setText("Percentage");
-        jRadioButton2.setText("Point deduction");
-        jRadioButton3.setText("Raw score");
+        jRadioButton2.setText("Deduction");
+        jRadioButton3.setText("Raw");
         G1.add(jRadioButton1);
         G1.add(jRadioButton2);
         G1.add(jRadioButton3);
@@ -236,15 +242,15 @@ class Popup_GradingOption {
                 for (Enumeration<AbstractButton> buttons = G1.getElements(); buttons.hasMoreElements();) {
                     AbstractButton button = buttons.nextElement();
                     if (button.isSelected()) {
-                        selectedBtn = button;
-                        if (button.getText().equals("Raw score")) {
-                            g.setInputType(CellInputType.RAW);
+                        //selectedBtn = button;
+                        if (button.getText().equals("Raw")) {
+                            g.setInputType(CellInputType.Raw);
                         }
                         else if (button.getText().equals("Percentage")) {
-                            g.setInputType(CellInputType.PERCENTAGE);
+                            g.setInputType(CellInputType.Percentage);
                         }
-                        else if (button.getText().equals("Point deduction")) {
-                            g.setInputType(CellInputType.DEDUCTION);
+                        else if (button.getText().equals("Deduction")) {
+                            g.setInputType(CellInputType.Deduction);
                         }
                         //s.add(button.getText());
 //                        g.setInputType(CellInputType.RAW);
@@ -252,9 +258,9 @@ class Popup_GradingOption {
 
                         //return an updated table
                         //f.dispose();
+                        f.dispose();
+                        callingButton.setText(button.getText());
                     }
-                    f.dispose();
-                    callingButton.setText(selectedBtn.getText());
                     //AssignmentsView assignmentsView = new AssignmentsView(g);
                 }
 //                     g.setInputType(CellInputType.RAW);
@@ -284,7 +290,7 @@ class Popup_AddColumn {
     static JFrame f;
     static JLabel L1;
     static JTextField t1;
-    public Popup_AddColumn(){
+    public Popup_AddColumn(JFrame callingFrame){
         JButton callingButton;
         jButton = new JButton("Done");
         f = new JFrame("Add Column");
@@ -294,6 +300,16 @@ class Popup_AddColumn {
         p.add(L1);
         p.add(t1);
         p.add(jButton);
+        jButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GradingSystem.controller.createChild(t1.getText());
+                callingFrame.dispose();
+                AssignmentsView assignmentsView = new AssignmentsView(GradingSystem.controller.getCurrentState());
+
+                f.dispose();
+            }
+        });
         f.add(p);
         f.setSize(300, 300);
         f.setLayout(new BorderLayout());
@@ -303,9 +319,9 @@ class Popup_AddColumn {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
     }
-    public static void main(String args[]) {
-        Popup_AddColumn p = new Popup_AddColumn();
-    }
+//    public static void main(String args[]) {
+//        Popup_AddColumn p = new Popup_AddColumn();
+//    }
 }
 
 class Popup_Student {
@@ -322,17 +338,19 @@ class Popup_Student {
     static JLabel L8;
     //static JLabel L9;
     //static JLabel L10;
-    public Popup_Student(){
+    public Popup_Student(Object label){
+        Student currentStudent = (Student) label;
+        ArrayList<String> s = currentStudent.getAllAttribute();
         f = new JFrame("Student Info");
         L1 = new JLabel("Name");
         L2 = new JLabel("StudentID");
         L3 = new JLabel("Email");
         L4 = new JLabel("Class Year");
         b = new JButton("Done");
-        L5 = new JLabel("");
-        L6 = new JLabel("");
-        L7 = new JLabel("");
-        L8 = new JLabel("");
+        L5 = new JLabel(s.get(0));
+        L6 = new JLabel(s.get(1));
+        L7 = new JLabel(s.get(2));
+        L8 = new JLabel(s.get(3));
         //JPanel p = new JPanel(new GridLayout(4,2));
         b.setPreferredSize(new Dimension(10,25));
         JPanel p = new JPanel(new GridLayout(8,2));
@@ -345,6 +363,12 @@ class Popup_Student {
         p.add(L4);
         p.add(L8);
         p.add(b);
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+            }
+        });
         f.add(p);
         f.setSize(300, 300);
         f.setLayout(new BorderLayout());
@@ -354,9 +378,9 @@ class Popup_Student {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
     }
-    public static void main(String args[]) {
-        Popup_Student p = new Popup_Student();
-    }
+//    public static void main(String args[]) {
+//        Popup_Student p = new Popup_Student();
+//    }
 }
 
 class Popup_Total {
