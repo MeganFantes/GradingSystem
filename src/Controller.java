@@ -12,7 +12,8 @@ public class Controller {
 	private ParentNode currentState;
 
 	public Controller() {
-		root = setRoot();
+		//root = setRoot();
+		root = new ParentNode();
 		currentState = root;
 	}
 
