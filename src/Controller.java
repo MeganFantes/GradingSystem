@@ -1,3 +1,4 @@
+import Model.LeafNode;
 import Model.ParentNode;
 import Model.StudentPool;
 
@@ -27,6 +28,9 @@ public class Controller {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		ParentNode copiedNode = (ParentNode)(newRoot.copyStructure());
+		copiedNode.traverse(0);
+		newRoot = copiedNode;
 //		System.out.println(" =====  read tree =====");
 //		root.traverse(0);
 		return newRoot;
@@ -75,6 +79,16 @@ public class Controller {
 
 	public void setCurrentState(ParentNode newCurrentState){
 		currentState = newCurrentState;
+	}
+
+	public void createChild(String criteria){
+		LeafNode newLeaf = new LeafNode();
+		newLeaf.connectStudentPool(root.getStudentPool());
+		newLeaf.generateLeafs(GradingSystem.controller.getRoot().getStudentPool().getPrimaryKey());
+		ParentNode newParent = new ParentNode();
+		newParent.setCriteria(criteria);
+		newParent.addChild(newLeaf);
+		currentState.addChild(newParent);
 	}
 
 	public ParentNode getRoot(){

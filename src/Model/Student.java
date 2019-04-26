@@ -15,12 +15,20 @@ public class Student implements Serializable {
     public Student(){
         attributes = new HashMap<>();
         displayField = new ArrayList<>();
-        displayField.add("FIRST NAME");
+        //displayField.add("FIRST NAME");
         displayField.add("STUDENT ID");
     }
 
     public void addAttribute(String key, String value){attributes.put(key, value);}
     public String getAttribute(String attributeName){ return attributes.getOrDefault(attributeName.toUpperCase(), null);}
+    public ArrayList<String> getAllAttribute(){
+        ArrayList<String> ret = new ArrayList<>();
+        ret.add(this.getAttribute("LAST NAME")+", "+this.getAttribute("FIRST NAME"));
+        ret.add(this.getAttribute("STUDENT ID"));
+        ret.add(this.getAttribute("EMAIL"));
+        ret.add(this.getAttribute("CLASS YEAR"));
+        return ret;
+    }
 
     public void setDisplayField(ArrayList<String> fieldToShow){
         if (displayField.size()>0)
@@ -49,7 +57,7 @@ public class Student implements Serializable {
         String ret = "";
         for (String attribute : displayField){
             if (attribute.toUpperCase().equals("NAME")){
-                ret += attributes.get("FIRST NAME") + " ," + attributes.get("LAST NAME");
+                ret += attributes.get("LAST NAME") + ", " + attributes.get("FIRST NAME");
             } else {
                 ret += attributes.get(attribute);
             }

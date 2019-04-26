@@ -13,9 +13,6 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-//import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
-//import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
-//import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI.NormalColor;
 import Model.ParentNode;
  
 public class LoginPage extends JFrame{
@@ -48,7 +45,7 @@ public class LoginPage extends JFrame{
 		
 		bt1=new JButton("Login");         //loginButton
 		bt1.setBounds(110, 250, 200, 50);
-//		bt1.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.lightBlue));
+		//bt1.setUI(new BEButtonUI(). setNormalColor(BEButtonUI.NormalColor.lightBlue));
 		bt1.setFont(font);
 		bt1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +91,7 @@ public class LoginPage extends JFrame{
 //	        //TODO exception
 //	    }
 		LoginPage hl =new LoginPage(root);
+
      }
 	public void LoginActionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub

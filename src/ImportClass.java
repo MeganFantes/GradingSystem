@@ -13,8 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.border.EmptyBorder;
 
-//import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
-
 import Model.ParentNode;
 
 import javax.swing.JLabel;
@@ -282,9 +280,9 @@ public class ImportClass extends JFrame {
             System.out.println("flag=: "+finishflag);
             if (finishflag!=0)
             {
-                ArrayList<String> errors = root.treeValidation(null,  true);
-                root.updateCurrNode(Semester_Name, criteria_list, weights_list);
-                root.traverse(0);
+				root.updateCurrNode(Semester_Name, criteria_list, weights_list);
+				root.traverse(0);
+				ArrayList<String> errors = root.treeValidation(null,  true);
                 if (errors.size()>0)
                 {
                 	JOptionPane.showMessageDialog(parent,"All weighs should add up to 100","Weight Error",JOptionPane.INFORMATION_MESSAGE);

@@ -13,10 +13,10 @@ public class LeafNode extends TreeNode {
         studentPool = null;
         totalScore = Float.NaN;
         allLeaf = new HashMap<>();
-        inputType = CellInputType.RAW;
+        inputType = CellInputType.Raw;
     }
 
-    private void generateLeafs(String primaryKeyName){
+    public void generateLeafs(String primaryKeyName){
         ArrayList<String> allPrimaryKeys = studentPool.getPrimaryKeyAndSortBy(studentPool.getPrimaryKey());
         for (String key : allPrimaryKeys){
             allLeaf.put(key, new Leaf() );
@@ -77,8 +77,8 @@ public class LeafNode extends TreeNode {
                 continue;
             }
             if (currScore<0 ||
-                (currScore >= totalScore && inputType != CellInputType.PERCENTAGE) ||
-                (inputType==CellInputType.PERCENTAGE && currScore > 100)) {
+                (currScore >= totalScore && inputType != CellInputType.Percentage) ||
+                (inputType==CellInputType.Percentage && currScore > 100)) {
                 String studenInfo = studentPool.getStudentByKey(entry.getKey()).getAttribute("first name");
                 studenInfo += " ," + studentPool.getStudentByKey(entry.getKey()).getAttribute("last name");
                 errorSofar.add( "invalid score for [" + studenInfo + "] in " + lastCriteria);
@@ -97,13 +97,13 @@ public class LeafNode extends TreeNode {
             // compute percentage of currScore according to inputType & totalScore
             float currPercentage = 0;
             switch (inputType){
-                case RAW:
+                case Raw:
                     currPercentage = currScore / totalScore * 100f;
                     break;
-                case DEDUCTION:
+                case Deduction:
                     currPercentage = (totalScore - currScore) / totalScore * 100f;
                     break;
-                case PERCENTAGE:
+                case Percentage:
                     currPercentage = currScore;
                     break;
                 default:

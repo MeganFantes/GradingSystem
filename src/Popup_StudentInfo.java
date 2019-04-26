@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -16,9 +17,9 @@ class Popup_StudentInfo {
     private JFrame f;
     private ButtonGroup buttonGroupStudent = new ButtonGroup();
     private javax.swing.JButton jButton1;
-    private JLabel jLabel1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JRadioButton jRadioButton1;
-    //private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private Object category;
@@ -33,9 +34,9 @@ class Popup_StudentInfo {
     public Popup_StudentInfo(ArrayList<String> s, JFrame callingFrame) {
         f = new JFrame("Student Information");
         buttonGroupStudent = new javax.swing.ButtonGroup();
-        jLabel1 = new JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
-        //jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
@@ -49,8 +50,8 @@ class Popup_StudentInfo {
 
 
 
-//        buttonGroupStudent.add(jRadioButton2);
-//        jRadioButton2.setText("Last name");
+        buttonGroupStudent.add(jRadioButton2);
+        jRadioButton2.setText(s.get(3));
 
         buttonGroupStudent.add(jRadioButton3);
         jRadioButton3.setText(s.get(1));
@@ -87,34 +88,34 @@ class Popup_StudentInfo {
             }
         });
 
-        GroupLayout layout = new GroupLayout(f.getContentPane());
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(f.getContentPane());
         f.getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(42, 42, 42)
                                                 .addComponent(jLabel1))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(24, 24, 24)
-                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        //.addComponent(jRadioButton2)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(jRadioButton1)
+                                                        .addComponent(jRadioButton2)
                                                         .addComponent(jRadioButton3)
                                                         .addComponent(jRadioButton4)
                                                         .addComponent(jButton1))))
                                 .addContainerGap(199, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel1)
                                 .addGap(27, 27, 27)
                                 .addComponent(jRadioButton1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                //.addComponent(jRadioButton2)
+                                .addComponent(jRadioButton2)
                                 .addGap(18, 18, 18)
                                 .addComponent(jRadioButton3)
                                 .addGap(18, 18, 18)
@@ -182,7 +183,12 @@ class Popup_Average {
         p.add(L4);
         p.add(L8);
         p.add(b);
-
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+            }
+        });
         f.setSize(300, 300);
 
         f.setLayout(new BorderLayout());
@@ -201,32 +207,67 @@ class Popup_Average {
 
 class Popup_GradingOption {
     JButton callingButton;
-    static JButton jButton;
-    static JRadioButton jRadioButton1;
-    static JRadioButton jRadioButton2;
-    static JRadioButton jRadioButton3;
-    static JLabel L1;
-    static JLabel L2;
-    static JLabel L3;
-    static ButtonGroup G1;
-    static JFrame f;
-    static JTextField t;
-    public Popup_GradingOption() {
+    JButton jButton;
+    JRadioButton jRadioButton1;
+    JRadioButton jRadioButton2;
+    JRadioButton jRadioButton3;
+    JLabel L1;
+    JLabel L2;
+    JLabel L3;
+    ButtonGroup G1;
+    JFrame f;
+    JTextField t;
+    Object label;
+    AbstractButton selectedBtn;
+    public Popup_GradingOption(Object label, JButton callingButton) {
+        this.label = label;
         jRadioButton1 = new JRadioButton();
         jRadioButton2 = new JRadioButton();
         jRadioButton3 = new JRadioButton();
+
         //L1 = new JLabel();
         jButton = new JButton("Done");
         G1 = new ButtonGroup();
         f = new JFrame("Grading Options");
         jRadioButton1.setText("Percentage");
-        jRadioButton2.setText("Point deduction");
-        jRadioButton3.setText("Raw score");
+        jRadioButton2.setText("Deduction");
+        jRadioButton3.setText("Raw");
         G1.add(jRadioButton1);
         G1.add(jRadioButton2);
         G1.add(jRadioButton3);
         // button won't resize
         jButton.setPreferredSize(new Dimension(10,10));
+        jButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LeafNode g = (LeafNode)(((Dummy) label).getRealObject());
+                for (Enumeration<AbstractButton> buttons = G1.getElements(); buttons.hasMoreElements();) {
+                    AbstractButton button = buttons.nextElement();
+                    if (button.isSelected()) {
+                        //selectedBtn = button;
+                        if (button.getText().equals("Raw")) {
+                            g.setInputType(CellInputType.Raw);
+                        }
+                        else if (button.getText().equals("Percentage")) {
+                            g.setInputType(CellInputType.Percentage);
+                        }
+                        else if (button.getText().equals("Deduction")) {
+                            g.setInputType(CellInputType.Deduction);
+                        }
+                        //s.add(button.getText());
+//                        g.setInputType(CellInputType.RAW);
+//                        break;
+
+                        //return an updated table
+                        //f.dispose();
+                        f.dispose();
+                        callingButton.setText(button.getText());
+                    }
+                    //AssignmentsView assignmentsView = new AssignmentsView(g);
+                }
+//                     g.setInputType(CellInputType.RAW);
+            }
+        });
         JPanel p = new JPanel(new GridLayout(4,2));
         p.add(jRadioButton1);
         p.add(jRadioButton2);
@@ -241,9 +282,9 @@ class Popup_GradingOption {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
     }
-    public static void main(String args[]) {
-        Popup_GradingOption p = new Popup_GradingOption();
-    }
+//    public static void main(String args[]) {
+//        Popup_GradingOption p = new Popup_GradingOption();
+//    }
 }
 
 class Popup_AddColumn {
@@ -251,7 +292,7 @@ class Popup_AddColumn {
     static JFrame f;
     static JLabel L1;
     static JTextField t1;
-    public Popup_AddColumn(){
+    public Popup_AddColumn(JFrame callingFrame){
         JButton callingButton;
         jButton = new JButton("Done");
         f = new JFrame("Add Column");
@@ -261,6 +302,16 @@ class Popup_AddColumn {
         p.add(L1);
         p.add(t1);
         p.add(jButton);
+        jButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GradingSystem.controller.createChild(t1.getText());
+                callingFrame.dispose();
+                AssignmentsView assignmentsView = new AssignmentsView(GradingSystem.controller.getCurrentState());
+
+                f.dispose();
+            }
+        });
         f.add(p);
         f.setSize(300, 300);
         f.setLayout(new BorderLayout());
@@ -270,9 +321,9 @@ class Popup_AddColumn {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
     }
-    public static void main(String args[]) {
-        Popup_AddColumn p = new Popup_AddColumn();
-    }
+//    public static void main(String args[]) {
+//        Popup_AddColumn p = new Popup_AddColumn();
+//    }
 }
 
 class Popup_Student {
@@ -287,25 +338,39 @@ class Popup_Student {
     static JLabel L6;
     static JLabel L7;
     static JLabel L8;
-    public Popup_Student(){
+    //static JLabel L9;
+    //static JLabel L10;
+    public Popup_Student(Object label){
+        Student currentStudent = (Student) label;
+        ArrayList<String> s = currentStudent.getAllAttribute();
         f = new JFrame("Student Info");
         L1 = new JLabel("Name");
-        L2 = new JLabel("Email");
-        L3 = new JLabel("StudentID");
+        L2 = new JLabel("StudentID");
+        L3 = new JLabel("Email");
+        L4 = new JLabel("Class Year");
         b = new JButton("Done");
-        L4 = new JLabel("");
-        L5 = new JLabel("");
-        L6 = new JLabel("");
+        L5 = new JLabel(s.get(0));
+        L6 = new JLabel(s.get(1));
+        L7 = new JLabel(s.get(2));
+        L8 = new JLabel(s.get(3));
         //JPanel p = new JPanel(new GridLayout(4,2));
         b.setPreferredSize(new Dimension(10,25));
-        JPanel p = new JPanel(new GridLayout(6,2));
+        JPanel p = new JPanel(new GridLayout(8,2));
         p.add(L1);
-        p.add(L4);
-        p.add(L2);
         p.add(L5);
-        p.add(L3);
+        p.add(L2);
         p.add(L6);
+        p.add(L3);
+        p.add(L7);
+        p.add(L4);
+        p.add(L8);
         p.add(b);
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.dispose();
+            }
+        });
         f.add(p);
         f.setSize(300, 300);
         f.setLayout(new BorderLayout());
@@ -315,9 +380,9 @@ class Popup_Student {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
     }
-    public static void main(String args[]) {
-        Popup_Student p = new Popup_Student();
-    }
+//    public static void main(String args[]) {
+//        Popup_Student p = new Popup_Student();
+//    }
 }
 
 class Popup_Total {
@@ -325,8 +390,9 @@ class Popup_Total {
     static JFrame f;
     static JLabel L1;
     static JTextField t1;
-    public Popup_Total(){
-        JButton callingButton;
+    //JButton callingButton;
+    public Popup_Total(Object label, JButton callingButton){
+        //JButton callingButton;
         jButton = new JButton("Done");
         f = new JFrame("Total points");
         L1 = new JLabel("Total points");
@@ -335,6 +401,16 @@ class Popup_Total {
         p.add(L1);
         p.add(t1);
         p.add(jButton);
+        jButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LeafNode total = (LeafNode)(((Dummy) label).getRealObject());
+                Float currentScore = Float.valueOf(t1.getText());
+                total.setTotalScore(currentScore);
+                callingButton.setText(total.getTotalScore().toString());
+                f.dispose();
+            }
+        });
         f.add(p);
         f.setSize(300, 300);
         f.setLayout(new BorderLayout());
@@ -344,9 +420,9 @@ class Popup_Total {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
     }
-    public static void main(String args[]) {
-        Popup_Total p = new Popup_Total();
-    }
+//    public static void main(String args[]) {
+//        Popup_Total p = new Popup_Total();
+//    }
 }
 
 class Popup_AssignmentHeader {

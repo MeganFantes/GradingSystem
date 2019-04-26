@@ -38,13 +38,13 @@ public class Statistics {
                 Float trueScore = 0f;
                 Float currScore = entry.getValue().getValue();
                 switch (leafNode.getInputType()){
-                    case PERCENTAGE:
+                    case Percentage:
                         trueScore = currScore;
                         break;
-                    case DEDUCTION:
+                    case Deduction:
                         trueScore = (leafNode.getTotalScore()-currScore) / leafNode.getTotalScore() * 100;
                         break;
-                    case RAW:
+                    case Raw:
                         trueScore = currScore / leafNode.getTotalScore() * 100;
                         break;
                     default:

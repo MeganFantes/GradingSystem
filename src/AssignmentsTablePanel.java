@@ -1,6 +1,4 @@
-import Model.NoteInterface;
-
-import Model.Statistics;
+import Model.*;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -8,9 +6,8 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Arrays;
-import Model.Dummy;
-import Model.StudentPool;
 
 public class AssignmentsTablePanel extends JPanel {
 	private Object[] headerLabels;
@@ -34,6 +31,7 @@ public class AssignmentsTablePanel extends JPanel {
 		this.rowPanelSize = new Dimension(panelWidth, buttonSize.height);
 		this.callingFrame = callingFrame;
 		this.category = category;
+		((ParentNode) this.category).genScoreTableArray(GradingSystem.controller.getRoot().getStudentPool().getPrimaryKeyAndSortBy("hello"));
 //		setPreferredSize(panelSize);
 		setLayout(new GridLayout(rows.length + 1, 1));
 		addHeader();
@@ -186,8 +184,25 @@ class BtnStudentHeader extends JButton {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				StudentPool s = (StudentPool)(((Dummy) student).getRealObject());
+				if (s == null) {
+					JFileChooser jfc=new JFileChooser();
+					jfc.setFileSelectionMode(JFileChooser.FILES_ONLY );
+					jfc.showDialog(new JLabel(), "Choose a CSV file");
+					File file=jfc.getSelectedFile();
+					if(file.isFile()){
+						System.out.println("File name: "+file.getAbsolutePath());
+					}
+					System.out.println(jfc.getSelectedFile().getName());
+					String path=file.getAbsolutePath();
+					StudentPool studentPool = new StudentPool();
+					studentPool.importFromCsv(path);
+					GradingSystem.controller.getRoot().connectStudentPool(studentPool);
+				}
+				else {
+					Popup_StudentInfo p = new Popup_StudentInfo (s.getDisplayOption(), frame);
+				}
 				//s.viewAllStudent();
-				Popup_StudentInfo p = new Popup_StudentInfo (s.getDisplayOption(), frame);
+
 			}
 		});
 	}
@@ -236,42 +251,54 @@ class BtnAssignmentGradingOption extends JButton {
 	BtnAssignmentGradingOption(Object label) {
 //		super((String) label);
 		super(label.toString());
-		addActionListener(new AL_GradingOptions(this));
+		JButton callingBtn = this;
+		addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Popup_GradingOption p = new Popup_GradingOption(label, callingBtn);
+			}
+		});
 	}
 }
 
-class AL_GradingOptions implements ActionListener {
-	JButton callingButton;
-	public AL_GradingOptions(JButton btn) {
-		super();
-		this.callingButton = btn;
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Popup_GradingOption p = new Popup_GradingOption();
-	}
-}
+//class AL_GradingOptions implements ActionListener {
+//	JButton callingButton;
+//	public AL_GradingOptions(JButton btn) {
+//		super();
+//		this.callingButton = btn;
+//	}
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		Popup_GradingOption p = new Popup_GradingOption();
+//	}
+//}
 
 class BtnTotalPoints extends JButton {
 	BtnTotalPoints(Object label) {
 //		super((String) label);
 		super(label.toString());
-		addActionListener(new AL_TotalPoints(this));
+		JButton callingBtn = this;
+		addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Popup_Total p = new Popup_Total(label, callingBtn);
+			}
+		});
 	}
 }
 
-class AL_TotalPoints implements ActionListener {
-	JButton callingButton;
-	public AL_TotalPoints(JButton btn) {
-		super();
-		this.callingButton = btn;
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		//JOptionPane.showMessageDialog(callingButton, "You are now editing the total points for an assignment");
-		Popup_Total p = new Popup_Total();
-	}
-}
+//class AL_TotalPoints implements ActionListener {
+//	JButton callingButton;
+//	public AL_TotalPoints(JButton btn) {
+//		super();
+//		this.callingButton = btn;
+//	}
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		//JOptionPane.showMessageDialog(callingButton, "You are now editing the total points for an assignment");
+//		Popup_Total p = new Popup_Total();
+//	}
+//}
 
 class BtnAssignmentAverage extends JButton {
 	BtnAssignmentAverage(Object label) {
@@ -304,22 +331,29 @@ class BtnStudent extends JButton {
 	BtnStudent(Object label) {
 //		super((String) label);
 		super(label.toString());
-		addActionListener(new AL_Student(this));
+		addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+//				Student currentStudent = (Student) label;
+//				currentStudent.getAllAttribute();
+				Popup_Student s = new Popup_Student(label);
+			}
+		});
 	}
 }
 
-class AL_Student implements ActionListener {
-	JButton callingButton;
-	public AL_Student(JButton btn) {
-		super();
-		this.callingButton = btn;
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		//JOptionPane.showMessageDialog(callingButton, "You clicked on a student, you will be able to see this student's information here");
-		Popup_Student p = new Popup_Student();
-	}
-}
+//class AL_Student implements ActionListener {
+//	JButton callingButton;
+//	public AL_Student(JButton btn) {
+//		super();
+//		this.callingButton = btn;
+//	}
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		//JOptionPane.showMessageDialog(callingButton, "You clicked on a student, you will be able to see this student's information here");
+//		Popup_Student p = new Popup_Student();
+//	}
+//}
 
 class BtnAssignmentGrade extends JButton {
 	BtnAssignmentGrade(Object grade) {

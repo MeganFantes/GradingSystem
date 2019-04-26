@@ -22,16 +22,16 @@ public class Test_main {
         String primaryKey = "student id";
         hw1leaf = new LeafNode();
         hw1leaf.setTotalScore(100);
-        hw1leaf.setInputType(CellInputType.RAW);
+        hw1leaf.setInputType(CellInputType.Raw);
         hw2leaf = new LeafNode();
         hw2leaf.setTotalScore(130);
-        hw2leaf.setInputType(CellInputType.RAW);
+        hw2leaf.setInputType(CellInputType.Raw);
         paperleaf = new LeafNode();
         paperleaf.setTotalScore(150);
-        paperleaf.setInputType(CellInputType.DEDUCTION);
+        paperleaf.setInputType(CellInputType.Deduction);
         designleaf = new LeafNode();
         designleaf.setTotalScore(100);
-        designleaf.setInputType(CellInputType.DEDUCTION);
+        designleaf.setInputType(CellInputType.Deduction);
 
         ParentNode root, hw,hw1,hw2, mid, paper, design;
         paper = new ParentNode("paper exam", 55);

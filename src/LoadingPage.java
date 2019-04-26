@@ -9,8 +9,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-//import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -84,7 +82,7 @@ public class LoadingPage extends JFrame {
 		
 		JButton LoadButton = new JButton("Create a new class");
 		LoadButton.setBounds(184, 299, 186, 27);
-//		LoadButton.setUI(new BEButtonUI(). setNormalColor(BEButtonUI.NormalColor.lightBlue));
+		//LoadButton.setUI(new BEButtonUI(). setNormalColor(BEButtonUI.NormalColor.lightBlue));
 		LoadButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LoadButtonActionPerformed(evt);

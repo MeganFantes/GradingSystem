@@ -17,6 +17,7 @@ public class NavigationButtonBanner extends JPanel {
 
 		btnClassHome = new javax.swing.JButton();
 		btnAddColumn = new javax.swing.JButton();
+//		btnAddColumn = new BtnAddColumn(callingFrame);
 		btnCalcFinalGrade = new javax.swing.JButton();
 
 		btnClassHome.setText("Class Home");
@@ -32,7 +33,7 @@ public class NavigationButtonBanner extends JPanel {
 		btnAddColumn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Popup_AddColumn p = new Popup_AddColumn();
+				Popup_AddColumn p = new Popup_AddColumn(callingFrame);
 			}
 		});
 
@@ -71,3 +72,17 @@ public class NavigationButtonBanner extends JPanel {
 		);
 	}
 }
+
+//class BtnAddColumn extends JButton {
+//	public BtnAddColumn(JFrame callingFrame) {
+//		super();
+//
+//		addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				Popup_AddColumn popup_addColumn = new Popup_AddColumn(callingFrame);
+//				AssignmentsView assignmentsView = new AssignmentsView(GradingSystem.controller.getCurrentState());
+//			}
+//		});
+//	}
+//}
