@@ -40,12 +40,18 @@ public class ParentNode extends TreeNode {
     }
 
     public TreeNode copyStructure(){
+        // if it's just the last parent before LeafNode,
+        // don't copy anything
+        if (children.get(0).isLeaf())
+            return null;
+
         ParentNode retnode = new ParentNode();
         retnode.setCriteria(criteria);
         retnode.setWeight(weight);
         for (TreeNode child : children){
             TreeNode childroot = child.copyStructure();
-            retnode.addChild(childroot);
+            if (childroot != null)
+                retnode.addChild(childroot);
         }
         return retnode;
     }
@@ -119,16 +125,23 @@ public class ParentNode extends TreeNode {
     public Object[] genFieldRowArray(){
         int numColumn;
         Object[] fieldRow=null;
-        if(children.size()>0 && children.get(0).getChild(0).isLeaf()){
-            numColumn = children.size()+1;
-            fieldRow = new Object[numColumn];
-        } else if(children.size()>0 && !children.get(0).getChild(0).isLeaf()){
-            numColumn = children.size()+2;
-            fieldRow = new Object[numColumn];
-            fieldRow[numColumn-1] = new Dummy("Final Percentage", null);
+        if(children.size()>0){
+            if (((ParentNode)children.get(0)).getChildNum()>0 && children.get(0).getChild(0).isLeaf()) {
+                // assignment view
+                numColumn = children.size() + 1;
+                fieldRow = new Object[numColumn];
+            }
+            else {   //!children.get(0).getChild(0).isLeaf()){
+                // summarization view
+                numColumn = children.size() + 2;
+                fieldRow = new Object[numColumn];
+                fieldRow[numColumn - 1] = new Dummy("Final Percentage", null);
+            }
         } else {
-            // call this function @ wrong parentNode
-            assert(false);
+            // this means no children yet in this node
+            // ex: new class, before 1st click "add column"  (HW -> (empty)
+            numColumn = 1;
+            fieldRow = new Object[numColumn];
         }
 
         assert(fieldRow != null);
@@ -146,8 +159,15 @@ public class ParentNode extends TreeNode {
     }
 
     public Object[][] genScoreTableArray(ArrayList<String> studentOrder){
-        // this function can only be called when its children is Model.LeafNode
-        assert(children.size()>0 && children.get(0).getChild(0).isLeaf());
+        // this function can only be called when its grand-children is Model.LeafNode
+
+        if (studentOrder==null){
+            // used when no student info available
+            Object[][] retTable = new Object[0][0];
+            return retTable;
+        }
+
+        // assert(children.size()>0 && children.get(0).getChild(0).isLeaf());
 
         // row # = # student + 3  (extra 3 row : Grading Option / Total Score / Average
         // col # = # children + 1 (extra 1 col : idx0, student information
@@ -200,7 +220,16 @@ public class ParentNode extends TreeNode {
     public Object[][] genSummaryTableArray(ArrayList<String> studentOrder){
         // this function can only be called when its children is NOT Model.LeafNode
         // TODO: implicit assumption : called @ root
-        assert(children.size()>0 && !children.get(0).getChild(0).isLeaf());
+
+        if (studentOrder==null){
+            // used when no student info available
+            // now just construct columns of
+            Object[][] retTable = new Object[0][0];
+
+            return retTable;
+        }
+
+        //assert(children.size()>0 && !children.get(0).getChild(0).isLeaf());
 
         int numCol = children.size()+2; // 2 extra col : idx0 : student info / idxlast : final score
         int numRow = studentOrder.size()+2; // 2 extra row (in-order) : weight, statistics
@@ -259,6 +288,7 @@ public class ParentNode extends TreeNode {
     // ========== getters =========
     public Float getWeight(){return weight;}
     public TreeNode getChild(int childIndex){ return children.get(childIndex);}
+    public int getChildNum(){return children.size();}
     public ArrayList<ParentNode> getAllChildren(){
         // this function is only called when its children not leaf (either no children or parentNode)
         assert(children.size()==0 || !children.get(0).isLeaf());

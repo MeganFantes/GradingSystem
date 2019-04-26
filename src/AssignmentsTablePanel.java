@@ -31,7 +31,8 @@ public class AssignmentsTablePanel extends JPanel {
 		this.rowPanelSize = new Dimension(panelWidth, buttonSize.height);
 		this.callingFrame = callingFrame;
 		this.category = category;
-		((ParentNode) this.category).genScoreTableArray(GradingSystem.controller.getRoot().getStudentPool().getPrimaryKeyAndSortBy("hello"));
+		// the line below this seems not necessary
+		// ((ParentNode) this.category).genScoreTableArray(GradingSystem.controller.getRoot().getStudentPool().getPrimaryKeyAndSortBy("hello"));
 //		setPreferredSize(panelSize);
 		setLayout(new GridLayout(rows.length + 1, 1));
 		addHeader();
@@ -172,8 +173,21 @@ class BtnStudentHeader extends JButton {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				StudentPool s = (StudentPool)(((Dummy) student).getRealObject());
+				if (s == null) {
+					loadStudentInfo();
+					frame.dispose();
+					if (GradingSystem.controller.getCurrentState() != GradingSystem.controller.getRoot()){
+						// now we're at assignment view
+						AssignmentsView assignmentsView = new AssignmentsView(GradingSystem.controller.getCurrentState());
+					} else {
+						// we're at class home view
+						ClassHome classHome = new ClassHome();
+					}
+				}
+				else {
+					Popup_StudentInfo p = new Popup_StudentInfo (s.getDisplayOption(), frame, category);
+				}
 				//s.viewAllStudent();
-				Popup_StudentInfo p = new Popup_StudentInfo (s.getDisplayOption(), frame, category);
 			}
 		});
 	}
@@ -185,18 +199,15 @@ class BtnStudentHeader extends JButton {
 			public void actionPerformed(ActionEvent e) {
 				StudentPool s = (StudentPool)(((Dummy) student).getRealObject());
 				if (s == null) {
-					JFileChooser jfc=new JFileChooser();
-					jfc.setFileSelectionMode(JFileChooser.FILES_ONLY );
-					jfc.showDialog(new JLabel(), "Choose a CSV file");
-					File file=jfc.getSelectedFile();
-					if(file.isFile()){
-						System.out.println("File name: "+file.getAbsolutePath());
+					loadStudentInfo();
+					frame.dispose();
+					if (GradingSystem.controller.getCurrentState() != GradingSystem.controller.getRoot()){
+						// now we're at assignment view
+						AssignmentsView assignmentsView = new AssignmentsView(GradingSystem.controller.getCurrentState());
+					} else {
+						// we're at class home view
+						ClassHome classHome = new ClassHome();
 					}
-					System.out.println(jfc.getSelectedFile().getName());
-					String path=file.getAbsolutePath();
-					StudentPool studentPool = new StudentPool();
-					studentPool.importFromCsv(path);
-					GradingSystem.controller.getRoot().connectStudentPool(studentPool);
 				}
 				else {
 					Popup_StudentInfo p = new Popup_StudentInfo (s.getDisplayOption(), frame);
@@ -205,6 +216,21 @@ class BtnStudentHeader extends JButton {
 
 			}
 		});
+	}
+
+	private void loadStudentInfo(){
+		JFileChooser jfc=new JFileChooser();
+		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY );
+		jfc.showDialog(new JLabel(), "Choose a CSV file");
+		File file=jfc.getSelectedFile();
+		if(file.isFile()){
+			System.out.println("File name: "+file.getAbsolutePath());
+		}
+		System.out.println(jfc.getSelectedFile().getName());
+		String path=file.getAbsolutePath();
+		StudentPool studentPool = new StudentPool();
+		studentPool.importFromCsv(path);
+		GradingSystem.controller.getRoot().connectStudentPool(studentPool);
 	}
 }
 

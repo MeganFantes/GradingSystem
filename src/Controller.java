@@ -1,5 +1,6 @@
 import Model.LeafNode;
 import Model.ParentNode;
+import Model.Student;
 import Model.StudentPool;
 
 import java.io.FileInputStream;
@@ -8,12 +9,10 @@ import java.util.Arrays;
 
 public class Controller {
 	private static ParentNode root;
-	private Object studentNode;
 	private ParentNode currentState;
 
 	public Controller() {
 		root = setRoot();
-		studentNode = root.genFieldRowArray()[0];
 		currentState = root;
 	}
 
@@ -28,11 +27,18 @@ public class Controller {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		//return newRoot;
+
+		// simulate a new class from past course
+		System.out.println(" =====  original class tree =====");
+		newRoot.traverse(0);
+
 		ParentNode copiedNode = (ParentNode)(newRoot.copyStructure());
 		copiedNode.traverse(0);
 		newRoot = copiedNode;
-//		System.out.println(" =====  read tree =====");
-//		root.traverse(0);
+		System.out.println(" =====  new class tree =====");
+		newRoot.traverse(0);
 		return newRoot;
 	}
 
@@ -45,6 +51,10 @@ public class Controller {
 	}
 
 	public Object[][] getClassSummaryViewRows() {
+		StudentPool studentPool = root.getStudentPool();
+		if (studentPool==null){
+			return root.genSummaryTableArray(null);
+		}
 		return root.genSummaryTableArray(root.getStudentPool().getPrimaryKeyAndSortBy("last name"));
 	}
 
@@ -53,6 +63,10 @@ public class Controller {
 	}
 
 	public Object[][] getAssignmentViewRows(Object category) {
+		StudentPool studentPool = root.getStudentPool();
+		if (studentPool==null){
+			return root.genSummaryTableArray(null);
+		}
 		return getAssignmentChild(category).genScoreTableArray(root.getStudentPool().getPrimaryKeyAndSortBy("last name"));
 	}
 
@@ -61,7 +75,8 @@ public class Controller {
 	}
 
 	public ParentNode getAssignmentChild(Object category) {
-		return (ParentNode) root.getChild(getCategoryIndex(category));
+		//return (ParentNode) root.getChild(getCategoryIndex(category));
+		return (ParentNode) category;
 	}
 
 	public int getCategoryIndex(Object category) {
@@ -83,8 +98,13 @@ public class Controller {
 
 	public void createChild(String criteria){
 		LeafNode newLeaf = new LeafNode();
-		newLeaf.connectStudentPool(root.getStudentPool());
-		newLeaf.generateLeafs(GradingSystem.controller.getRoot().getStudentPool().getPrimaryKey());
+		StudentPool studentPool = root.getStudentPool();
+
+		if (studentPool != null) {
+			newLeaf.connectStudentPool(root.getStudentPool());
+			newLeaf.generateLeafs(studentPool.getPrimaryKey());
+		}
+
 		ParentNode newParent = new ParentNode();
 		newParent.setCriteria(criteria);
 		newParent.addChild(newLeaf);
