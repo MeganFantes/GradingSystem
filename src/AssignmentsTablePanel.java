@@ -6,6 +6,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Arrays;
 
 public class AssignmentsTablePanel extends JPanel {
@@ -183,8 +184,25 @@ class BtnStudentHeader extends JButton {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				StudentPool s = (StudentPool)(((Dummy) student).getRealObject());
+				if (s == null) {
+					JFileChooser jfc=new JFileChooser();
+					jfc.setFileSelectionMode(JFileChooser.FILES_ONLY );
+					jfc.showDialog(new JLabel(), "Choose a CSV file");
+					File file=jfc.getSelectedFile();
+					if(file.isFile()){
+						System.out.println("File name: "+file.getAbsolutePath());
+					}
+					System.out.println(jfc.getSelectedFile().getName());
+					String path=file.getAbsolutePath();
+					StudentPool studentPool = new StudentPool();
+					studentPool.importFromCsv(path);
+					GradingSystem.controller.getRoot().connectStudentPool(studentPool);
+				}
+				else {
+					Popup_StudentInfo p = new Popup_StudentInfo (s.getDisplayOption(), frame);
+				}
 				//s.viewAllStudent();
-				Popup_StudentInfo p = new Popup_StudentInfo (s.getDisplayOption(), frame);
+
 			}
 		});
 	}

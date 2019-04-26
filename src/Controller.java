@@ -28,6 +28,9 @@ public class Controller {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		ParentNode copiedNode = (ParentNode)(newRoot.copyStructure());
+		copiedNode.traverse(0);
+		newRoot = copiedNode;
 //		System.out.println(" =====  read tree =====");
 //		root.traverse(0);
 		return newRoot;
