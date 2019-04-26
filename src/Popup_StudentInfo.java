@@ -1,15 +1,14 @@
-import Model.Leaf;
-import Model.NoteInterface;
-
-import Model.Statistics;
+import Model.*;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 
@@ -17,7 +16,7 @@ class Popup_StudentInfo {
     private JFrame f;
     private ButtonGroup buttonGroupStudent = new ButtonGroup();
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private JLabel jLabel1;
     private javax.swing.JRadioButton jRadioButton1;
     //private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
@@ -34,7 +33,7 @@ class Popup_StudentInfo {
     public Popup_StudentInfo(ArrayList<String> s, JFrame callingFrame) {
         f = new JFrame("Student Information");
         buttonGroupStudent = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel1 = new JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         //jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
@@ -88,18 +87,18 @@ class Popup_StudentInfo {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(f.getContentPane());
+        GroupLayout layout = new GroupLayout(f.getContentPane());
         f.getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(42, 42, 42)
                                                 .addComponent(jLabel1))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(24, 24, 24)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         //.addComponent(jRadioButton2)
                                                         .addComponent(jRadioButton1)
                                                         .addComponent(jRadioButton3)
@@ -108,7 +107,7 @@ class Popup_StudentInfo {
                                 .addContainerGap(199, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel1)
@@ -352,15 +351,131 @@ class Popup_Total {
 
 class Popup_AssignmentHeader {
     private JFrame f;
+    private JPanel mainPanel;
 
-    public Popup_AssignmentHeader(Object assignment) {
-        f = new JFrame("Edit " + assignment);
+	JPanel namePanel;
+	JLabel nameLabel;
+	JTextField nameTextField;
 
+	JPanel weightPanel;
+	JLabel weightLabel;
+	JTextField weightTextField;
 
-    }
+	JPanel gradesPanel;
+	JLabel gradesLabel;
+	JTable gradesTable;
 
-    public static void main(String[] args) {
-    	Popup_AssignmentHeader popup_assignmentHeader = new Popup_AssignmentHeader(new Object());
+	JScrollPane tableScrollPane;
+
+	JButton btnDone;
+
+    public Popup_AssignmentHeader(Object assignment, Object category) {
+    	f = new JFrame(assignment.toString());
+//	    mainPanel = new JPanel();
+
+	    mainPanel = new JPanel();
+	    nameLabel = new JLabel();
+	    nameTextField = new JTextField();
+	    weightLabel = new JLabel();
+	    weightTextField = new JTextField();
+	    gradesLabel = new JLabel();
+	    tableScrollPane = new JScrollPane();
+	    gradesTable = new JTable();
+	    btnDone = new JButton("Done");
+
+	    nameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+	    nameLabel.setText("Assignment Name:");
+
+	    nameTextField.setText(assignment.toString());
+
+	    weightLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+	    weightLabel.setText("Assignment Weight:");
+
+	    weightTextField.setText(String.valueOf(((ParentNode) assignment).getWeight()));
+
+	    gradesLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+	    gradesLabel.setText("Grades:");
+
+	    Object[][] students = Arrays.copyOfRange(GradingSystem.controller.getAssignmentViewRows(category), 3, GradingSystem.controller.getAssignmentViewRows(category).length);
+	    Object[][] gradesTableRows = new Object[students.length][];
+	    for (int i = 0; i < students.length; i++) {
+	    	gradesTableRows[i] = new Object[] {students[i][0], null};
+	    }
+
+	    gradesTable.setModel(new DefaultTableModel(gradesTableRows, new String [] {"Student", "Grade"})
+	                            {
+	                            	boolean[] canEdit = new boolean [] {false, true};
+	                            	public boolean isCellEditable(int rowIndex, int columnIndex) {return canEdit [columnIndex];}
+	                            });
+	    gradesTable.setRowHeight(25);
+	    tableScrollPane.setViewportView(gradesTable);
+
+	    GroupLayout mainPanelLayout = new GroupLayout(mainPanel);
+	    mainPanel.setLayout(mainPanelLayout);
+	    mainPanelLayout.setHorizontalGroup(
+			    mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+					    .addGroup(mainPanelLayout.createSequentialGroup()
+							              .addContainerGap()
+							              .addGroup(mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+									                        .addComponent(gradesLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									                        .addComponent(nameLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									                        .addComponent(weightLabel, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
+							              .addGap(18, 18, 18)
+							              .addGroup(mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+									                        .addComponent(weightTextField, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+									                        .addComponent(nameTextField)
+									                        .addComponent(tableScrollPane, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+							              .addContainerGap(26, Short.MAX_VALUE))
+					    .addComponent(btnDone, GroupLayout.Alignment.CENTER, 200, 200, 200)
+	    );
+	    mainPanelLayout.setVerticalGroup(
+			    mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+					    .addGroup(mainPanelLayout.createSequentialGroup()
+							              .addContainerGap()
+							              .addGroup(mainPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+									                        .addComponent(nameLabel, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+									                        .addComponent(nameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+							              .addGroup(mainPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+									                        .addComponent(weightLabel, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+									                        .addComponent(weightTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+							              .addGroup(mainPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+									                        .addComponent(gradesLabel, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+									                        .addComponent(tableScrollPane, GroupLayout.PREFERRED_SIZE, 10*25, 10*25))
+							              .addGap(20, 20, 20)
+							              .addComponent(btnDone)
+//							              .addContainerGap(272, Short.MAX_VALUE))
+					    ));
+
+	    GroupLayout layout = new GroupLayout(f.getContentPane());
+	    f.getContentPane().setLayout(layout);
+	    layout.setHorizontalGroup(
+			    layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+					    .addComponent(mainPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	    );
+	    layout.setVerticalGroup(
+			    layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+					    .addComponent(mainPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	    );
+
+	    btnDone.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	//TODO: figure out how to set assignment name and weight (Ask Yueh)
+		    	//TODO: ask Yueh how to add grades
+			    f.dispose();
+		    }
+	    });
+
+//	    JScrollPane scroll = new JScrollPane(mainPanel);
+//	    f.getContentPane().add(scroll); // this line adds the table to the frame (you do not need a separate panel)
+
+	    f.setSize(470, 430);
+	    f.setVisible(true);
+	    // make the JFrame appear in the middle of the screen
+	    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	    f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
     }
 }
 

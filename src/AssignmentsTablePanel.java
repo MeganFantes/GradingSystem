@@ -53,7 +53,7 @@ public class AssignmentsTablePanel extends JPanel {
 			}
 			// add functionality of the rest of the header buttons (the assignment title buttons)
 			else {
-				button = new BtnAssignmentHeader(headerLabels[i]);
+				button = new BtnAssignmentHeader(headerLabels[i], category);
 			}
 //			button.setSize(width, height);
 			button.setPreferredSize(buttonSize);
@@ -206,25 +206,31 @@ class AL_StudentHeader implements ActionListener {
 }
 
 class BtnAssignmentHeader extends JButton {
-	BtnAssignmentHeader(Object assignment) {
+	BtnAssignmentHeader(Object assignment, Object category) {
 //		super((String) label);
 		super(assignment.toString());
-		addActionListener(new AL_AssignmentHeader(this));
+//		addActionListener(new AL_AssignmentHeader(this));
+		addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Popup_AssignmentHeader popup_assignmentHeader = new Popup_AssignmentHeader(assignment, category);
+			}
+		});
 	}
 }
 
-class AL_AssignmentHeader implements ActionListener {
-	JButton callingButton;
-	public AL_AssignmentHeader(JButton btn) {
-		super();
-		this.callingButton = btn;
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		JOptionPane.showMessageDialog(callingButton, "You clicked on the " + callingButton.getText() + " button, you will be able to edit the name and weight of the assignment here");
-	}
-}
+//class AL_AssignmentHeader implements ActionListener {
+//	JButton callingButton;
+//	public AL_AssignmentHeader(JButton btn) {
+//		super();
+//		this.callingButton = btn;
+//	}
+//
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		JOptionPane.showMessageDialog(callingButton, "You clicked on the " + callingButton.getText() + " button, you will be able to edit the name and weight of the assignment here");
+//	}
+//}
 
 class BtnAssignmentGradingOption extends JButton {
 	BtnAssignmentGradingOption(Object label) {

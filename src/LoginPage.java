@@ -13,19 +13,19 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
-import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
-import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI.NormalColor;
+//import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+//import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
+//import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI.NormalColor;
 import Model.ParentNode;
  
 public class LoginPage extends JFrame{
 
 	private static int count=0;
-	private static JButton bt1;//登陆按钮
-	private static JLabel jl_1;//登录的版面
-	private static JFrame jf_1;//登陆的框架
-    private static JTextField jtext1;//用户名
-    private static JPasswordField jtext2;//密码
+	private static JButton bt1;
+	private static JLabel jl_1;
+	private static JFrame jf_1;
+    private static JTextField jtext1;
+    private static JPasswordField jtext2;
     private static JLabel jl_admin;
     private static JLabel jl_password;
     private final JPanel contentPanel = new JPanel();
@@ -48,7 +48,7 @@ public class LoginPage extends JFrame{
 		
 		bt1=new JButton("Login");         //loginButton
 		bt1.setBounds(110, 250, 200, 50);
-		bt1.setUI(new BEButtonUI(). setNormalColor(BEButtonUI.NormalColor.lightBlue));
+//		bt1.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.lightBlue));
 		bt1.setFont(font);
 		bt1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,25 +81,19 @@ public class LoginPage extends JFrame{
 	public static void main(String[] args) {
 		//initial
 		ParentNode root=new ParentNode();
-	    try
-	    {
-	        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-	        BeautyEyeLNFHelper.frameBorderStyle= BeautyEyeLNFHelper.frameBorderStyle.generalNoTranslucencyShadow;
-	        UIManager.put("RootPane.setupButtonVisible", false);
-	        UIManager.put("RootPane.addCreate", false);
-	        BeautyEyeLNFHelper.translucencyAtFrameInactive = false;
-	    }
-	    catch(Exception e)
-	    {
-	        //TODO exception
-	    } 
+//	    try
+//	    {
+//	        org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+//	        BeautyEyeLNFHelper.frameBorderStyle= BeautyEyeLNFHelper.frameBorderStyle.generalNoTranslucencyShadow;
+//	        UIManager.put("RootPane.setupButtonVisible", false);
+//	        UIManager.put("RootPane.addCreate", false);
+//	        BeautyEyeLNFHelper.translucencyAtFrameInactive = false;
+//	    }
+//	    catch(Exception e)
+//	    {
+//	        //TODO exception
+//	    }
 		LoginPage hl =new LoginPage(root);
-		/**
-		 * 处理点击事件
-		 */
-
-
-		
      }
 	public void LoginActionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
