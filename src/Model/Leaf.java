@@ -1,3 +1,8 @@
+/*
+   this class is the smallest unit in the Tree structure
+   (score per student per assignment)
+ */
+
 package Model;
 
 import java.io.Serializable;
@@ -13,17 +18,21 @@ public class Leaf implements Serializable, NoteInterface {
         value = default_score;
     }
 
-    // ======== required methods from Model.NoteInterface =======
+    // ======== required methods from NoteInterface =======
     public boolean hasNote(){ return note.hasNote();}
+
     public String getContent(){return note.getContent();}
+
     public void writeNote(String str){note.writeNote(str);}
     // ====================================================
 
-    // getters
+    // ========== getters ===========
     public float getValue(){return value;}
+    // ==============================
 
-    // setters
+    // ========== setters ==========
     public void setScore(float score){value = score;}
+    // ==============================
 
     public String toString(){
         if (value.isNaN())

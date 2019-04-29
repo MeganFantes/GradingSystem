@@ -1,3 +1,7 @@
+/*
+   this class is a wrapper class used to provide different views for same object
+ */
+
 package Model;
 
 public class Dummy {

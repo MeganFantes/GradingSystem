@@ -1,3 +1,8 @@
+/*
+   this class store the meta-information for students
+   and is the top-level class for anything to do with student information
+ */
+
 package Model;
 
 import java.io.*;
@@ -10,6 +15,7 @@ public class StudentPool implements Serializable{
     private HashMap<String, HashSet<String>> fieldSet; // key: field name, val: all distinct content in that field
     private String displayFieldName;
 
+    // =======  constructors =========
     public StudentPool(){
         primaryKeyName = "STUDENT ID";
         allStudent = new HashMap<>();
@@ -24,7 +30,7 @@ public class StudentPool implements Serializable{
         fieldSet = new HashMap<>();
         displayFieldName = "STUDENT ID"; // default display order
     }
-
+    // ==============================
 
     public boolean importFromCsv(String filepath){
 
@@ -84,23 +90,6 @@ public class StudentPool implements Serializable{
         return true;
     }
 
-    public void viewFieldSet(){
-        System.out.println("Viewing all field -> values in this field");
-        Iterator iter = fieldSet.entrySet().iterator();
-        while (iter.hasNext()){
-            HashMap.Entry entry = (HashMap.Entry)iter.next();
-            System.out.println(entry.getKey()+"="+entry.getValue());
-        }
-    }
-
-    public void viewAllStudent(){
-        System.out.println("Viewing all student -> (student detail) ");
-        Iterator iter = allStudent.entrySet().iterator();
-        while (iter.hasNext()){
-            HashMap.Entry entry = (HashMap.Entry)iter.next();
-            System.out.println("key="+entry.getKey()+"\n"+entry.getValue()+"\n==========");
-        }
-    }
 
     // ============ getters ============
     public String getPrimaryKey(){
@@ -157,6 +146,24 @@ public class StudentPool implements Serializable{
             }
         }
         return ret;
+    }
+
+    public void viewFieldSet(){
+        System.out.println("Viewing all field -> values in this field");
+        Iterator iter = fieldSet.entrySet().iterator();
+        while (iter.hasNext()){
+            HashMap.Entry entry = (HashMap.Entry)iter.next();
+            System.out.println(entry.getKey()+"="+entry.getValue());
+        }
+    }
+
+    public void viewAllStudent(){
+        System.out.println("Viewing all student -> (student detail) ");
+        Iterator iter = allStudent.entrySet().iterator();
+        while (iter.hasNext()){
+            HashMap.Entry entry = (HashMap.Entry)iter.next();
+            System.out.println("key="+entry.getKey()+"\n"+entry.getValue()+"\n==========");
+        }
     }
     // ==============================
 

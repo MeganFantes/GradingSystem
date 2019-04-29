@@ -1,3 +1,7 @@
+/*
+   this file includes the class which is used to compute statistics
+ */
+
 package Model;
 
 import Model.Leaf;
@@ -14,6 +18,7 @@ public class Statistics {
     private HashMap<String, Float> allPercentageScore;
     private LeafNode leafNode;
 
+    // =========  constructors ===========
     public Statistics(LeafNode leafNode){
         this.leafNode = leafNode;
         allPercentageScore = null;
@@ -26,10 +31,11 @@ public class Statistics {
         allPercentageScore = aggregationScore;
         totalScore = 100;
     }
+    // ===================================
 
     public HashMap<String, Float> computeStatistics(){
         if (leafNode != null){
-            // from LeafNode, socre might be updated
+            // from LeafNode, socre might be updated ( assignment view)
             // so we need to recompute to percentage every time
 
             // convert all score in LeafNode to percentage
@@ -50,7 +56,8 @@ public class Statistics {
                     default:
                         assert(false);
                 }
-                currLeafScores.add(trueScore);
+                if (!trueScore.isNaN())
+                    currLeafScores.add(trueScore);
             }
 
             // all statistics represented in percentage
@@ -77,7 +84,7 @@ public class Statistics {
             return retMap;
         }
 
-
+        // this is where summarization view statistics is calculated
         // all statistics represented in percentage
         float sum = 0f, sqrsum = 0f;
         float minScore = 101, maxScore = 0;
