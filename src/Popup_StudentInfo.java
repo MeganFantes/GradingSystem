@@ -321,9 +321,6 @@ class Popup_AddColumn {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
     }
-//    public static void main(String args[]) {
-//        Popup_AddColumn p = new Popup_AddColumn();
-//    }
 }
 
 class Popup_Student {
@@ -380,9 +377,6 @@ class Popup_Student {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
     }
-//    public static void main(String args[]) {
-//        Popup_Student p = new Popup_Student();
-//    }
 }
 
 class Popup_Total {
@@ -420,9 +414,6 @@ class Popup_Total {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
     }
-//    public static void main(String args[]) {
-//        Popup_Total p = new Popup_Total();
-//    }
 }
 
 class Popup_AssignmentHeader {
@@ -445,7 +436,7 @@ class Popup_AssignmentHeader {
 
 	JButton btnDone;
 
-    public Popup_AssignmentHeader(Object assignment, Object category) {
+    public Popup_AssignmentHeader(Object assignment, Object category, JFrame callingFrame) {
     	f = new JFrame(assignment.toString());
 //	    mainPanel = new JPanel();
 
@@ -472,10 +463,16 @@ class Popup_AssignmentHeader {
 	    gradesLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 	    gradesLabel.setText("Grades:");
 
-	    Object[][] students = Arrays.copyOfRange(GradingSystem.controller.getAssignmentViewRows(category), 3, GradingSystem.controller.getAssignmentViewRows(category).length);
+//	    Object[][] students = Arrays.copyOfRange(GradingSystem.controller.getAssignmentViewRows(category), 3, GradingSystem.controller.getAssignmentViewRows(category).length);
+	    Object[] students = GradingSystem.controller.getStudentPool().getPrimaryKeyAndSortBy("").toArray();
 	    Object[][] gradesTableRows = new Object[students.length][];
 	    for (int i = 0; i < students.length; i++) {
-	    	gradesTableRows[i] = new Object[] {students[i][0], null};
+//	    	gradesTableRows[i] = new Object[] {students[i][0], null};
+//		    Object student = students[i][0];
+		    Object student = GradingSystem.controller.getStudentPool().getStudentByKey(students[i].toString());
+//		    Leaf score = ((LeafNode) (((ParentNode) category).getChild(0))).getLeafByKey(students[i].toString());
+		    Leaf score = ((LeafNode) (((ParentNode) assignment).getChild(0))).getLeafByKey(students[i].toString());
+		    gradesTableRows[i] = new Object[] {student, score};
 	    }
 
 	    gradesTable.setModel(new DefaultTableModel(gradesTableRows, new String [] {"Student", "Grade"})
@@ -521,7 +518,6 @@ class Popup_AssignmentHeader {
 									                        .addComponent(tableScrollPane, GroupLayout.PREFERRED_SIZE, 10*25, 10*25))
 							              .addGap(20, 20, 20)
 							              .addComponent(btnDone)
-//							              .addContainerGap(272, Short.MAX_VALUE))
 					    ));
 
 	    GroupLayout layout = new GroupLayout(f.getContentPane());
@@ -539,13 +535,24 @@ class Popup_AssignmentHeader {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
 		    	//TODO: figure out how to set assignment name and weight (Ask Yueh)
+			    // get the assignment name and weight
+			    ((ParentNode) assignment).setCriteria(nameTextField.getText());
+			    ((ParentNode) assignment).setWeight(Float.parseFloat(weightTextField.getText()));
 		    	//TODO: ask Yueh how to add grades
+			    // get the assignment grades
+			    DefaultTableModel tableModel = (DefaultTableModel) (gradesTable).getModel();
+			    for (int row = 0; row < students.length; row++) {
+			    	Object scoreText = tableModel.getValueAt(row, 1);
+				    //((Leaf) scoreText).setScore(Float.parseFloat((String) tableModel.getValueAt(row, 1)));
+//				    System.out.println(scoreText);
+				    ((Leaf) gradesTableRows[row][1]).setScore(Float.parseFloat(scoreText.toString()));
+			    }
+//			    System.out.println();
+			    AssignmentsView assignmentsView = new AssignmentsView(category);
+			    callingFrame.dispose();
 			    f.dispose();
 		    }
 	    });
-
-//	    JScrollPane scroll = new JScrollPane(mainPanel);
-//	    f.getContentPane().add(scroll); // this line adds the table to the frame (you do not need a separate panel)
 
 	    f.setSize(470, 430);
 	    f.setVisible(true);
@@ -583,10 +590,8 @@ class Popup_AssignmentGrade {
 		btnDone.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: add listener too get grade, like we get note below
-//				((NoteInterface) assignmentGrade).writeNote(textareaNote.getText());
-//				if (((NoteInterface) assignmentGrade).hasNote()) callingButton.setBackground(Color.RED);
 				checkForNote();
+				// change the grade displayed on the button
 				((Leaf) assignmentGrade).setScore(Float.parseFloat(textfieldGrade.getText()));
 				callingButton.setText(assignmentGrade.toString());
 				f.dispose();
@@ -621,8 +626,4 @@ class Popup_AssignmentGrade {
 			callingButton.setBackground(Color.CYAN);
 		}
 	}
-
-//	public static void main(String[] args) {
-//		Popup_AssignmentGrade popup_assignmentGrade = new Popup_AssignmentGrade(new Object());
-//	}
 }

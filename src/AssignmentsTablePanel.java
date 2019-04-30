@@ -52,7 +52,7 @@ public class AssignmentsTablePanel extends JPanel {
 			}
 			// add functionality of the rest of the header buttons (the assignment title buttons)
 			else {
-				button = new BtnAssignmentHeader(headerLabels[i], category);
+				button = new BtnAssignmentHeader(headerLabels[i], category, callingFrame);
 			}
 //			button.setSize(width, height);
 			button.setPreferredSize(buttonSize);
@@ -247,14 +247,14 @@ class AL_StudentHeader implements ActionListener {
 }
 
 class BtnAssignmentHeader extends JButton {
-	BtnAssignmentHeader(Object assignment, Object category) {
+	BtnAssignmentHeader(Object assignment, Object category, JFrame callingFrame) {
 //		super((String) label);
 		super(assignment.toString());
 //		addActionListener(new AL_AssignmentHeader(this));
 		addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Popup_AssignmentHeader popup_assignmentHeader = new Popup_AssignmentHeader(assignment, category);
+				Popup_AssignmentHeader popup_assignmentHeader = new Popup_AssignmentHeader(assignment, category, callingFrame);
 			}
 		});
 	}
