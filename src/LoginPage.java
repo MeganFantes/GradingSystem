@@ -1,6 +1,4 @@
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -74,6 +72,10 @@ public class LoginPage extends JFrame{
 		jf_1.setVisible(true);
 		jf_1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf_1.setLocation(700,300);
+
+	    // make the JFrame appear in the middle of the screen
+	    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	    jf_1.setLocation(dim.width/2-jf_1.getSize().width/2, dim.height/2-jf_1.getSize().height/2);
 	}
 	public static void main(String[] args) {
 		//initial
@@ -107,6 +109,6 @@ public class LoginPage extends JFrame{
 		frame.setVisible(true);
 		jf_1.dispose();
 
-		
+
 	};
 }
