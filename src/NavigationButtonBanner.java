@@ -6,19 +6,25 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class NavigationButtonBanner extends JPanel {
 	// buttons on the panel
 	private static JButton btnClassHome;
 	private static JButton btnCalcFinalGrade;
 	private static JButton btnAddColumn;
+	private static JButton btnExitClass;
+
 	public NavigationButtonBanner(JFrame callingFrame) {
 
-		btnClassHome = new javax.swing.JButton();
-		btnAddColumn = new javax.swing.JButton();
+		btnClassHome = new JButton();
+		btnAddColumn = new JButton();
 //		btnAddColumn = new BtnAddColumn(callingFrame);
-		btnCalcFinalGrade = new javax.swing.JButton();
+		btnCalcFinalGrade = new JButton();
+		btnExitClass = new JButton();
 
 		btnClassHome.setText("Class Home");
 		btnClassHome.addActionListener(new ActionListener() {
@@ -28,6 +34,37 @@ public class NavigationButtonBanner extends JPanel {
 				callingFrame.dispose();
 			}
 		});
+
+		// This is where we check if it is a past course or a current course
+		if (GradingSystem.controller.getIsCurrentClass()) {
+			String text = "Save and Exit Class";
+			btnExitClass.setText(text);
+			btnExitClass.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// add functionality to SAVE and exit
+					String outputfileName = GradingSystem.currCourseFolder + GradingSystem.controller.getRoot().getCriteria() + ".ser";
+					try {
+						FileOutputStream fs = new FileOutputStream(outputfileName);
+						ObjectOutputStream objs = new ObjectOutputStream(fs);
+						objs.writeObject(GradingSystem.controller.getRoot());
+						objs.close();
+						System.out.println("write successfully");
+					} catch (Exception ex){
+						ex.printStackTrace();
+					}
+					// now bring the user back to the Loading page
+					LoadingPage loadingPage = new LoadingPage(new JFrame(), GradingSystem.controller.getRoot());
+					callingFrame.dispose();
+				}
+			});
+		}
+		else {
+			String text = "Exit Class";
+			// bring the user back to the Loading page
+			callingFrame.dispose();
+			LoadingPage loadingPage = new LoadingPage(callingFrame, GradingSystem.controller.getRoot());
+		}
 
 		btnAddColumn.setText("Add Column");
 		btnAddColumn.addActionListener(new ActionListener() {
@@ -40,9 +77,20 @@ public class NavigationButtonBanner extends JPanel {
 		btnCalcFinalGrade.setText("Calculate Final Grade");
 		btnCalcFinalGrade.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				GradingSystem.controller.computeFinalScore();
-				ClassHome classHome = new ClassHome();
-				callingFrame.dispose();
+				ArrayList<String> errorMessages = GradingSystem.controller.getRoot().treeValidation(null, false);
+				if (errorMessages.size() > 0) {
+					String displayString = "";
+					for (int i = 0; i < errorMessages.size(); i++) {
+						int displayIndex = i + 1;
+						displayString = displayString + displayIndex + ") " + errorMessages.get(i) + "\n";
+					}
+					JOptionPane.showMessageDialog(callingFrame, displayString);
+				}
+				else {
+					GradingSystem.controller.computeFinalScore();
+					ClassHome classHome = new ClassHome();
+					callingFrame.dispose();
+				}
 			}
 		});
 
@@ -54,6 +102,8 @@ public class NavigationButtonBanner extends JPanel {
 						.addGroup(layout.createSequentialGroup()
 								          .addGap(5)
 								          .addComponent(btnClassHome)
+											.addGap(5)
+											.addComponent(btnExitClass)
 								          .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 385, Short.MAX_VALUE)
 								          .addComponent(btnCalcFinalGrade)
 								          .addGap(5)
@@ -66,6 +116,7 @@ public class NavigationButtonBanner extends JPanel {
 								          .addGap(5)
 								          .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 										                    .addComponent(btnClassHome, GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+										                    .addComponent(btnExitClass, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										                    .addComponent(btnCalcFinalGrade, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										                    .addComponent(btnAddColumn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 								          .addGap(5))

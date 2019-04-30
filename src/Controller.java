@@ -10,11 +10,13 @@ import java.util.Arrays;
 public class Controller {
 	private static ParentNode root;
 	private ParentNode currentState;
+	private boolean isCurrentClass;
 
 	public Controller() {
 		//root = setRoot();
 		root = new ParentNode();
 		currentState = root;
+		isCurrentClass = false;
 	}
 
 	private ParentNode setRoot() {
@@ -129,6 +131,14 @@ public class Controller {
 		//newRoot.traverse(0);
 		root = newRoot;
 		currentState = newRoot;
+	}
+
+	public void setCurrentClass(boolean currentClass) {
+		isCurrentClass = currentClass;
+	}
+
+	public boolean getIsCurrentClass() {
+		return isCurrentClass;
 	}
 
 	public static void main(String[] args) {

@@ -1,5 +1,4 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -124,8 +123,11 @@ public void initial()
 		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(81, 36, 372, 89);
 		contentPane.add(scrollPane);
-		setLocationRelativeTo(parent);
-
+//		setLocationRelativeTo(parent);
+		// make the JFrame appear in the middle of the screen
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation(dim.width/2-getSize().width/2, dim.height/2-getSize().height/2);
+		setVisible(true);
 	}
 	public void ProgressClassActionPerformed(MouseEvent arg0)
 	{
@@ -136,6 +138,7 @@ public void initial()
 			System.out.println("opening Curr course: " + fileToRead);
 			this.dispose();
 			GradingSystem.controller.openCourse(fileToRead);
+			GradingSystem.controller.setCurrentClass(true);
 			ClassHome classHome = new ClassHome();
 		}
 	}
@@ -149,6 +152,7 @@ public void initial()
 			System.out.println("opening Past course: " + fileToRead);
 			this.dispose();
 			GradingSystem.controller.openCourse(fileToRead);
+			GradingSystem.controller.setCurrentClass(false);
 			ClassHome classHome = new ClassHome();
 		}
 	}
