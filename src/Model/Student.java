@@ -1,6 +1,9 @@
-package Model;
+/*
+   this class store per student information in (attribute, value) pair
+   it's the smallest unit related to student information
+ */
 
-//import com.sun.xml.internal.xsom.impl.scd.Step;
+package Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,15 +15,18 @@ public class Student implements Serializable {
     private HashMap<String, String> attributes;
     private ArrayList<String> displayField;
 
+    // ======= constructors ========
     public Student(){
         attributes = new HashMap<>();
         displayField = new ArrayList<>();
         //displayField.add("FIRST NAME");
         displayField.add("STUDENT ID");
     }
+    // ================================
 
-    public void addAttribute(String key, String value){attributes.put(key, value);}
+    // ======= getters ========
     public String getAttribute(String attributeName){ return attributes.getOrDefault(attributeName.toUpperCase(), null);}
+
     public ArrayList<String> getAllAttribute(){
         ArrayList<String> ret = new ArrayList<>();
         ret.add(this.getAttribute("LAST NAME")+", "+this.getAttribute("FIRST NAME"));
@@ -29,6 +35,10 @@ public class Student implements Serializable {
         ret.add(this.getAttribute("CLASS YEAR"));
         return ret;
     }
+    // ================================
+
+    // ======= setters ========
+    public void addAttribute(String key, String value){attributes.put(key, value);}
 
     public void setDisplayField(ArrayList<String> fieldToShow){
         if (displayField.size()>0)
@@ -41,6 +51,7 @@ public class Student implements Serializable {
             }
         }
     }
+    // ================================
 
     @Override
     public String toString() {

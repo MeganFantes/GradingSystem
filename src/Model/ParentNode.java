@@ -1,3 +1,8 @@
+/*
+   this class save the meta-information for the grading criteria
+   and real children (sub-categories of this criteria or score of each assignment)
+ */
+
 package Model;
 
 import java.util.ArrayList;
@@ -7,7 +12,7 @@ public class ParentNode extends TreeNode {
     private ArrayList<TreeNode> children;
     private String criteria;
     private Float weight;
-    private HashMap<String, Float> aggregateScore; // used to record aggregation of all children
+    private HashMap<String, Float> aggregateScore; // used to record aggregation from all children
 
     // ========== contructors ==========
     public ParentNode(){
@@ -25,8 +30,9 @@ public class ParentNode extends TreeNode {
         this.weight =  new Float(weight);
         aggregateScore = new HashMap<>();
     }
+    // ========================================
 
-    // ====== required methods from Model.TreeNode
+    // ====== required methods from class TreeNode ========
     public void traverse(int depth){
         String padsym = "  ";
         String padding = "";
@@ -287,8 +293,11 @@ public class ParentNode extends TreeNode {
 
     // ========== getters =========
     public Float getWeight(){return weight;}
+
     public TreeNode getChild(int childIndex){ return children.get(childIndex);}
+
     public int getChildNum(){return children.size();}
+
     public ArrayList<ParentNode> getAllChildren(){
         // this function is only called when its children not leaf (either no children or parentNode)
         assert(children.size()==0 || !children.get(0).isLeaf());
@@ -298,20 +307,27 @@ public class ParentNode extends TreeNode {
         }
         return ret;
     }
+
     public StudentPool getStudentPool(){return studentPool;}
+
     public HashMap<String, Float> getAggregateScore(){return aggregateScore;}
+
     public String getCriteria(){return criteria;}
     // ========================================
 
     // ========== setters ==========
     public void setCriteria(String criteria){this.criteria = criteria;}
+
     public void setWeight(float weight){this.weight = weight;}
+
     public void addChild(TreeNode child){
         children.add(child);
     }
+
     public void removeChild(int childIdx){
         children.remove(childIdx);
     }
+
     public void updateCurrNode(String classname, ArrayList<String> criteria_name, ArrayList<String> criteria_weight){
         this.criteria = classname;
         this.children.clear();

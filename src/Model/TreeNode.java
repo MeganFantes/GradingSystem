@@ -1,3 +1,8 @@
+/*
+    this class defines the abstract super class TreeNode for our backend-model
+    the real derived class which are allowed to be initiated are ParentNode & LeafNode
+ */
+
 package Model;
 
 import java.io.Serializable;
@@ -22,8 +27,9 @@ public abstract class TreeNode implements Serializable, NoteInterface {
     public abstract Float getWeight();
     public abstract boolean isLeaf();
 
-    // Model.NoteInterface functions
+    // ===== Model.NoteInterface functions =====
     public boolean hasNote(){ return note.hasNote();}
     public String getContent(){return note.getContent();}
     public void writeNote(String str){note.writeNote(str);}
+    // =========================================
 }

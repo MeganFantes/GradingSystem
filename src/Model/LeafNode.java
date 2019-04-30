@@ -1,3 +1,9 @@
+/*
+    this class is the base case for the Tree structure
+    containing all smallest units (score per student per assignment)
+    input method of a specific assignment & total score
+ */
+
 package Model;
 
 import java.io.FileInputStream;
@@ -9,22 +15,17 @@ public class LeafNode extends TreeNode {
     private CellInputType inputType;
     private Float totalScore;
 
+    // =========== constructors =============
     public LeafNode(){
         studentPool = null;
         totalScore = Float.NaN;
         allLeaf = new HashMap<>();
         inputType = CellInputType.Raw;
     }
-
-    public void generateLeafs(String primaryKeyName){
-        ArrayList<String> allPrimaryKeys = studentPool.getPrimaryKeyAndSortBy(studentPool.getPrimaryKey());
-        for (String key : allPrimaryKeys){
-            allLeaf.put(key, new Leaf() );
-        }
-    }
+    // ========================================
 
 
-    // ====== required methods from Model.TreeNode =======
+    // ====== required methods from TreeNode (also some helpers related to these functions) =======
     public void traverse(int depth){
         String padsym = "  ";
         String padding = "";
@@ -47,6 +48,13 @@ public class LeafNode extends TreeNode {
         assert(allLeaf.size()==0 && studentPool==null); // if not zero, meaning student already exist or pool connected
         studentPool = pool;
         generateLeafs(studentPool.getPrimaryKey());
+    }
+
+    public void generateLeafs(String primaryKeyName){
+        ArrayList<String> allPrimaryKeys = studentPool.getPrimaryKeyAndSortBy(studentPool.getPrimaryKey());
+        for (String key : allPrimaryKeys){
+            allLeaf.put(key, new Leaf() );
+        }
     }
 
     public ArrayList<String> treeValidation(ArrayList<String> errorSofar, boolean checkRootChildrenOnly){
@@ -121,7 +129,7 @@ public class LeafNode extends TreeNode {
     public TreeNode getChild(int childIndex){return null;}
 
     public boolean isLeaf(){return true;}
-    // ========================================
+    // ==============================================
 
     // ========== getters ==========
     public Leaf getLeafByKey(String key){return allLeaf.get(key);}
@@ -133,18 +141,18 @@ public class LeafNode extends TreeNode {
     public Float getTotalScore(){return totalScore;}
 
     public CellInputType getInputType(){return inputType;}
-    // ========================================
-
-    // ========== setters =========
-    public void setInputType(CellInputType type){inputType = type;}
-
-    public void setTotalScore(float totalScore){this.totalScore = totalScore;}
 
     public void viewAllLeaf(String padding){
         for (Map.Entry<String, Leaf> entry : allLeaf.entrySet()){
             System.out.println(padding+entry.getKey()+"->"+entry.getValue());
         }
     }
+    // ========================================
+
+    // ========== setters =========
+    public void setInputType(CellInputType type){inputType = type;}
+
+    public void setTotalScore(float totalScore){this.totalScore = totalScore;}
     // ========================================
 
     @Override

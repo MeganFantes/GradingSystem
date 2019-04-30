@@ -1,3 +1,8 @@
+/*
+   this file declares methods need to be implemented for every class which
+   support writing a Note
+ */
+
 package Model;
 
 public interface NoteInterface {

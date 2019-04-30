@@ -1,3 +1,8 @@
+/*
+   this class is used to record note by user
+   if content is empty : no note is recorded
+ */
+
 package Model;
 
 import java.io.Serializable;
