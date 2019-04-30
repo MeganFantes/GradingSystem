@@ -80,17 +80,9 @@ public void initial()
 			}
 		});
 		list_1.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent evt) {
-				JList list = (JList)evt.getSource();
-				if (evt.getClickCount() == 2) {
-					// Double-click detected
-					String fileToRead = GradingSystem.pastCourseFolder + list_1.getSelectedValue();
-					//String absolutePath = FileSystems.getDefault().getPath(fileToRead).normalize().toAbsolutePath().toString();
-					System.out.println("opening Past course: " + fileToRead);
-					parent.dispose();
-					GradingSystem.controller.openCourse(fileToRead);
-					ClassHome classHome = new ClassHome();
-				}
+			public void mouseClicked(MouseEvent evt3) {
+				JList list = (JList)evt3.getSource();
+				ClosedClassActionPerformed(evt3);
 			}
 		});
 		contentPane.add(list_1);
@@ -123,16 +115,8 @@ public void initial()
 				 }
 			  });
 		list.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent evt) {
-				JList list = (JList)evt.getSource();
-				if (evt.getClickCount() == 2) {
-					// Double-click detected
-					String fileToRead = GradingSystem.currCourseFolder + list.getSelectedValue();
-					System.out.println("opening Curr course: " + fileToRead);
-					parent.dispose();
-					GradingSystem.controller.openCourse(fileToRead);
-					ClassHome classHome = new ClassHome();
-				}
+			public void mouseClicked(MouseEvent evt2) {
+				ProgressClassActionPerformed(evt2);
 			}
 		});
 		contentPane.add(list);
@@ -143,7 +127,32 @@ public void initial()
 		setLocationRelativeTo(parent);
 
 	}
-
+	public void ProgressClassActionPerformed(MouseEvent arg0)
+	{
+		JList list = (JList)arg0.getSource();
+		if (arg0.getClickCount() == 2) {
+			// Double-click detected
+			String fileToRead = GradingSystem.currCourseFolder + list.getSelectedValue();
+			System.out.println("opening Curr course: " + fileToRead);
+			this.dispose();
+			GradingSystem.controller.openCourse(fileToRead);
+			ClassHome classHome = new ClassHome();
+		}
+	}
+	public void ClosedClassActionPerformed(MouseEvent arg0)
+	{
+		JList list = (JList)arg0.getSource();
+		if (arg0.getClickCount() == 2) {
+			// Double-click detected
+			String fileToRead = GradingSystem.pastCourseFolder + list_1.getSelectedValue();
+			//String absolutePath = FileSystems.getDefault().getPath(fileToRead).normalize().toAbsolutePath().toString();
+			System.out.println("opening Past course: " + fileToRead);
+			this.dispose();
+			GradingSystem.controller.openCourse(fileToRead);
+			ClassHome classHome = new ClassHome();
+		}
+	}
+	
 	public void LoadButtonActionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		/*to jump*/
