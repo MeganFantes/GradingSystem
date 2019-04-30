@@ -123,16 +123,8 @@ public void initial()
 				 }
 			  });
 		list.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent evt) {
-				JList list = (JList)evt.getSource();
-				if (evt.getClickCount() == 2) {
-					// Double-click detected
-					String fileToRead = GradingSystem.currCourseFolder + list.getSelectedValue();
-					System.out.println("opening Curr course: " + fileToRead);
-					parent.dispose();
-					GradingSystem.controller.openCourse(fileToRead);
-					ClassHome classHome = new ClassHome();
-				}
+			public void mouseClicked(MouseEvent evt2) {
+				ChooseClassActionPerformed(evt2);
 			}
 		});
 		contentPane.add(list);
@@ -142,6 +134,18 @@ public void initial()
 		contentPane.add(scrollPane);
 		setLocationRelativeTo(parent);
 
+	}
+	public void ChooseClassActionPerformed(MouseEvent arg0)
+	{
+		JList list = (JList)arg0.getSource();
+		if (arg0.getClickCount() == 2) {
+			// Double-click detected
+			String fileToRead = GradingSystem.currCourseFolder + list.getSelectedValue();
+			System.out.println("opening Curr course: " + fileToRead);
+			this.dispose();
+			GradingSystem.controller.openCourse(fileToRead);
+			ClassHome classHome = new ClassHome();
+		}
 	}
 
 	public void LoadButtonActionPerformed(ActionEvent arg0) {
