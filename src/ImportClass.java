@@ -293,7 +293,9 @@ public class ImportClass extends JFrame {
             	JOptionPane.showMessageDialog(parent,"Please fill in all blanks","Empty blanks",JOptionPane.INFORMATION_MESSAGE);
             }
 
-
+			// navigate to class home
+			parent.dispose();
+            ClassHome nextPage = new ClassHome();
 		}
 		else if(jb==DeleteCriteriaButton)
 		{

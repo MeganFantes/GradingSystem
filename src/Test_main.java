@@ -98,8 +98,10 @@ public class Test_main {
         studentPool = new StudentPool(primaryKey);
         studentPool.importFromCsv("./real_Field1.csv");
         root.connectStudentPool(studentPool);
-        System.out.println("=========  after connect (should be full)========== ");
+        System.out.println("=========  after connect (should be same as above)========== ");
         root.traverse(0);
+        // nothing change because we yet have LeafNdoe to show student info
+        // but the Parentnode should have studentpool right now
 
     }
 }
