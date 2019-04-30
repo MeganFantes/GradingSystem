@@ -8,20 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollBar;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import Model.ParentNode;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import Model.ParentNode;
 
 public class ImportClass extends JFrame {
@@ -232,7 +223,7 @@ public class ImportClass extends JFrame {
 		else if(jb==FinishButton)
 		{
 			Semester_Name=textField_1.getText()+"-"+textField.getText();
-;			//System.out.println(Semester_Name);
+			System.out.println(Semester_Name);
 			System.out.println("The value of row 1 is "+crit1.getText()+" "+wgh1.getText());
 			criteria_list=new ArrayList<String>();
 			weights_list=new ArrayList<String>();
@@ -295,6 +286,7 @@ public class ImportClass extends JFrame {
 
 			// navigate to class home
 			parent.dispose();
+			GradingSystem.controller.setCurrentClass(true);
             ClassHome nextPage = new ClassHome();
 		}
 		else if(jb==DeleteCriteriaButton)

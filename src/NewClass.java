@@ -193,8 +193,8 @@ public class NewClass extends JFrame {
 		
 		else if(jb==FinishButton)
 		{
-			Semester_Name=textField_1.getText()+"-"+textField.getText();
-;			//System.out.println(Semester_Name);
+			Semester_Name=textField_1.getText().replace(" ", "")+"-"+textField.getText().replace(" ", "");
+			System.out.println(Semester_Name);
 			System.out.println("The value of row 1 is "+crit1.getText()+" "+wgh1.getText());
 			criteria_list=new ArrayList<String>();
 			weights_list=new ArrayList<String>();
@@ -244,8 +244,10 @@ public class NewClass extends JFrame {
             {
             	JOptionPane.showMessageDialog(parent,"Please fill in all blanks","Empty blanks",JOptionPane.INFORMATION_MESSAGE);
             }
-
-
+			// navigate to class home
+			parent.dispose();
+			GradingSystem.controller.setCurrentClass(true);
+			ClassHome nextPage = new ClassHome();
 		}
 		else if(jb==DeleteCriteriaButton)
 		{
