@@ -47,8 +47,7 @@ class Popup_StudentInfo {
 
         buttonGroupStudent.add(jRadioButton1);
         jRadioButton1.setText(s.get(0));
-
-
+        jRadioButton1.setSelected(true);
 
         buttonGroupStudent.add(jRadioButton2);
         jRadioButton2.setText(s.get(3));
@@ -127,7 +126,7 @@ class Popup_StudentInfo {
 
         f.pack();
 
-        f.setSize(200,200);
+        f.setSize(150,300);
         f.setVisible(true);
         f.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
