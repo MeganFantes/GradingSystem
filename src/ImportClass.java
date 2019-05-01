@@ -285,7 +285,7 @@ public class ImportClass extends JFrame {
             }
 
 			// navigate to class home
-			parent.dispose();
+			dispose();
 			GradingSystem.controller.setCurrentClass(true);
             ClassHome nextPage = new ClassHome();
 		}
