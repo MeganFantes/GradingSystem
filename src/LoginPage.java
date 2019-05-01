@@ -30,19 +30,19 @@ public class LoginPage extends JFrame{
 
     	Font font =new Font("Times New Roman", Font.PLAIN, 20);//font
 	    jf_1=new JFrame("Login Page");
-		jf_1.setSize(650, 500);
+		jf_1.setSize(430, 350);
 		jl_1=new JLabel();
 		
 		jl_admin=new JLabel("Username");
-		jl_admin.setBounds(20, 50, 80, 50);
+		jl_admin.setBounds(20, 50, 150, 50);
 		jl_admin.setFont(font);
 		
 		jl_password=new JLabel("Password");
-		jl_password.setBounds(20, 120, 80, 50);
+		jl_password.setBounds(20, 120, 150, 50);
 		jl_password.setFont(font);
 		
 		bt1=new JButton("Login");         //loginButton
-		bt1.setBounds(110, 250, 200, 50);
+		bt1.setBounds(110, 220, 200, 50);
 		//bt1.setUI(new BEButtonUI(). setNormalColor(BEButtonUI.NormalColor.lightBlue));
 		bt1.setFont(font);
 		bt1.addActionListener(new java.awt.event.ActionListener() {
@@ -71,7 +71,7 @@ public class LoginPage extends JFrame{
 		jf_1.add(jl_1);
 		jf_1.setVisible(true);
 		jf_1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf_1.setLocation(700,300);
+//		jf_1.setLocation(700,300);
 
 	    // make the JFrame appear in the middle of the screen
 	    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
