@@ -276,18 +276,21 @@ public class ImportClass extends JFrame {
 				ArrayList<String> errors = root.treeValidation(null,  true);
                 if (errors.size()>0)
                 {
-                	JOptionPane.showMessageDialog(parent,"All weighs should add up to 100","Weight Error",JOptionPane.INFORMATION_MESSAGE);
+                	JOptionPane.showMessageDialog(parent,"All weights should add up to 100","Weight Error",JOptionPane.INFORMATION_MESSAGE);
                 }
+                else {
+					// navigate to class home
+					GradingSystem.controller.setRoot(root);
+					dispose();
+					GradingSystem.controller.setCurrentClass(true);
+					ClassHome nextPage = new ClassHome();
+				}
             }
             else
             {
             	JOptionPane.showMessageDialog(parent,"Please fill in all blanks","Empty blanks",JOptionPane.INFORMATION_MESSAGE);
             }
 
-			// navigate to class home
-			dispose();
-			GradingSystem.controller.setCurrentClass(true);
-            ClassHome nextPage = new ClassHome();
 		}
 		else if(jb==DeleteCriteriaButton)
 		{
