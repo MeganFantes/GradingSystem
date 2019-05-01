@@ -192,9 +192,10 @@ public class ParentNode extends TreeNode {
         // 2nd row : total score
         retTable[1][0] = new String("Total Score");
         for (int i=1; i<numCol; i++){
-            LeafNode curr = ((LeafNode)children.get(i-1).getChild(0));
-            Dummy tmp = new Dummy(curr.getTotalScore().toString(), curr);
-            retTable[1][i] = tmp;
+//            LeafNode curr = ((LeafNode)children.get(i-1).getChild(0));
+//            Dummy tmp = new Dummy(curr.getTotalScore().toString(), curr);
+//            retTable[1][i] = tmp;
+            retTable[1][i] = ((LeafNode)children.get(i-1).getChild(0));
         }
 
         // 3rd row : statistic button

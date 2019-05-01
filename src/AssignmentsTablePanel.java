@@ -226,7 +226,8 @@ class BtnAssignmentGradingOption extends JButton {
 
 class BtnTotalPoints extends JButton {
 	BtnTotalPoints(Object label) {
-		super(label.toString());
+//		super(label.toString());
+		super(((LeafNode) label).getTotalScore().toString());
 		JButton callingBtn = this;
 		addActionListener(new ActionListener() {
 			@Override
