@@ -390,6 +390,7 @@ class Popup_Total {
         f = new JFrame("Total points");
         L1 = new JLabel("Total points");
         t1 = new JTextField(16);
+        t1.setText(label.toString());
         JPanel p = new JPanel(new GridLayout(2,1));
         p.add(L1);
         p.add(t1);
