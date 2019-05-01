@@ -222,7 +222,7 @@ public class ImportClass extends JFrame {
 		
 		else if(jb==FinishButton)
 		{
-			Semester_Name=textField_1.getText()+"-"+textField.getText();
+			Semester_Name=textField_1.getText().replace(" ","")+"-"+textField.getText().replace(" ", "");
 			System.out.println(Semester_Name);
 			System.out.println("The value of row 1 is "+crit1.getText()+" "+wgh1.getText());
 			criteria_list=new ArrayList<String>();
