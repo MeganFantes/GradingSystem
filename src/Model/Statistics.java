@@ -75,6 +75,11 @@ public class Statistics {
             float sqravg = sqrsum / currLeafScores.size();
             float stddev = (float)Math.sqrt(sqravg - avg*avg);
 
+            if (minScore==101)
+                minScore = Float.NaN;
+            if (maxScore==0)
+                maxScore = Float.NaN;
+
             HashMap<String, Float> retMap = new HashMap<>();
             retMap.put("min", minScore);
             retMap.put("max", maxScore);
@@ -102,6 +107,11 @@ public class Statistics {
         float avg = sum / allPercentageScore.size();
         float sqravg = sqrsum / allPercentageScore.size();
         float stddev = (float)Math.sqrt(sqravg - avg*avg);
+
+        if (minScore==101)
+            minScore = Float.NaN;
+        if (maxScore==0)
+            maxScore = Float.NaN;
 
         HashMap<String, Float> retMap = new HashMap<>();
         retMap.put("min", minScore);
