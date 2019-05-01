@@ -60,10 +60,17 @@ public class NavigationButtonBanner extends JPanel {
 			});
 		}
 		else {
-			String text = "Exit Class";
 			// bring the user back to the Loading page
-			callingFrame.dispose();
-			LoadingPage loadingPage = new LoadingPage(callingFrame, GradingSystem.controller.getRoot());
+			String text = "Exit Class";
+			btnExitClass.setText(text);
+			btnExitClass.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// just bring the user back to the Loading page
+					LoadingPage loadingPage = new LoadingPage(new JFrame(), GradingSystem.controller.getRoot());
+					callingFrame.dispose();
+				}
+			});
 		}
 
 		btnAddColumn.setText("Add Column");

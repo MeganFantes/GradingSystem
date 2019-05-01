@@ -44,7 +44,7 @@ public class Test_main3 {
         hw = new ParentNode("HWs", 60);
         hw.addChild(hw1);
         hw.addChild(hw2);
-        root = new ParentNode("1987_CS007", 100);
+        root = new ParentNode("1987-CS007", 100);
         root.addChild(hw);
         root.addChild(mid);
         root.connectStudentPool(studentPool);
