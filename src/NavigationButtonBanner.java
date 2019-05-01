@@ -53,6 +53,8 @@ public class NavigationButtonBanner extends JPanel {
 					} catch (Exception ex){
 						ex.printStackTrace();
 					}
+					// clear root in controller, otherwise, student info remains there
+					GradingSystem.controller.setRoot(new ParentNode());
 					// now bring the user back to the Loading page
 					LoadingPage loadingPage = new LoadingPage(new JFrame(), GradingSystem.controller.getRoot());
 					callingFrame.dispose();
@@ -66,6 +68,8 @@ public class NavigationButtonBanner extends JPanel {
 			btnExitClass.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					// clear root in controller, otherwise, student info remains there
+					GradingSystem.controller.setRoot(new ParentNode());
 					// just bring the user back to the Loading page
 					LoadingPage loadingPage = new LoadingPage(new JFrame(), GradingSystem.controller.getRoot());
 					callingFrame.dispose();
