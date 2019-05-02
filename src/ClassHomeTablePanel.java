@@ -4,31 +4,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class ClassHomeTablePanel extends JPanel {
-//	private static Controller controller;
 	private Object[] headerLabels;
 	private Object[][] rows;
 	private JPanel headerPanel;
 	private JFrame callingFrame;
 	private final Dimension buttonSize = new Dimension(100, 25);
 	private final int panelWidth;
-	//	private final int panelWidth = 400;
-//	private final Dimension panelSize;
 	private final Dimension headerPanelSize;
 	private final Dimension rowPanelSize;
 
 	public ClassHomeTablePanel(JFrame callingFrame) {
-//		controller = c;
 		this.headerLabels = GradingSystem.controller.getClassSummaryViewHeader();
 		this.rows = GradingSystem.controller.getClassSummaryViewRows();
 		this.panelWidth = headerLabels.length*buttonSize.width;
-//		this.panelSize = new Dimension(panelWidth,(rows.length+1)*buttonSize.height);
 		this.headerPanelSize = new Dimension(panelWidth, buttonSize.height + 5);
 		this.rowPanelSize = new Dimension(panelWidth, buttonSize.height);
 		this.callingFrame = callingFrame;
-//		setPreferredSize(panelSize);
 		setLayout(new GridLayout(rows.length + 1, 1));
 		addHeader();
 		addRows();
@@ -37,8 +30,6 @@ public class ClassHomeTablePanel extends JPanel {
 	private void addHeader() {
 		headerPanel = new JPanel(new GridLayout(0, headerLabels.length));
 		headerPanel.setPreferredSize(headerPanelSize);
-//		headerPanel.setMinimumSize(headerPanelSize);
-//		headerPanel.setMaximumSize(headerPanelSize);
 		for (int i = 0; i < headerLabels.length; i++) {
 			JButton button;
 			// add functionality of the STUDENT header button
@@ -59,9 +50,6 @@ public class ClassHomeTablePanel extends JPanel {
 				button.setPreferredSize(buttonSize);
 				headerPanel.add(button);
 			}
-
-//			button.setMinimumSize(buttonSize);
-//			button.setMaximumSize(buttonSize);
 		}
 		add(headerPanel);
 	}
@@ -70,8 +58,6 @@ public class ClassHomeTablePanel extends JPanel {
 		for (int row = 0; row < rows.length; row++) {
 			JPanel rowPanel = new JPanel(new GridLayout(0, rows[row].length));
 			rowPanel.setPreferredSize(rowPanelSize);
-//			rowPanel.setMinimumSize(rowPanelSize);
-//			rowPanel.setMaximumSize(rowPanelSize);
 			// set functionality of the WEIGHTS row
 			if (row == 0) {
 				for (int col = 0; col < rows[row].length; col++) {
@@ -87,8 +73,6 @@ public class ClassHomeTablePanel extends JPanel {
 					if (col == 0) {
 						JLabel cellLabel = new JLabel((String) rows[row][col]);
 						cellLabel.setPreferredSize(buttonSize);
-//						cellLabel.setMinimumSize(buttonSize);
-//						cellLabel.setMaximumSize(buttonSize);
 						rowPanel.add(cellLabel);
 					}
 					// make the clickable buttons of the average row, so you can click on the button and see summary statistics
@@ -130,7 +114,6 @@ public class ClassHomeTablePanel extends JPanel {
 
 class BtnCategoryHeader extends JButton {
 	BtnCategoryHeader(Object category, JFrame callingFrame) {
-//		super((String) label);
 		super(category.toString());
 		addActionListener(new ActionListener() {
 			@Override
@@ -140,44 +123,15 @@ class BtnCategoryHeader extends JButton {
 				callingFrame.dispose();
 			}
 		});
-
-//		addActionListener(new AL_CategoryHeader(c, label, callingFrame));
 	}
 }
 
-//class AL_CategoryHeader implements ActionListener {
-////	JButton callingButton;
-//	Object callingCategory;
-//	JFrame callingFrame;
-////	int categoryIndex;
-//	Controller controller;
-//
-//	public AL_CategoryHeader(Controller c, Object category, JFrame callingFrame) {
-//		super();
-////		this.callingButton = btn;
-//		this.callingCategory = category;
-//		this.callingFrame = callingFrame;
-////		this.categoryIndex = categoryIndex;
-//		controller = c;
-//	}
-//
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-////		JOptionPane.showMessageDialog(callingButton, "You clicked on the " + callingButton.getText() + " button, you will be able to edit the name and weight of the category here");
-//		AssignmentsView assignmentsView = new AssignmentsView(callingCategory, controller);
-//		callingFrame.dispose();
-//	}
-//}
-
 class BtnCategoryAverage extends JButton {
 	BtnCategoryAverage(Object label) {
-//		super((String) label);
 		super(label.toString());
-//		addActionListener(new AL_CategoryAverage(this));
 		addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//JOptionPane.showMessageDialog(getParent(), "You are now seeing the summary statistics of a category");
 				Statistics stat = (Statistics) label;
 				Popup_Average p = new Popup_Average(stat);
 			}
@@ -185,23 +139,9 @@ class BtnCategoryAverage extends JButton {
 	}
 }
 
-//class AL_CategoryAverage implements ActionListener {
-//	JButton callingButton;
-//	public AL_CategoryAverage(JButton btn) {
-//		super();
-//		this.callingButton = btn;
-//	}
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-//		JOptionPane.showMessageDialog(callingButton, "You are now seeing the summary statistics of a category");
-//	}
-//}
-
 class BtnCategoryGrade extends JButton {
 	BtnCategoryGrade(Object label) {
-//		super((String) label);
 		super(label.toString());
-//		addActionListener(new AL_CategoryGrade(this));
 		addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -210,15 +150,3 @@ class BtnCategoryGrade extends JButton {
 		});
 	}
 }
-
-//class AL_CategoryGrade implements ActionListener {
-//	JButton callingButton;
-//	public AL_CategoryGrade(JButton btn) {
-//		super();
-//		this.callingButton = btn;
-//	}
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-//		JOptionPane.showMessageDialog(callingButton, "You clicked on a category grade, you will be able to edit the grade and add a note here");
-//	}
-//}
