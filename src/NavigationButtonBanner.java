@@ -104,6 +104,7 @@ public class NavigationButtonBanner extends JPanel {
 				}
 				else {
 					GradingSystem.controller.computeFinalScore();
+					GradingSystem.controller.setCurrentState(GradingSystem.controller.getRoot());
 					ClassHome classHome = new ClassHome();
 					callingFrame.dispose();
 				}

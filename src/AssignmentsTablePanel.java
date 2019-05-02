@@ -290,7 +290,7 @@ class BtnTotalPoints extends JButton {
 		addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Popup_Total p = new Popup_Total(label, callingBtn);
+				Popup_TotalPoints p = new Popup_TotalPoints(label, callingBtn);
 			}
 		});
 	}
@@ -336,7 +336,7 @@ class BtnAssignmentGrade extends JButton {
 		super(grade.toString());
 		boolean hasNote = ((NoteInterface) grade).hasNote();
 		if (((NoteInterface) grade).hasNote()) {
-			setBackground(Color.BLUE);
+			setBackground(Color.CYAN);
 			setOpaque(true);
 		}
 		JButton callingButton = this;
