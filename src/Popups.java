@@ -379,13 +379,13 @@ class Popup_Student {
     }
 }
 
-class Popup_Total {
+class Popup_TotalPoints {
     static JButton jButton;
     static JFrame f;
     static JLabel L1;
     static JTextField t1;
     //JButton callingButton;
-    public Popup_Total(Object label, JButton callingButton){
+    public Popup_TotalPoints(Object label, JButton callingButton){
         //JButton callingButton;
         jButton = new JButton("Done");
         f = new JFrame("Total points");
