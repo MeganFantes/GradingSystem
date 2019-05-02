@@ -5,6 +5,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This class created the CONTENT of the class home view window. This is the window where
+ * Christine can see the average category grades for the students in the class, where
+ * categories are homework, exams, projects, participation, etc. This is also the
+ * central page for the class, where she can click to view and enter individual grades.
+ *
+ * The content defined here is placed in a visible JFrame in the ClassHome class.
+ */
+
 public class ClassHomeTablePanel extends JPanel {
 	private Object[] headerLabels;
 	private Object[][] rows;
@@ -139,6 +148,7 @@ class BtnCategoryAverage extends JButton {
 	}
 }
 
+//TODO: add a popup for this, will be exactly the same as assignment grade, just make sure it edits the right type of object
 class BtnCategoryGrade extends JButton {
 	BtnCategoryGrade(Object label) {
 		super(label.toString());
