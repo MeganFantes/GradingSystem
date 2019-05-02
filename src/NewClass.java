@@ -239,15 +239,22 @@ public class NewClass extends JFrame {
                 {
 					JOptionPane.showMessageDialog(parent,"All weighs should add up to 100","Weight Error",JOptionPane.INFORMATION_MESSAGE);
 				}
+				else {
+					// navigate to class home
+//					parent.dispose();
+					GradingSystem.controller.setCurrentClass(true);
+					ClassHome nextPage = new ClassHome();
+					this.dispose();
+				}
             }
             else
             {
             	JOptionPane.showMessageDialog(parent,"Please fill in all blanks","Empty blanks",JOptionPane.INFORMATION_MESSAGE);
             }
-			// navigate to class home
-			parent.dispose();
-			GradingSystem.controller.setCurrentClass(true);
-			ClassHome nextPage = new ClassHome();
+//			// navigate to class home
+//			parent.dispose();
+//			GradingSystem.controller.setCurrentClass(true);
+//			ClassHome nextPage = new ClassHome();
 		}
 		else if(jb==DeleteCriteriaButton)
 		{
