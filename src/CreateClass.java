@@ -81,9 +81,16 @@ public class CreateClass extends JFrame {
 		//NewClass frame = new NewClass(this);
 		//frame.setTitle("Create a class");
 		//frame.setVisible(true);
-		JFileChooser jfc=new JFileChooser();
+		String projpath=getClass().getResource("").toString();
+
+		projpath=projpath.substring(6,(projpath.length()-4));
+		projpath=projpath+"Past_Courses/";
+		System.out.println("projpath"+projpath);
+		JFileChooser jfc=new JFileChooser(projpath);
 		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY );
 		jfc.showDialog(new JLabel(), "Choose a CSV file");
+
+		
 		File file=jfc.getSelectedFile();
 		if(file.isFile()){
 			System.out.println("File name: "+file.getAbsolutePath());
