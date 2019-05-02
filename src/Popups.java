@@ -633,7 +633,7 @@ class Popup_AssignmentGrade {
 		}
 		else {
 			// this grade has a note
-			callingButton.setBackground(Color.BLUE);
+			callingButton.setBackground(Color.CYAN);
 			callingButton.setOpaque(true);
 		}
 	}
