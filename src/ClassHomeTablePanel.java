@@ -94,22 +94,23 @@ public class ClassHomeTablePanel extends JPanel {
 					}
 				}
 			}
-			// set functionality of the rest of the rows (the student category total grades rows)
+			// set labels of the rest of the rows (the student category total grades rows)
+			// these are NOT clickable buttons, because they are just a calculation of other grades
 			else {
 				for (int col = 0; col < rows[row].length; col++) {
 					// Set the clickable student information button
-					JButton cellButton;
 					if (col == 0) {
-						cellButton = new BtnStudent(rows[row][col]);
+						JButton cellButton = new BtnStudent(rows[row][col]);
+						cellButton.setPreferredSize(buttonSize);
+						rowPanel.add(cellButton);
 					}
 					// make the clickable assignment grade button, so you can click on a grade and edit the grade or add a note
 					else {
-						cellButton = new BtnCategoryGrade(rows[row][col]);
+						JLabel cellLabel;
+						cellLabel = new JLabel(rows[row][col].toString());
+						cellLabel.setPreferredSize(buttonSize);
+						rowPanel.add(cellLabel);
 					}
-					cellButton.setPreferredSize(buttonSize);
-					cellButton.setMinimumSize(buttonSize);
-					cellButton.setMaximumSize(buttonSize);
-					rowPanel.add(cellButton);
 				}
 			}
 			add(rowPanel);
@@ -148,15 +149,15 @@ class BtnCategoryAverage extends JButton {
 	}
 }
 
-//TODO: add a popup for this, will be exactly the same as assignment grade, just make sure it edits the right type of object
-class BtnCategoryGrade extends JButton {
-	BtnCategoryGrade(Object label) {
-		super(label.toString());
-		addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(getParent(), "You clicked on a category grade, you will be able to edit the grade and add a note here");
-			}
-		});
-	}
-}
+////TODO: add a popup for this, will be exactly the same as assignment grade, just make sure it edits the right type of object
+//class BtnCategoryGrade extends JButton {
+//	BtnCategoryGrade(Object label) {
+//		super(label.toString());
+//		addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				JOptionPane.showMessageDialog(getParent(), "You clicked on a category grade, you will be able to edit the grade and add a note here");
+//			}
+//		});
+//	}
+//}
