@@ -114,6 +114,8 @@ public class Controller {
 		currentState.addChild(newParent);
 	}
 
+	public void setRoot(ParentNode root){this.root = root;}
+
 	public ParentNode getRoot(){
 		return root;
 	}
