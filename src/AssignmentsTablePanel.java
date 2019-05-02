@@ -280,6 +280,9 @@ class BtnAssignmentGradingOption extends JButton {
 	}
 }
 
+/*
+Clicking this button opens a popup to edit the total number of points for a specific assignment
+ */
 class BtnTotalPoints extends JButton {
 	BtnTotalPoints(Object label) {
 		super(((LeafNode) label).getTotalScore().toString());
@@ -293,6 +296,9 @@ class BtnTotalPoints extends JButton {
 	}
 }
 
+/*
+Clicking this button opens a popup to view the summary statistics for an assignment
+ */
 class BtnAssignmentAverage extends JButton {
 	BtnAssignmentAverage(Object label) {
 		super(label.toString());
@@ -306,6 +312,10 @@ class BtnAssignmentAverage extends JButton {
 	}
 }
 
+/*
+Clicking this button opens a popup to view a specific student's information
+(Name, email, student ID, class year)
+ */
 class BtnStudent extends JButton {
 	BtnStudent(Object label) {
 		super(label.toString());
@@ -318,6 +328,9 @@ class BtnStudent extends JButton {
 	}
 }
 
+/*
+Clicking this button opens a popup to edit a student's grade for an assignment and add a note for their grade
+ */
 class BtnAssignmentGrade extends JButton {
 	BtnAssignmentGrade(Object grade) {
 		super(grade.toString());
