@@ -629,10 +629,12 @@ class Popup_AssignmentGrade {
 		if (note.equals("")) {
 			// This grade does NOT have a note
 			callingButton.setBackground(null);
+			callingButton.setOpaque(true);
 		}
 		else {
 			// this grade has a note
-			callingButton.setBackground(Color.CYAN);
+			callingButton.setBackground(Color.BLUE);
+			callingButton.setOpaque(true);
 		}
 	}
 }

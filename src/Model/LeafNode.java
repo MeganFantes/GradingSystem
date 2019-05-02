@@ -100,24 +100,25 @@ public class LeafNode extends TreeNode {
         HashMap<String, Float> retmap = new HashMap<>();
 
         for (HashMap.Entry<String, Leaf> entry : allLeaf.entrySet()) {
-            float currScore = entry.getValue().getValue();
+            Float currScore = entry.getValue().getValue();
 
             // compute percentage of currScore according to inputType & totalScore
             float currPercentage = 0;
-            switch (inputType){
-                case Raw:
-                    currPercentage = currScore / totalScore * 100f;
-                    break;
-                case Deduction:
-                    currPercentage = (totalScore - currScore) / totalScore * 100f;
-                    break;
-                case Percentage:
-                    currPercentage = currScore;
-                    break;
-                default:
-                    assert(false);
+            if (!currScore.isNaN()) {
+                switch (inputType) {
+                    case Raw:
+                        currPercentage = currScore / totalScore * 100f;
+                        break;
+                    case Deduction:
+                        currPercentage = (totalScore - currScore) / totalScore * 100f;
+                        break;
+                    case Percentage:
+                        currPercentage = currScore;
+                        break;
+                    default:
+                        assert (false);
+                }
             }
-
             retmap.put(entry.getKey(), new Float(currPercentage));
         }
 

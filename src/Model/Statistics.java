@@ -58,6 +58,8 @@ public class Statistics {
                 }
                 if (!trueScore.isNaN())
                     currLeafScores.add(trueScore);
+                else
+                    currLeafScores.add(0f);
             }
 
             // all statistics represented in percentage
@@ -96,12 +98,14 @@ public class Statistics {
 
         for (Map.Entry<String, Float> entry : allPercentageScore.entrySet()) {
             // convert score to percentage
-            float percent = entry.getValue();
+            Float percent = entry.getValue();
 
-            sum += percent;
-            sqrsum += percent*percent;
-            minScore = Math.min(minScore, percent);
-            maxScore = Math.max(maxScore, percent);
+            if (!percent.isNaN()) {
+                sum += percent;
+                sqrsum += percent * percent;
+                minScore = Math.min(minScore, percent);
+                maxScore = Math.max(maxScore, percent);
+            }
         }
 
         float avg = sum / allPercentageScore.size();
@@ -109,9 +113,9 @@ public class Statistics {
         float stddev = (float)Math.sqrt(sqravg - avg*avg);
 
         if (minScore==101)
-            minScore = Float.NaN;
+            minScore = 0f;
         if (maxScore==0)
-            maxScore = Float.NaN;
+            maxScore = 0f;
 
         HashMap<String, Float> retMap = new HashMap<>();
         retMap.put("min", minScore);
