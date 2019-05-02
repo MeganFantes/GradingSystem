@@ -281,6 +281,7 @@ public class ImportClass extends JFrame {
                 else {
 					// navigate to class home
 					GradingSystem.controller.setRoot(root);
+					GradingSystem.controller.setCurrentState(root);
 					dispose();
 					GradingSystem.controller.setCurrentClass(true);
 					ClassHome nextPage = new ClassHome();
