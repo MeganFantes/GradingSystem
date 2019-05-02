@@ -549,7 +549,12 @@ class Popup_AssignmentHeader {
 			    	Object scoreText = tableModel.getValueAt(row, 1);
 				    //((Leaf) scoreText).setScore(Float.parseFloat((String) tableModel.getValueAt(row, 1)));
 //				    System.out.println(scoreText);
-				    ((Leaf) gradesTableRows[row][1]).setScore(Float.parseFloat(scoreText.toString()));
+				    if (scoreText.toString().isEmpty()) {
+					    ((Leaf) gradesTableRows[row][1]).setScore(Float.NaN);
+				    }
+				    else {
+					    ((Leaf) gradesTableRows[row][1]).setScore(Float.parseFloat(scoreText.toString()));
+				    }
 			    }
 //			    System.out.println();
 			    AssignmentsView assignmentsView = new AssignmentsView(category);
@@ -624,10 +629,12 @@ class Popup_AssignmentGrade {
 		if (note.equals("")) {
 			// This grade does NOT have a note
 			callingButton.setBackground(null);
+			callingButton.setOpaque(true);
 		}
 		else {
 			// this grade has a note
-			callingButton.setBackground(Color.CYAN);
+			callingButton.setBackground(Color.BLUE);
+			callingButton.setOpaque(true);
 		}
 	}
 }

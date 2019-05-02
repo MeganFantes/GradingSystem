@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.Arrays;
 
+// TODO: clean this up, comment code, reorder functions (getters with getters, etc.)
+
 public class Controller {
 	private static ParentNode root;
 	private ParentNode currentState;

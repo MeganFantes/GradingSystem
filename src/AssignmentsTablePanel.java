@@ -335,7 +335,10 @@ class BtnAssignmentGrade extends JButton {
 	BtnAssignmentGrade(Object grade) {
 		super(grade.toString());
 		boolean hasNote = ((NoteInterface) grade).hasNote();
-		if (((NoteInterface) grade).hasNote()) setBackground(Color.CYAN);
+		if (((NoteInterface) grade).hasNote()) {
+			setBackground(Color.BLUE);
+			setOpaque(true);
+		}
 		JButton callingButton = this;
 		addActionListener(new ActionListener() {
 			@Override
