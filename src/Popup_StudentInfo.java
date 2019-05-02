@@ -232,10 +232,11 @@ class Popup_GradingOption {
         jRadioButton2.setText("Deduction");
         jRadioButton3.setText("Raw");
         G1.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
         G1.add(jRadioButton2);
         G1.add(jRadioButton3);
         // button won't resize
-        jButton.setPreferredSize(new Dimension(10,10));
+//        jButton.setMaximumSize(new Dimension(10,10));
         jButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -267,7 +268,7 @@ class Popup_GradingOption {
 //                     g.setInputType(CellInputType.RAW);
             }
         });
-        JPanel p = new JPanel(new GridLayout(4,2));
+        JPanel p = new JPanel(new GridLayout(4,1));
         p.add(jRadioButton1);
         p.add(jRadioButton2);
         p.add(jRadioButton3);
