@@ -21,6 +21,8 @@ import javax.swing.JTextField;
 import Model.ParentNode;
 import java.io.File;
 import java.nio.file.FileSystems;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class LoadingPage extends JFrame {
 
@@ -179,12 +181,17 @@ public void initial()
 			if (fileEntry.isDirectory()) {
 				// do nothing
 			} else {
-				files.add(fileEntry.getName());
+				if (fileEntry.getName().contains("ser"))
+					files.add(fileEntry.getName());
 			}
 		}
+		Collections.sort(files);
+		Collections.reverse(files);
+
 		String[] ret = new String[files.size()];
 		for (int i=0; i<files.size(); i++)
 			ret[i] = files.get(i);
+
 		return ret;
 	}
 

@@ -29,13 +29,15 @@ public class NavigationButtonBanner extends JPanel {
 		btnClassHome.setText("Class Home");
 		btnClassHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				ClassHome classHome = new ClassHome();
 				GradingSystem.controller.setCurrentState(GradingSystem.controller.getRoot());
+				ClassHome classHome = new ClassHome();
 				callingFrame.dispose();
 			}
 		});
 
 		// This is where we check if it is a past course or a current course
+		// if it is an active course, add a button to SAVE a class
+		// if it is a past course, add a button only to EXIT without saving
 		if (GradingSystem.controller.getIsCurrentClass()) {
 			String text = "Save and Exit Class";
 			btnExitClass.setText(text);
@@ -61,18 +63,28 @@ public class NavigationButtonBanner extends JPanel {
 		}
 		else {
 			String text = "Exit Class";
-			// bring the user back to the Loading page
-			callingFrame.dispose();
-			LoadingPage loadingPage = new LoadingPage(callingFrame, GradingSystem.controller.getRoot());
+			btnExitClass.setText(text);
+			btnExitClass.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// just bring the user back to the Loading page
+					LoadingPage loadingPage = new LoadingPage(new JFrame(), GradingSystem.controller.getRoot());
+					callingFrame.dispose();
+				}
+			});
 		}
 
 		btnAddColumn.setText("Add Column");
-		btnAddColumn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Popup_AddColumn p = new Popup_AddColumn(callingFrame);
-			}
-		});
+		// if we are NOT at the root, i.e. we are NOT in the Class Summary View,
+		// add functionality to the Add Column button
+		if (GradingSystem.controller.getCurrentState() != GradingSystem.controller.getRoot()) {
+			btnAddColumn.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Popup_AddColumn p = new Popup_AddColumn(callingFrame);
+				}
+			});
+		}
 
 		btnCalcFinalGrade.setText("Calculate Final Grade");
 		btnCalcFinalGrade.addActionListener(new ActionListener() {

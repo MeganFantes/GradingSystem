@@ -135,8 +135,8 @@ class BtnCategoryHeader extends JButton {
 		addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AssignmentsView assignmentsView = new AssignmentsView(category);
 				GradingSystem.controller.setCurrentState(GradingSystem.controller.getAssignmentChild(category));
+				AssignmentsView assignmentsView = new AssignmentsView(category);
 				callingFrame.dispose();
 			}
 		});

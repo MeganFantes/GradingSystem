@@ -47,8 +47,7 @@ class Popup_StudentInfo {
 
         buttonGroupStudent.add(jRadioButton1);
         jRadioButton1.setText(s.get(0));
-
-
+        jRadioButton1.setSelected(true);
 
         buttonGroupStudent.add(jRadioButton2);
         jRadioButton2.setText(s.get(3));
@@ -127,7 +126,7 @@ class Popup_StudentInfo {
 
         f.pack();
 
-        f.setSize(200,200);
+        f.setSize(150,300);
         f.setVisible(true);
         f.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -391,6 +390,8 @@ class Popup_Total {
         f = new JFrame("Total points");
         L1 = new JLabel("Total points");
         t1 = new JTextField(16);
+//        t1.setText(label.toString());
+	    t1.setText(((LeafNode) label).getTotalScore().toString());
         JPanel p = new JPanel(new GridLayout(2,1));
         p.add(L1);
         p.add(t1);
@@ -398,10 +399,12 @@ class Popup_Total {
         jButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LeafNode total = (LeafNode)(((Dummy) label).getRealObject());
+//                LeafNode total = (LeafNode)(((Dummy) label).getRealObject());
                 Float currentScore = Float.valueOf(t1.getText());
-                total.setTotalScore(currentScore);
-                callingButton.setText(total.getTotalScore().toString());
+//                total.setTotalScore(currentScore);
+//	            ((LeafNode)(((Dummy) label).getRealObject())).setTotalScore(currentScore);
+	            ((LeafNode) label).setTotalScore(currentScore);
+                callingButton.setText(currentScore.toString());
                 f.dispose();
             }
         });
