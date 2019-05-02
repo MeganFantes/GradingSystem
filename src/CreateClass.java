@@ -12,6 +12,8 @@ import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
+import java.nio.file.Path;
+import java.nio.file.Path;
 import Model.ParentNode;
 
 public class CreateClass extends JFrame {
@@ -81,11 +83,11 @@ public class CreateClass extends JFrame {
 		//NewClass frame = new NewClass(this);
 		//frame.setTitle("Create a class");
 		//frame.setVisible(true);
-		String projpath=getClass().getResource("").toString();
+		String projpath = System.getProperty("user.dir");
+		projpath += GradingSystem.currCourseFolder.substring(1);
+		//System.out.println("Working Directory = " + projpath);
 
-		projpath=projpath.substring(6,(projpath.length()-4));
-		projpath=projpath+"Past_Courses/";
-		System.out.println("projpath"+projpath);
+		System.out.println("projpath->"+projpath);
 		JFileChooser jfc=new JFileChooser(projpath);
 		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY );
 		jfc.showDialog(new JLabel(), "Choose a CSV file");
