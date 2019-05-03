@@ -7,15 +7,24 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.Arrays;
 
-// TODO: clean this up, comment code, reorder functions (getters with getters, etc.)
+/**
+ * This class holds the CONTROLLER for the system, or the connector between the
+ * model/backend and the view/frontend. The view uses the functions here to
+ * access and update the model. Functions here include getters and setters,
+ * as well as function calls to the model to update information or
+ * update the view.
+ */
 
 public class Controller {
 	private static ParentNode root;
 	private ParentNode currentState;
 	private boolean isCurrentClass;
 
+	/**
+	 * functions that are part of the CONSTRUCTOR
+	 */
+
 	public Controller() {
-		//root = setRoot();
 		root = new ParentNode();
 		currentState = root;
 		isCurrentClass = false;
@@ -33,8 +42,6 @@ public class Controller {
 			e.printStackTrace();
 		}
 
-		//return newRoot;
-
 		// simulate a new class from past course
 		System.out.println(" =====  original class tree =====");
 		newRoot.traverse(0);
@@ -47,9 +54,9 @@ public class Controller {
 		return newRoot;
 	}
 
-//	public ParentNode getRoot() {
-//		return root;
-//	}
+	/**
+	 * functions to GET components for views
+	 */
 
 	public Object[] getClassSummaryViewHeader() {
 		return root.genFieldRowArray();
@@ -75,6 +82,18 @@ public class Controller {
 		return getAssignmentChild(category).genScoreTableArray(root.getStudentPool().getPrimaryKeyAndSortBy("last name"));
 	}
 
+	/**
+	 * functions to GET part of the root/model
+	 */
+
+	public ParentNode getRoot(){
+		return root;
+	}
+
+	public ParentNode getCurrentState() {
+		return currentState;
+	}
+
 	public StudentPool getStudentPool() {
 		return root.getStudentPool();
 	}
@@ -84,21 +103,21 @@ public class Controller {
 		return (ParentNode) category;
 	}
 
+	public boolean getIsCurrentClass() {
+		return isCurrentClass;
+	}
+
 	public int getCategoryIndex(Object category) {
 		Object[] categoriesWithoutStudent = Arrays.copyOfRange(getClassSummaryViewHeader(), 1, getClassSummaryViewHeader().length + 1);
 		return Arrays.asList(categoriesWithoutStudent).indexOf(category);
 	}
 
+	/**
+	 * functions to UPDATE the view or model
+	 */
+
 	public void computeFinalScore() {
 		root.computeFinalScore();
-	}
-
-	public ParentNode getCurrentState() {
-		return currentState;
-	}
-
-	public void setCurrentState(ParentNode newCurrentState){
-		currentState = newCurrentState;
 	}
 
 	public void createChild(String criteria){
@@ -116,12 +135,6 @@ public class Controller {
 		currentState.addChild(newParent);
 	}
 
-	public void setRoot(ParentNode root){this.root = root;}
-
-	public ParentNode getRoot(){
-		return root;
-	}
-
 	public void openCourse(String pathToCourse){
 		ParentNode newRoot = null;
 		try {
@@ -137,16 +150,17 @@ public class Controller {
 		currentState = newRoot;
 	}
 
+	/**
+	 * functions to SET part of the root/model
+	 */
+
+	public void setRoot(ParentNode root){this.root = root;}
+
+	public void setCurrentState(ParentNode newCurrentState){
+		currentState = newCurrentState;
+	}
+
 	public void setCurrentClass(boolean currentClass) {
 		isCurrentClass = currentClass;
-	}
-
-	public boolean getIsCurrentClass() {
-		return isCurrentClass;
-	}
-
-	public static void main(String[] args) {
-		Controller controller = new Controller();
-		ClassHome classHome = new ClassHome();
 	}
 }
