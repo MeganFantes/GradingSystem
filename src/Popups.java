@@ -126,7 +126,7 @@ class Popup_StudentInfo {
 
         f.pack();
 
-        f.setSize(150,300);
+        f.setSize(300,300);
         f.setVisible(true);
         f.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
