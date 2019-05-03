@@ -590,7 +590,7 @@ class Popup_AssignmentGrade {
 		labelGrade = new JLabel("Grade:");
 		labelNote = new JLabel("Note:");
 		btnDone = new JButton("Done");
-		textfieldGrade = new JTextField(String.valueOf(((Leaf) assignmentGrade).getValue()));
+		textfieldGrade = new JTextField(setGrade());
 		textareaNote = new JTextArea(((NoteInterface) assignmentGrade).getContent());
 
 
@@ -598,9 +598,7 @@ class Popup_AssignmentGrade {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				checkForNote();
-				// change the grade displayed on the button
-				((Leaf) assignmentGrade).setScore(Float.parseFloat(textfieldGrade.getText()));
-				callingButton.setText(assignmentGrade.toString());
+				changeGradeDisplayed();
 				f.dispose();
 			}
 		});
@@ -633,6 +631,32 @@ class Popup_AssignmentGrade {
 			// this grade has a note
 			callingButton.setBackground(Color.CYAN);
 			callingButton.setOpaque(true);
+		}
+	}
+
+	private String setGrade() {
+		Float grade = ((Leaf) assignmentGrade).getValue();
+
+		if (grade.isNaN()) {
+			// if there is no grade entered, set the text of the textfield to an empty string
+			return "";
+		}
+		else {
+			return String.valueOf(grade);
+		}
+	}
+
+	private void changeGradeDisplayed() {
+		// change the grade displayed on the button
+		String gradeEntered = textfieldGrade.getText();
+
+		if (gradeEntered.isEmpty()) {
+			((Leaf) assignmentGrade).setScore(Float.NaN);
+			callingButton.setText("");
+		}
+		else {
+			((Leaf) assignmentGrade).setScore(Float.parseFloat(gradeEntered));
+			callingButton.setText(assignmentGrade.toString());
 		}
 	}
 }
