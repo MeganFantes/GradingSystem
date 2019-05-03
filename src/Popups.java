@@ -538,11 +538,9 @@ class Popup_AssignmentHeader {
 	    btnDone.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		    	//TODO: figure out how to set assignment name and weight (Ask Yueh)
 			    // get the assignment name and weight
 			    ((ParentNode) assignment).setCriteria(nameTextField.getText());
 			    ((ParentNode) assignment).setWeight(Float.parseFloat(weightTextField.getText()));
-		    	//TODO: ask Yueh how to add grades
 			    // get the assignment grades
 			    DefaultTableModel tableModel = (DefaultTableModel) (gradesTable).getModel();
 			    for (int row = 0; row < students.length; row++) {
