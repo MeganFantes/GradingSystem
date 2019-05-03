@@ -155,16 +155,3 @@ class BtnCategoryAverage extends JButton {
 		});
 	}
 }
-
-////TODO: add a popup for this, will be exactly the same as assignment grade, just make sure it edits the right type of object
-//class BtnCategoryGrade extends JButton {
-//	BtnCategoryGrade(Object label) {
-//		super(label.toString());
-//		addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				JOptionPane.showMessageDialog(getParent(), "You clicked on a category grade, you will be able to edit the grade and add a note here");
-//			}
-//		});
-//	}
-//}
