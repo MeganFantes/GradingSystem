@@ -87,8 +87,7 @@ public class LeafNode extends TreeNode {
             if (currScore<0 ||
                 (currScore >= totalScore && inputType != CellInputType.Percentage) ||
                 (inputType==CellInputType.Percentage && currScore > 100)) {
-                String studenInfo = studentPool.getStudentByKey(entry.getKey()).getAttribute("first name");
-                studenInfo += " ," + studentPool.getStudentByKey(entry.getKey()).getAttribute("last name");
+                String studenInfo = studentPool.getStudentByKey(entry.getKey()).toString();
                 errorSofar.add( "invalid score for [" + studenInfo + "] in " + lastCriteria);
             }
         }
