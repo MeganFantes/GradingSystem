@@ -1,3 +1,8 @@
+/**
+ * This is the main class for the system. This is where the main
+ * function opens the entire system and instantiates a new session.
+ */
+
 public class GradingSystem {
 	public static Controller controller;
 	public static final String pastCourseFolder = "./Past_Courses/";
@@ -5,7 +10,6 @@ public class GradingSystem {
 
 	public static void main(String[] args) {
 		controller = new Controller();
-		//ClassHome classHome = new ClassHome();
 		LoginPage loginPage = new LoginPage(controller.getRoot());
 	}
 }
