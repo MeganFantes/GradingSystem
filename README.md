@@ -6,3 +6,9 @@ Ghadah Abahussin
 Megan Fantes
 Yueh Ying Lee
 Yuansheng Dong
+
+
+To compile and run the code :
+    cd ./src
+    javac *.java
+    java GradingSystem
