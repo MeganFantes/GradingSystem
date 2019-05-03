@@ -87,6 +87,7 @@ public class AssignmentsTablePanel extends JPanel {
 						JLabel cellLabel = new JLabel(rows[row][col].toString());
 						cellLabel.setPreferredSize(buttonSize);
 						cellLabel.setHorizontalAlignment(SwingConstants.CENTER);
+						cellLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 						rowPanel.add(cellLabel);
 					}
 					// make the clickable buttons of the grading options row, so you can click on the button
@@ -110,6 +111,7 @@ public class AssignmentsTablePanel extends JPanel {
 						JLabel cellLabel = new JLabel(rows[row][col].toString());
 						cellLabel.setPreferredSize(buttonSize);
 						cellLabel.setHorizontalAlignment(SwingConstants.CENTER);
+						cellLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 						rowPanel.add(cellLabel);
 					}
 					// make the clickable buttons of the total points row, so you can click on the button
@@ -133,6 +135,7 @@ public class AssignmentsTablePanel extends JPanel {
 						JLabel cellLabel = new JLabel(rows[row][col].toString());
 						cellLabel.setPreferredSize(buttonSize);
 						cellLabel.setHorizontalAlignment(SwingConstants.CENTER);
+						cellLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 						rowPanel.add(cellLabel);
 					}
 					// make the clickable buttons of the average row, so you can click on the button
