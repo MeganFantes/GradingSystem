@@ -226,7 +226,6 @@ public class ParentNode extends TreeNode {
 
     public Object[][] genSummaryTableArray(ArrayList<String> studentOrder){
         // this function can only be called when its children is NOT Model.LeafNode
-        // TODO: implicit assumption : called @ root
 
         if (studentOrder==null){
             // used when no student info available
