@@ -7,11 +7,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
+
+/**
+ * This file holds all popups that appear when you click a button in either
+ * the Assignments View or the Class Home view.
+ */
 
 class Popup_StudentInfo {
     private JFrame f;
@@ -26,7 +29,6 @@ class Popup_StudentInfo {
 
     public Popup_StudentInfo(ArrayList<String> s, JFrame callingFrame, Object category){
         this(s, callingFrame);
-//        AssignmentsView assignmentsView = new AssignmentsView(category);
         this.category = category;
     }
 
@@ -71,9 +73,7 @@ class Popup_StudentInfo {
                         break;
                     }
                 }
-                //String t = b.getText();
 
-                //s.add(t);
                 GradingSystem.controller.getStudentPool().setStudentDisplayInfo(s);
                 if (GradingSystem.controller.getCurrentState() == GradingSystem.controller.getRoot()){
                     ClassHome classHome = new ClassHome();
@@ -130,7 +130,6 @@ class Popup_StudentInfo {
         f.setVisible(true);
         f.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                //System.exit(0);
                 f.dispose();
             }
         });
@@ -165,8 +164,6 @@ class Popup_Average {
         L3 = new JLabel("Maximum");
         L4 = new JLabel("Standard Deviation");
         b = new JButton("Done");
-        //AL_AssignmentAverage te = new AL_AssignmentAverage(b);
-        //b.addActionListener(te);
         L5 = new JLabel(String.valueOf(statMap.get("avg")));
         L6 = new JLabel(String.valueOf(statMap.get("min")));
         L7 = new JLabel(String.valueOf(statMap.get("max")));
@@ -199,9 +196,6 @@ class Popup_Average {
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
     }
-//    public static void main(String args[]) {
-//        Popup_Average p = new Popup_Average();
-//    }
 }
 
 class Popup_GradingOption {
@@ -254,18 +248,12 @@ class Popup_GradingOption {
                         else if (button.getText().equals("Deduction")) {
                             g.setInputType(CellInputType.Deduction);
                         }
-                        //s.add(button.getText());
-//                        g.setInputType(CellInputType.RAW);
-//                        break;
 
                         //return an updated table
-                        //f.dispose();
                         f.dispose();
                         callingButton.setText(button.getText());
                     }
-                    //AssignmentsView assignmentsView = new AssignmentsView(g);
                 }
-//                     g.setInputType(CellInputType.RAW);
             }
         });
         JPanel p = new JPanel(new GridLayout(4,1));
@@ -282,9 +270,6 @@ class Popup_GradingOption {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
     }
-//    public static void main(String args[]) {
-//        Popup_GradingOption p = new Popup_GradingOption();
-//    }
 }
 
 class Popup_AddColumn {
@@ -335,8 +320,6 @@ class Popup_Student {
     static JLabel L6;
     static JLabel L7;
     static JLabel L8;
-    //static JLabel L9;
-    //static JLabel L10;
     public Popup_Student(Object label){
         Student currentStudent = (Student) label;
         ArrayList<String> s = currentStudent.getAllAttribute();
@@ -350,7 +333,6 @@ class Popup_Student {
         L6 = new JLabel(s.get(1));
         L7 = new JLabel(s.get(2));
         L8 = new JLabel(s.get(3));
-        //JPanel p = new JPanel(new GridLayout(4,2));
         b.setPreferredSize(new Dimension(10,25));
         JPanel p = new JPanel(new GridLayout(8,2));
         p.add(L1);
@@ -384,14 +366,12 @@ class Popup_TotalPoints {
     static JFrame f;
     static JLabel L1;
     static JTextField t1;
-    //JButton callingButton;
+
     public Popup_TotalPoints(Object label, JButton callingButton){
-        //JButton callingButton;
         jButton = new JButton("Done");
         f = new JFrame("Total points");
         L1 = new JLabel("Total points");
         t1 = new JTextField(16);
-//        t1.setText(label.toString());
 	    t1.setText(((LeafNode) label).getTotalScore().toString());
         JPanel p = new JPanel(new GridLayout(2,1));
         p.add(L1);
@@ -400,10 +380,7 @@ class Popup_TotalPoints {
         jButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                LeafNode total = (LeafNode)(((Dummy) label).getRealObject());
                 Float currentScore = Float.valueOf(t1.getText());
-//                total.setTotalScore(currentScore);
-//	            ((LeafNode)(((Dummy) label).getRealObject())).setTotalScore(currentScore);
 	            ((LeafNode) label).setTotalScore(currentScore);
                 callingButton.setText(currentScore.toString());
                 f.dispose();
@@ -442,7 +419,6 @@ class Popup_AssignmentHeader {
 
     public Popup_AssignmentHeader(Object assignment, Object category, JFrame callingFrame) {
     	f = new JFrame(assignment.toString());
-//	    mainPanel = new JPanel();
 
 	    mainPanel = new JPanel();
 	    nameLabel = new JLabel();
@@ -467,14 +443,10 @@ class Popup_AssignmentHeader {
 	    gradesLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 	    gradesLabel.setText("Grades:");
 
-//	    Object[][] students = Arrays.copyOfRange(GradingSystem.controller.getAssignmentViewRows(category), 3, GradingSystem.controller.getAssignmentViewRows(category).length);
 	    Object[] students = GradingSystem.controller.getStudentPool().getPrimaryKeyAndSortBy("").toArray();
 	    Object[][] gradesTableRows = new Object[students.length][];
 	    for (int i = 0; i < students.length; i++) {
-//	    	gradesTableRows[i] = new Object[] {students[i][0], null};
-//		    Object student = students[i][0];
 		    Object student = GradingSystem.controller.getStudentPool().getStudentByKey(students[i].toString());
-//		    Leaf score = ((LeafNode) (((ParentNode) category).getChild(0))).getLeafByKey(students[i].toString());
 		    Leaf score = ((LeafNode) (((ParentNode) assignment).getChild(0))).getLeafByKey(students[i].toString());
 		    gradesTableRows[i] = new Object[] {student, score};
 	    }
@@ -545,8 +517,6 @@ class Popup_AssignmentHeader {
 			    DefaultTableModel tableModel = (DefaultTableModel) (gradesTable).getModel();
 			    for (int row = 0; row < students.length; row++) {
 			    	Object scoreText = tableModel.getValueAt(row, 1);
-				    //((Leaf) scoreText).setScore(Float.parseFloat((String) tableModel.getValueAt(row, 1)));
-//				    System.out.println(scoreText);
 				    if (scoreText.toString().isEmpty()) {
 					    ((Leaf) gradesTableRows[row][1]).setScore(Float.NaN);
 				    }
@@ -554,7 +524,6 @@ class Popup_AssignmentHeader {
 					    ((Leaf) gradesTableRows[row][1]).setScore(Float.parseFloat(scoreText.toString()));
 				    }
 			    }
-//			    System.out.println();
 			    AssignmentsView assignmentsView = new AssignmentsView(category);
 			    callingFrame.dispose();
 			    f.dispose();
