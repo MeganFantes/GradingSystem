@@ -52,6 +52,7 @@ public class ClassHomeTablePanel extends JPanel {
 				JLabel label = new JLabel(headerLabels[i].toString());
 				label.setPreferredSize(buttonSize);
 				label.setHorizontalAlignment(SwingConstants.CENTER);
+				label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 				headerPanel.add(label);
 			}
 			// add functionality of the rest of the header buttons (the assignment title buttons)
@@ -73,7 +74,9 @@ public class ClassHomeTablePanel extends JPanel {
 				for (int col = 0; col < rows[row].length; col++) {
 					// Set the labels of the weights row (none of them are a clickable button)
 					JLabel cellLabel = new JLabel(rows[row][col].toString());
+					cellLabel.setPreferredSize(buttonSize);
 					cellLabel.setHorizontalAlignment(SwingConstants.CENTER);
+					cellLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 					rowPanel.add(cellLabel);
 				}
 			}
@@ -85,14 +88,13 @@ public class ClassHomeTablePanel extends JPanel {
 						JLabel cellLabel = new JLabel((String) rows[row][col]);
 						cellLabel.setPreferredSize(buttonSize);
 						cellLabel.setHorizontalAlignment(SwingConstants.CENTER);
+						cellLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 						rowPanel.add(cellLabel);
 					}
 					// make the clickable buttons of the average row, so you can click on the button and see summary statistics
 					else {
 						JButton cellButton = new BtnCategoryAverage(rows[row][col]);
 						cellButton.setPreferredSize(buttonSize);
-						cellButton.setMinimumSize(buttonSize);
-						cellButton.setMaximumSize(buttonSize);
 						rowPanel.add(cellButton);
 					}
 				}
@@ -113,6 +115,7 @@ public class ClassHomeTablePanel extends JPanel {
 						cellLabel = new JLabel(rows[row][col].toString());
 						cellLabel.setPreferredSize(buttonSize);
 						cellLabel.setHorizontalAlignment(SwingConstants.CENTER);
+						cellLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 						rowPanel.add(cellLabel);
 					}
 				}
