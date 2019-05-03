@@ -84,7 +84,7 @@ public class CreateClass extends JFrame {
 		//frame.setTitle("Create a class");
 		//frame.setVisible(true);
 		String projpath = System.getProperty("user.dir");
-		projpath += GradingSystem.currCourseFolder.substring(1);
+		projpath += GradingSystem.pastCourseFolder.substring(1);
 		//System.out.println("Working Directory = " + projpath);
 
 		System.out.println("projpath->"+projpath);
@@ -92,7 +92,6 @@ public class CreateClass extends JFrame {
 		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY );
 		jfc.showDialog(new JLabel(), "Choose a CSV file");
 
-		
 		File file=jfc.getSelectedFile();
 		if(file.isFile()){
 			System.out.println("File name: "+file.getAbsolutePath());

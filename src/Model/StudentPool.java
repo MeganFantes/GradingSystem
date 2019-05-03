@@ -104,9 +104,9 @@ public class StudentPool implements Serializable{
             ret.add(key);
         }
 
-        final String defaultSortKey = new String("first name").toUpperCase();
+        final String defaultSortKey = new String("last name").toUpperCase();
         if (fieldSet.getOrDefault(desiredSortField, null)==null){
-            System.out.println("desired sort attribute not exist, sort by " + defaultSortKey);
+            //System.out.println("desired sort attribute not exist, sort by " + defaultSortKey);
             Collections.sort(ret, (a,b)->{
                 return getStudentByKey(a).getAttribute(defaultSortKey).compareTo(
                         getStudentByKey(b).getAttribute(defaultSortKey)
