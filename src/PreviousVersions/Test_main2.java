@@ -1,3 +1,5 @@
+package PreviousVersions;
+
 import Model.LeafNode;
 import Model.ParentNode;
 import Model.Statistics;
@@ -11,8 +13,8 @@ import java.util.Map;
 public class Test_main2 {
     /*
     test computeFinalScore, treeValidation
-    (don't forget to run Test_main first to gen test course grading criteria file
-                  and then Test_main1 to gen complete tree (including scores)
+    (don't forget to run PreviousVersions.Test_main first to gen test course grading criteria file
+                  and then PreviousVersions.Test_main1 to gen complete tree (including scores)
      */
     public static void main(String[] args){
         // load course from test_main

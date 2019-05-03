@@ -1,3 +1,5 @@
+package PreviousVersions;
+
 import Model.LeafNode;
 import Model.ParentNode;
 
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 
 public class Test_main1 {
     /*
-    test various genTable (don't forget to run Test_main to generate test_course_without_score.ser
+    test various genTable (don't forget to run PreviousVersions.Test_main to generate test_course_without_score.ser
      */
     public static void main(String[] args){
         // load course from test_main
